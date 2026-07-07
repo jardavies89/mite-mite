@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+
+# OSX Junk
+*._*
+*.DS_Store
+
+# Visual Code
+*.code-workspace
+
+# VSCode config
+.vscode
+
+# WebStorm config
+.idea/*
+
+# Production / Build Artifacts
+/dist
+/build
+/out
+/.next
+
+# Docker cache
+.docker/mite-mite
+.docker/mite-mite-cache
+
+# Claude code
+settings.local.json
+**/.claude/tmp/
+**/.claude/scheduled_tasks.lock
+**/.claude/worktrees/
+.claude-shared
+
+# bin/infra temp files
+bin/tmp/
+
+# ci-parity local state log
+ops/bin/ci-parity.jsonl
+.claude/command_library/.config.json
+**/.claude/commands/cl/*
+
+# Database dumps
+*.dump

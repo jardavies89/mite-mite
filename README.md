@@ -1,2 +1,3 @@
 # mite-mite
-A small SASS app for tracking books, manga, movies, and more that one's read and enjoyed before. 
+
+I'm an avid manga fan and have read a ton over the years, and also find myself in situations at cons get togethers where I'm exhanging recommendations with folks and blank on a recommendation. While tools like MAL, Good Reads, ect already have tools for tracking things you've read, I feel like they are never in the right place or have the info I need at the time I need it. My goal with Mite-Mite was to make a simple single page app where I could keep track of those things myself in one place, with the format and features I wanted. It also made for a nice mini-project to wear a lot of different dev process hats.
