@@ -18,6 +18,7 @@ node_modules/
 /dist
 /build
 /out
+/specs
 /.next
 
 # Docker cache
@@ -26,10 +27,12 @@ node_modules/
 
 # Claude code
 settings.local.json
+**/.claude/skills/
 **/.claude/tmp/
 **/.claude/scheduled_tasks.lock
 **/.claude/worktrees/
 .claude-shared
+.specify
 
 # bin/infra temp files
 bin/tmp/

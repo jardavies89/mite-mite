@@ -1,0 +1,42 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (or any coding agent) working in this repository.
+
+## Overview
+
+Mite-mite is a personal manga/book/movie/show tracker and recommendation tool. It's a single-owner
+hobby project, not a multi-tenant platform — there is no user-account system. All requirements and
+design decisions come from the owner; the codebase should stay fork-friendly (no hardcoded identity,
+config isolated to environment variables) so someone else could run their own independent copy.
+
+## Stack
+
+- **Frontend**: TypeScript, React, single-page application. Responsive and mobile-first. UI built with
+  Material Tailwind (Material Design components on Tailwind CSS) and react-icons for iconography.
+- **API**: GraphQL served by Apollo Server on Node.js, mediating all communication between the frontend
+  and the database.
+- **Database**: PostgreSQL, hosted on Neon.
+- **Hosting**: not yet finalized (candidates: Railway Hobby plan, or a decoupled setup e.g. Vercel for
+  the frontend). Target cost ceiling: ~$10/month, ~$5/month preferred — this is a hobby site, not a
+  full-featured platform or marketplace.
+- **Testing**: Jest. Functional/business logic (GraphQL resolvers, non-trivial React logic like data
+  transforms and hooks) is developed test-first. Cosmetic changes and throwaway exploratory spikes are
+  exempt.
+- **Formatting**: Prettier, enforced for all TypeScript.
+
+## Conventions
+
+- **Access control**: write/admin routes are gated by a single trusted-identity check (e.g. a shared
+  secret via env var, or an OAuth login allowlisted to one identity) — not a general user-account system.
+  The exact mechanism may change; the shape (one gate, no accounts table) should not.
+- **Data sourcing**: prefer free, publicly available APIs for third-party data (cover art, series
+  metadata, etc.) over self-hosted or paid data pipelines.
+- **Tickets**: tracked in this repo's native GitHub Projects tab, not a separate tool.
+- **Project name capitalization**: the name derives from みてみて. Only the leading word is
+  capitalized when it starts a sentence/heading ("Mite-mite..."); it's all-lowercase mid-sentence
+  ("...built with mite-mite").
+
+## Development
+
+No commands yet — this section will be filled in (setup, dev server, test/lint commands) once the first
+feature is implemented.
