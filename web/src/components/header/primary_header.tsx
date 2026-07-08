@@ -1,8 +1,16 @@
+import classNames from "classnames";
+
 import { ThemeToggle } from "@/components/header";
 
 function PrimaryHeader() {
+  const headerClasses = classNames(
+    "flex items-center justify-between",
+    "h-12 px-6 py-4",
+    "border-b border-gray-200 dark:border-gray-700",
+  );
+
   return (
-    <header className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+    <header className={headerClasses}>
       <ThemeToggle />
     </header>
   );
