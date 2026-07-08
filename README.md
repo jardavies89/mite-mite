@@ -12,7 +12,7 @@ I'm an avid manga fan and have read a ton over the years, and also find myself i
 cd api
 cp .env.sample .env   # fill in DATABASE_URL, TMDB_API_KEY, ADMIN_SECRET
 yarn install
-yarn dev              # starts Apollo Server at http://localhost:4000/graphql
+yarn dev              # starts Apollo Server at http://localhost:4100/graphql
 ```
 
 **Web**
@@ -21,7 +21,7 @@ yarn dev              # starts Apollo Server at http://localhost:4000/graphql
 cd web
 cp .env.sample .env   # fill in VITE_API_URL, VITE_ADMIN_SECRET
 yarn install
-yarn dev              # starts Vite dev server at http://localhost:5173
+yarn dev              # starts Vite dev server at http://localhost:4000
 ```
 
 ## Tech goals

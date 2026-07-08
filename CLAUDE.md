@@ -45,7 +45,7 @@ files and should stay consistent.
 
 ```bash
 yarn install
-yarn dev       # Apollo Server at http://localhost:4000/graphql
+yarn dev       # Apollo Server at http://localhost:4100/graphql
 yarn build     # compile TypeScript to dist/
 yarn start     # run compiled output
 yarn lint      # eslint (TypeScript-aware, via @typescript-eslint)
@@ -56,7 +56,7 @@ yarn format    # prettier
 
 ```bash
 yarn install
-yarn dev       # Vite dev server at http://localhost:5173
+yarn dev       # Vite dev server at http://localhost:4000
 yarn build     # type-check + Vite production build
 yarn preview   # preview production build locally
 yarn lint      # oxlint + tsc --noEmit (two-pass: fast style then type errors)
