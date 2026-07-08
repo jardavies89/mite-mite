@@ -11,8 +11,8 @@ I'm an avid manga fan and have read a ton over the years, and also find myself i
 ```bash
 cd api
 cp .env.sample .env   # fill in DATABASE_URL, TMDB_API_KEY, ADMIN_SECRET
-npm install
-npm run dev           # starts Apollo Server at http://localhost:4000/graphql
+yarn install
+yarn dev              # starts Apollo Server at http://localhost:4000/graphql
 ```
 
 **Web**
@@ -20,8 +20,8 @@ npm run dev           # starts Apollo Server at http://localhost:4000/graphql
 ```bash
 cd web
 cp .env.sample .env   # fill in VITE_API_URL, VITE_ADMIN_SECRET
-npm install
-npm run dev           # starts Vite dev server at http://localhost:5173
+yarn install
+yarn dev              # starts Vite dev server at http://localhost:5173
 ```
 
 ## Tech goals
