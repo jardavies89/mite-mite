@@ -1,0 +1,12 @@
+.height--mite-mite {
+  height: calc(100vh - 3rem);
+}
+
+.max-width--50 {
+  max-width: 50rem;
+}
+
+.px-16 {
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
