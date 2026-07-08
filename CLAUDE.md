@@ -38,5 +38,34 @@ config isolated to environment variables) so someone else could run their own in
 
 ## Development
 
-No commands yet — this section will be filled in (setup, dev server, test/lint commands) once the first
-feature is implemented.
+The project uses **yarn** as the package manager. Do not use npm — both workspaces have `yarn.lock`
+files and should stay consistent.
+
+**API** (`cd api`)
+
+```bash
+yarn install
+yarn dev       # Apollo Server at http://localhost:4000/graphql
+yarn build     # compile TypeScript to dist/
+yarn start     # run compiled output
+yarn lint      # eslint (TypeScript-aware, via @typescript-eslint)
+yarn format    # prettier
+```
+
+**Web** (`cd web`)
+
+```bash
+yarn install
+yarn dev       # Vite dev server at http://localhost:5173
+yarn build     # type-check + Vite production build
+yarn preview   # preview production build locally
+yarn lint      # oxlint + tsc --noEmit (two-pass: fast style then type errors)
+yarn format    # prettier
+```
+
+**Linter asymmetry**: the web uses `oxlint` (fast, Rust-based) as a first pass before `tsc`, while
+the api uses `eslint` with `@typescript-eslint`. Don't swap them — they're intentionally different
+tools suited to each workspace.
+
+**UI copy**: all user-visible strings in the web live in `web/src/constants/strings.ts`. Add new
+copy there rather than hardcoding it inline in components.
