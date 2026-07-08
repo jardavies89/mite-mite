@@ -2,9 +2,9 @@
  * Replaces %{key} placeholders in a string with values from vars.
  *
  * Usage:
- *   translate(Strings.entry.addedCount, { count: "3" })
- *   // where Strings.entry.addedCount = "Added %{count} entries"
- *   // → "Added 3 entries"
+ *   translate(Strings.entry.alternateTitleLabel, { n: "2" })
+ *   // where Strings.entry.alternateTitleLabel = "Alternate title %{n}"
+ *   // → "Alternate title 2"
  *
  * For strings with no placeholders, reference Strings directly without calling translate.
  */
@@ -16,7 +16,6 @@ export const Strings = {
   admin: {
     title: "Admin",
     addNewEntry: "Add new entry",
-    noPermission: "You don't have permission to view this page.",
   },
   home: {
     title: "みてみて!",

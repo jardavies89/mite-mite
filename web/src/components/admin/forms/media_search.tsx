@@ -3,7 +3,7 @@ import { Input, Typography } from "@material-tailwind/react";
 import classNames from "classnames";
 
 import { Strings } from "@/constants/strings";
-import type { Medium } from "@/components/admin/entry_card";
+import type { Medium } from "@/components/admin";
 
 export type SearchResult = {
   id: string;

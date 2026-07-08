@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 
 import { Strings, translate } from "@/constants/strings";
-import { MediaSearch, type SearchResult } from "@/components/admin";
-
-import { FranchisePicker, TagPicker, type FranchiseOption, type Medium } from "@/components/admin";
+import { MediaSearch, type SearchResult } from "./media_search";
+import { FranchisePicker, type FranchiseOption } from "./franchise_picker";
+import { TagPicker } from "./tag_picker";
+import type { Medium } from "./entry_card";
 
 const GENRES = [
   "Action",

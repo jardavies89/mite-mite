@@ -7,6 +7,7 @@ import type { PointerEventHandler, ReactEventHandler } from "react";
 declare module "react" {
   interface HTMLAttributes<T> {
     placeholder?: string;
+    crossOrigin?: string;
     onResize?: ReactEventHandler<T>;
     onResizeCapture?: ReactEventHandler<T>;
     onPointerEnterCapture?: PointerEventHandler<T>;

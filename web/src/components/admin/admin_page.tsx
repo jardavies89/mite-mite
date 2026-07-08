@@ -7,11 +7,11 @@ import { Strings } from "@/constants/strings";
 import useMediaQuery from "@/components/shared/hooks/use_media_query";
 
 function AdminPage() {
-  const isMobileLayout = useMediaQuery("(max-width: 40em)");
+  const { isMobileBreakpoint } = useMediaQuery();
 
-  const wrapperClassNames = classNames("flex flex-col mx-auto py-8 height--mite-mite", {
-    "px-4": isMobileLayout,
-    "px-8 max-width--50": !isMobileLayout,
+  const wrapperClassNames = classNames("flex flex-col mx-auto w-full py-8 height--mite-mite", {
+    "px-4": isMobileBreakpoint,
+    "px-8 max-width--50": !isMobileBreakpoint,
   });
 
   return (

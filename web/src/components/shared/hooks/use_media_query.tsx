@@ -1,36 +1,32 @@
 import { useEffect, useState } from "react";
 
-type queryFnType = (query: string) => boolean;
+const MOBILE_BREAKPOINT = "(max-width: 40em)";
 
-const getMatches: queryFnType = (query) => {
-  // Prevents SSR issues
+function getMatches(query: string): boolean {
   if (typeof window !== "undefined") {
     return window.matchMedia(query).matches;
   }
   return false;
-};
+}
 
-const useMediaQuery: queryFnType = (query) => {
-  const [matches, setMatches] = useState<boolean>(() => getMatches(query));
+function useMediaQuery(): { isMobileBreakpoint: boolean } {
+  const [isMobileBreakpoint, setIsMobileBreakpoint] = useState(() =>
+    getMatches(MOBILE_BREAKPOINT),
+  );
 
   useEffect(() => {
-    const matchMedia = window.matchMedia(query);
+    const matchMedia = window.matchMedia(MOBILE_BREAKPOINT);
 
     function handleChange() {
-      setMatches(getMatches(query));
+      setIsMobileBreakpoint(getMatches(MOBILE_BREAKPOINT));
     }
 
-    // Triggered at the first client-side load and if query changes
     handleChange();
-
     matchMedia.addEventListener("change", handleChange);
+    return () => matchMedia.removeEventListener("change", handleChange);
+  }, []);
 
-    return () => {
-      matchMedia.removeEventListener("change", handleChange);
-    };
-  }, [query]);
-
-  return matches;
-};
+  return { isMobileBreakpoint };
+}
 
 export default useMediaQuery;
