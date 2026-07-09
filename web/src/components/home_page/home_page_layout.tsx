@@ -23,7 +23,7 @@ function HomePage() {
       <main className="flex flex-col items-center h-full">
         <div className={wrapperClassNames}>
           <div className="flex items-center justify-between mb-2">
-            <Typography variant="h2" className="text-gray-900 dark:text-white">
+            <Typography variant="h2">
               {Strings.home.title}
             </Typography>
 
@@ -37,7 +37,7 @@ function HomePage() {
             )}
           </div>
 
-          <p className="mt-8 text-gray-500 dark:text-gray-500 text-sm">{Strings.home.emptyState}</p>
+          <p className="mt-8 text-muted text-sm">{Strings.home.emptyState}</p>
         </div>
       </main>
     </>

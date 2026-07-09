@@ -78,7 +78,7 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
     <Typography
       variant="small"
-      className="font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide text-xs mb-2"
+      className="font-semibold text-muted uppercase tracking-wide text-xs mb-2"
     >
       {children}
     </Typography>
@@ -163,7 +163,7 @@ function EntryForm() {
                 "px-4 py-2 rounded-full text-sm font-medium border transition-colors",
                 form.medium === value
                   ? "bg-blue-600 border-blue-600 text-white"
-                  : "bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-blue-400",
+                  : "bg-surface border-input text-muted hover:border-blue-400",
               )}
             >
               {label}
@@ -174,7 +174,7 @@ function EntryForm() {
 
       {/* Prompt before medium is selected */}
       {!form.medium && (
-        <p className="text-gray-400 dark:text-gray-500 text-sm">{Strings.entry.selectMedium}</p>
+        <p className="text-subtle text-sm">{Strings.entry.selectMedium}</p>
       )}
 
       {/* Search */}
@@ -195,7 +195,7 @@ function EntryForm() {
           <button
             type="button"
             onClick={handleContinueManually}
-            className="text-sm text-blue-600 dark:text-blue-400 underline hover:no-underline"
+            className="text-sm text-blue-600 dark:text-blue-400 underline hover:no-underline" // blue intentional: primary action
           >
             {Strings.entry.continueManually}
           </button>
@@ -207,7 +207,7 @@ function EntryForm() {
         <>
           {/* Cover + primary title */}
           <div className="flex gap-4 items-start">
-            <div className="flex-shrink-0 w-24 h-32 rounded-md overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+            <div className="flex-shrink-0 w-24 h-32 rounded-md overflow-hidden border border-default bg-surface flex items-center justify-center">
               {form.coverImageUrl ? (
                 <img
                   src={form.coverImageUrl}
@@ -215,7 +215,7 @@ function EntryForm() {
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <span className="text-gray-400 dark:text-gray-600 text-xs text-center px-1">
+                <span className="text-subtle text-xs text-center px-1">
                   {Strings.entry.coverPreview}
                 </span>
               )}
@@ -255,7 +255,7 @@ function EntryForm() {
                   <button
                     type="button"
                     onClick={() => removeAlternateTitle(i)}
-                    className="text-gray-400 hover:text-red-500 dark:hover:text-red-400 text-lg leading-none flex-shrink-0 mt-1"
+                    className="text-subtle hover:text-red-500 dark:hover:text-red-400 text-lg leading-none flex-shrink-0 mt-1"
                     aria-label={Strings.entry.removeAlternateTitle}
                   >
                     ×
@@ -287,7 +287,7 @@ function EntryForm() {
                       "px-3 py-1 rounded-full text-sm font-medium border transition-colors",
                       selected
                         ? "bg-blue-600 border-blue-600 text-white"
-                        : "bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-blue-400",
+                        : "bg-surface border-input text-muted hover:border-blue-400",
                     )}
                   >
                     {genre}
@@ -326,7 +326,7 @@ function EntryForm() {
                   <div key={category}>
                     <Typography
                       variant="small"
-                      className="font-medium text-gray-600 dark:text-gray-400 mb-2"
+                      className="font-medium text-muted mb-2"
                     >
                       {categoryLabel}
                     </Typography>
@@ -359,7 +359,7 @@ function EntryForm() {
                           <button
                             type="button"
                             onClick={() => removeReferenceLink(globalIndex)}
-                            className="text-gray-400 hover:text-red-500 dark:hover:text-red-400 text-lg leading-none flex-shrink-0 mt-3"
+                            className="text-subtle hover:text-red-500 dark:hover:text-red-400 text-lg leading-none flex-shrink-0 mt-3"
                             aria-label={Strings.entry.removeReferenceLink}
                           >
                             ×
@@ -382,11 +382,11 @@ function EntryForm() {
           </div>
 
           {/* Actions */}
-          <div className="flex gap-3 justify-end pt-2 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex gap-3 justify-end pt-2 border-t border-default">
             <button
               type="button"
               onClick={() => navigate("/admin")}
-              className="px-4 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              className="px-4 py-2 rounded-md text-sm font-medium text-muted border border-input hover-surface transition-colors"
             >
               {Strings.entry.cancel}
             </button>

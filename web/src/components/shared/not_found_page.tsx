@@ -9,10 +9,10 @@ function NotFound() {
     <>
       <PrimaryHeader />
       <main className="flex flex-col items-center justify-center pt-24 px-4">
-        <Typography variant="h3" className="text-gray-900 dark:text-white mb-4">
+        <Typography variant="h3" className="mb-4">
           {Strings.notFound.title}
         </Typography>
-        <p className="text-gray-500 dark:text-gray-400 mb-8">{Strings.notFound.body}</p>
+        <p className="text-muted mb-8">{Strings.notFound.body}</p>
         <Link to="/">
           <Button variant="outlined">{Strings.notFound.goHome}</Button>
         </Link>

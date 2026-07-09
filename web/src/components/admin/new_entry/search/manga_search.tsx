@@ -40,19 +40,19 @@ function MangaSearch({ onSelect }: PropTypes) {
       />
 
       {isLoading && (
-        <p className="text-sm text-gray-500 dark:text-gray-400">{Strings.newEntry.searching}</p>
+        <p className="text-sm text-muted">{Strings.newEntry.searching}</p>
       )}
 
       {error && <p className="text-sm text-red-500">{Strings.newEntry.searchError}</p>}
 
       {!isLoading && !error && results.length > 0 && (
-        <ul className="border border-gray-200 dark:border-gray-700 rounded-md overflow-hidden">
+        <ul className="border border-default rounded-md overflow-hidden">
           {results.map(renderSearchResult)}
         </ul>
       )}
 
       {!isLoading && !error && query.trim().length >= 2 && results.length === 0 && (
-        <p className="text-sm text-gray-500 dark:text-gray-400">{Strings.newEntry.noResults}</p>
+        <p className="text-sm text-muted">{Strings.newEntry.noResults}</p>
       )}
     </div>
   );

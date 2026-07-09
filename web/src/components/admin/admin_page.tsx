@@ -19,7 +19,7 @@ function AdminPage() {
       <PrimaryHeader />
       <main className="flex flex-col items-center h-full">
         <div className={wrapperClassNames}>
-          <Typography variant="h4" className="text-gray-900 dark:text-white mb-6">
+          <Typography variant="h4" className="mb-6">
             {Strings.admin.title}
           </Typography>
           <div className="flex flex-col gap-3">

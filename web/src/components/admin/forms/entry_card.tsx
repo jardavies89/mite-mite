@@ -26,16 +26,16 @@ const MEDIUM_BADGE_COLORS: Record<Medium, string> = {
 
 function EntryCard({ primaryTitle, medium, coverImageUrl, franchiseName }: EntryCardProps) {
   return (
-    <div className="flex gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+    <div className="flex gap-3 p-3 rounded-lg border border-default hover-surface transition-colors">
       <div
         className={classNames(
-          "flex-shrink-0 w-14 h-20 rounded overflow-hidden bg-gray-100 dark:bg-gray-700",
+          "flex-shrink-0 w-14 h-20 rounded overflow-hidden bg-gray-100 dark:bg-gray-700", // intentional: cover thumbnail uses a mid-tone, not the standard surface
         )}
       >
         {coverImageUrl ? (
           <img src={coverImageUrl} alt={primaryTitle} className="w-full h-full object-cover" />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-gray-400 dark:text-gray-600 text-xs text-center px-1">
+          <div className="w-full h-full flex items-center justify-center text-subtle text-xs text-center px-1">
             {Strings.entry.noCover}
           </div>
         )}
@@ -44,7 +44,7 @@ function EntryCard({ primaryTitle, medium, coverImageUrl, franchiseName }: Entry
       <div className="flex flex-col gap-1 min-w-0">
         <Typography
           variant="small"
-          className="font-semibold text-gray-900 dark:text-white leading-tight truncate"
+          className="font-semibold leading-tight truncate"
         >
           {primaryTitle}
         </Typography>
@@ -59,7 +59,7 @@ function EntryCard({ primaryTitle, medium, coverImageUrl, franchiseName }: Entry
         </span>
 
         {franchiseName && (
-          <Typography variant="small" className="text-gray-500 dark:text-gray-400 text-xs truncate">
+          <Typography variant="small" className="text-muted text-xs truncate">
             {franchiseName}
           </Typography>
         )}

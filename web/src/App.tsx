@@ -10,7 +10,7 @@ import RequireAdmin from "@/components/shared/require_admin";
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
+      <div className="min-h-screen transition-colors duration-200">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route element={<RequireAdmin />}>
