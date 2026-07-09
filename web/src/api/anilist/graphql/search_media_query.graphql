@@ -1,0 +1,23 @@
+query SearchMedia($search: String!, $type: MediaType!) {
+  Page(page: 1, perPage: 10) {
+    media(search: $search, type: $type, sort: [POPULARITY_DESC]) {
+      id
+      title {
+        romaji
+        english
+        native
+      }
+      format
+      staff(perPage: 1) {
+        edges {
+          role
+          node {
+            name {
+              full
+            }
+          }
+        }
+      }
+    }
+  }
+}

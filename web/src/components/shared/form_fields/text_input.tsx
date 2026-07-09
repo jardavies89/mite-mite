@@ -1,5 +1,5 @@
 import type { ChangeEventHandler } from "react";
-import { Input } from "@material-tailwind/react";
+import classNames from "classnames";
 
 interface PropTypes {
   currentValue: string;
@@ -10,18 +10,24 @@ interface PropTypes {
 }
 
 function TextInput({ currentValue, label, id, onChange, placeholder }: PropTypes) {
+  const inputClassNames = classNames(
+    "w-full rounded-md border border-gray-300 dark:border-gray-600",
+    "bg-white dark:bg-gray-800 px-3 py-2 text-gray-900 dark:text-white",
+    "placeholder-gray-400 dark:placeholder-gray-500",
+    "focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-white",
+  );
+
   return (
     <>
       <label className="mb-2 text-gray-900 dark:text-white" htmlFor={id}>
         {label}
       </label>
 
-      <Input
-        className="text-gray-900 dark:text-white"
+      <input
+        className={inputClassNames}
         id={id}
         onChange={onChange}
         placeholder={placeholder}
-        title={label}
         type="text"
         value={currentValue}
       />

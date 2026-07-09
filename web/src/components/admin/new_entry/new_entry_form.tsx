@@ -1,26 +1,20 @@
-import type { ChangeEvent } from "react";
-
-import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
-
-import { TextInput } from "@/components/shared/form_fields/text_input";
-import { Strings } from "@/constants/strings";
+import { useNewEntryContext } from "@/components/admin";
+import { MangaSearch } from "@/components/admin/new_entry/search/manga_search";
 
 function NewEntryForm() {
-  const { newEntryDraft, updateEntryDraft } = useNewEntryContext();
+  const { updateEntryDraft } = useNewEntryContext();
 
-  function onTitleChanged(event: ChangeEvent<HTMLInputElement>) {
-    updateEntryDraft({ primaryTitle: event.target.value });
+  function onMangaSelected(result: MangaSearchResult) {
+    console.log(result);
+
+    // updateEntryDraft({
+    //   primaryTitle: result.title.romaji ?? result.title.english ?? "",
+    // });
   }
 
   return (
     <>
-      <TextInput
-        label={Strings.entry.primaryTitle}
-        id="primary-title-input"
-        onChange={onTitleChanged}
-        placeholder={Strings.entry.searchPlaceholder}
-        currentValue={newEntryDraft.primaryTitle}
-      />
+      <MangaSearch onSelect={onMangaSelected} />
     </>
   );
 }

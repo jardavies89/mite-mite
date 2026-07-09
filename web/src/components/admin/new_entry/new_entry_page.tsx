@@ -22,7 +22,7 @@ function EntryFormPage() {
       <main className="flex flex-col items-center h-full">
         <div className={wrapperClassNames}>
           <Typography variant="h4" className="text-gray-900 dark:text-white mb-6">
-            {Strings.entry.new}
+            {Strings.admin.addNewEntry}
           </Typography>
           <NewEntryProvider>
             <NewEntryForm />

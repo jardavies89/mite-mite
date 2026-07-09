@@ -24,6 +24,27 @@ config isolated to environment variables) so someone else could run their own in
   exempt.
 - **Formatting**: Prettier, enforced for all TypeScript.
 
+## Architecture
+
+**API vs. web split**: the api exists primarily to be the secure layer between the browser and
+PostgreSQL — database credentials and any secret API keys must never reach the browser. Third-party
+APIs that require no authentication (e.g. AniList) should be called directly from the web; proxying
+them through the api adds latency and boilerplate with no security benefit.
+
+**`web/src/api/`**: browser-side API clients.
+- `graphql_client.ts` — generic `gqlQuery` helper for calls to our own Apollo Server.
+- Third-party API integrations live in named subdirectories (e.g. `anilist/`). Each subdirectory
+  contains individual operation files (e.g. `search.ts`), a `graphql/` folder for query files, and
+  an `index.ts` that re-exports the public surface. Hooks and components import from the index
+  (`@/api/anilist`), not from operation files directly.
+
+**GraphQL queries**: kept in standalone `.graphql` files, not inline strings. In the web, import
+them as raw strings via Vite's `?raw` suffix (e.g. `import q from './query.graphql?raw'`). In the
+api, load them with `fs.readFileSync` at startup.
+
+**`web/src/@types/`**: TypeScript declaration files (`.d.ts`) for module shims and ambient types.
+The api has a matching `src/@types/` for the same purpose.
+
 ## Conventions
 
 - **Access control**: write/admin routes are gated by a single trusted-identity check (e.g. a shared
