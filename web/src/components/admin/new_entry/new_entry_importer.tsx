@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { MangaSearch, NewEntryForm } from "@/components/admin/new_entry";
+import { Genres, Medium } from "@/constants/types";
 
 import { useAnilistMediaDetails } from "@/components/admin/hooks/use_anilist_media_details";
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
@@ -10,9 +11,26 @@ function NewEntryImporter() {
 
   useEffect(() => {
     if (data) {
+      const primaryTitle = data.title.english ?? data.title.romaji;
+      const alternateTitles: string[] = [...Object.values(data.title)].filter(
+        (title): title is string => !!title && title !== primaryTitle,
+      );
+
+      const validGenres = Object.values(Genres);
+      const genres = data.genres
+        .map((g) => validGenres.find((v) => v.toLowerCase() === g.toLowerCase()))
+        .filter((g): g is Genres => g !== undefined);
+
       updateEntryDraft({
+        alternateTitles,
         coverImageUrl: data.coverImage.large || "",
-        primaryTitle: data.title.english || "",
+        description: data.description || "",
+        genres,
+        medium: Medium.Manga,
+        primaryTitle: primaryTitle || "",
+        staff: data.staff,
+        status: data.status || "",
+        tags: data.tags.map((t) => t.name),
       });
     }
   }, [data]);

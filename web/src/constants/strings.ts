@@ -52,6 +52,8 @@ export const Strings = {
     removeAlternateTitle: "Remove alternate title",
     removeReferenceLink: "Remove link",
     franchiseWillBeCreated: "A new franchise will be created with this name.",
+    comments: "Comments",
+    description: "Description",
     noCover: "No cover",
     continueManually: "Continue manually",
   },

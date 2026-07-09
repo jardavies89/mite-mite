@@ -46,3 +46,12 @@ type AnilistMediaDetails = {
   source: string | null;
   countryOfOrigin: string | null;
 };
+
+type AnilistStaffEdge = {
+  role: string;
+  node: { name: { full: string; native: string | null } };
+};
+
+type AnilistStaff = {
+  edges: AnilistStaffEdge[];
+};

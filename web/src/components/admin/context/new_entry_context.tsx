@@ -1,36 +1,44 @@
 import { createContext, useContext, useState } from "react";
 
 import type { FranchiseOption } from "@/components/admin/forms/franchise_picker";
-import type { Medium } from "@/components/admin/forms/entry_card";
+import { Genres, Medium } from "@/constants/types";
 
 export type ReferenceLink = {
   category: "read" | "buy" | "watch";
-  url: string;
   label: string;
+  url: string;
 };
 
 export type NewEntryFormState = {
-  medium: Medium | null;
-  manualMode: boolean;
-  primaryTitle: string;
   alternateTitles: string[];
+  comments: string;
   coverImageUrl: string;
-  genres: string[];
-  tagIds: string[];
+  description: string;
   franchise: FranchiseOption | null;
+  genres: Genres[];
+  medium: Medium | null;
+  primaryTitle: string;
   referenceLinks: ReferenceLink[];
+  staff: AnilistStaff | null;
+  status: string;
+  tagIds: string[];
+  tags: string[];
 };
 
 const INITIAL_STATE: NewEntryFormState = {
-  medium: null,
-  manualMode: false,
-  primaryTitle: "",
   alternateTitles: [],
+  comments: "",
   coverImageUrl: "",
-  genres: [],
-  tagIds: [],
+  description: "",
   franchise: null,
+  genres: [],
+  medium: null,
+  primaryTitle: "",
   referenceLinks: [],
+  staff: null,
+  status: "",
+  tagIds: [],
+  tags: [],
 };
 
 type NewEntryContextValue = {
