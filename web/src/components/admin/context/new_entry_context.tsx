@@ -10,6 +10,7 @@ export type ReferenceLink = {
 };
 
 export type NewEntryFormState = {
+  anilistUrl: string | null;
   alternateTitles: string[];
   comments: string;
   coverImageUrl: string;
@@ -19,13 +20,14 @@ export type NewEntryFormState = {
   medium: Medium | null;
   primaryTitle: string;
   referenceLinks: ReferenceLink[];
-  staff: AnilistStaff | null;
+  staff: string[];
   status: string;
   tagIds: string[];
   tags: string[];
 };
 
 const INITIAL_STATE: NewEntryFormState = {
+  anilistUrl: null,
   alternateTitles: [],
   comments: "",
   coverImageUrl: "",
@@ -35,7 +37,7 @@ const INITIAL_STATE: NewEntryFormState = {
   medium: null,
   primaryTitle: "",
   referenceLinks: [],
-  staff: null,
+  staff: [],
   status: "",
   tagIds: [],
   tags: [],

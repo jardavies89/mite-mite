@@ -1,7 +1,7 @@
 import { Typography } from "@material-tailwind/react";
 import classNames from "classnames";
 
-import PrimaryHeader from "@/components/header";
+import { PageLayout } from "@/components/shared/page_layout";
 import { NewEntryImporter } from "@/components/admin/new_entry";
 
 import { NewEntryProvider } from "@/components/admin/context/new_entry_context";
@@ -17,19 +17,16 @@ function EntryFormPage() {
   });
 
   return (
-    <>
-      <PrimaryHeader />
-      <main className="flex flex-col items-center h-full">
-        <div className={wrapperClassNames}>
-          <Typography variant="h4" className="mb-6">
-            {Strings.admin.addNewEntry}
-          </Typography>
-          <NewEntryProvider>
-            <NewEntryImporter />
-          </NewEntryProvider>
-        </div>
-      </main>
-    </>
+    <PageLayout>
+      <div className={wrapperClassNames}>
+        <Typography variant="h4" className="mb-6">
+          {Strings.admin.addNewEntry}
+        </Typography>
+        <NewEntryProvider>
+          <NewEntryImporter />
+        </NewEntryProvider>
+      </div>
+    </PageLayout>
   );
 }
 

@@ -22,13 +22,14 @@ function NewEntryImporter() {
         .filter((g): g is Genres => g !== undefined);
 
       updateEntryDraft({
+        anilistUrl: data.siteUrl,
         alternateTitles,
         coverImageUrl: data.coverImage.large || "",
         description: data.description || "",
         genres,
         medium: Medium.Manga,
         primaryTitle: primaryTitle || "",
-        staff: data.staff,
+        staff: data.staff.edges.slice(0, 5).map((e) => `${e.node.name.full} (${e.role})`),
         status: data.status || "",
         tags: data.tags.map((t) => t.name),
       });

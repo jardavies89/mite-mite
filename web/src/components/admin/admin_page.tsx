@@ -2,7 +2,7 @@ import { Typography } from "@material-tailwind/react";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 
-import PrimaryHeader from "@/components/header";
+import { PageLayout } from "@/components/shared/page_layout";
 import { Strings } from "@/constants/strings";
 import useMediaQuery from "@/components/shared/hooks/use_media_query";
 
@@ -15,24 +15,21 @@ function AdminPage() {
   });
 
   return (
-    <>
-      <PrimaryHeader />
-      <main className="flex flex-col items-center h-full">
-        <div className={wrapperClassNames}>
-          <Typography variant="h4" className="mb-6">
-            {Strings.admin.title}
-          </Typography>
-          <div className="flex flex-col gap-3">
-            <Link
-              to="/admin/new_entry"
-              className="self-start px-4 py-2 rounded-md text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors"
-            >
-              {Strings.admin.addNewEntry}
-            </Link>
-          </div>
+    <PageLayout>
+      <div className={wrapperClassNames}>
+        <Typography variant="h4" className="mb-6">
+          {Strings.admin.title}
+        </Typography>
+        <div className="flex flex-col gap-3">
+          <Link
+            to="/admin/new_entry"
+            className="self-start px-4 py-2 rounded-md text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+          >
+            {Strings.admin.addNewEntry}
+          </Link>
         </div>
-      </main>
-    </>
+      </div>
+    </PageLayout>
   );
 }
 

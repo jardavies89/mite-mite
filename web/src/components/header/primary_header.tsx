@@ -7,6 +7,7 @@ function PrimaryHeader() {
     "flex items-center justify-between",
     "h-12 px-6 py-4",
     "border-b border-default",
+    "sticky top-0 z-10 bg-white dark:bg-gray-900",
   );
 
   return (
