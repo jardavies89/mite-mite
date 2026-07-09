@@ -1,3 +1,2 @@
-import { searchMedia } from "./search";
-
-export { searchMedia };
+export { searchMedia } from "./search";
+export { getMedia } from "./get_media";

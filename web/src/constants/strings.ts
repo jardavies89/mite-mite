@@ -61,6 +61,8 @@ export const Strings = {
     searching: "Searching...",
     searchPlaceholder: "Search for a title...",
     searchTitle: "Search by title",
+    franchisePlaceholder: "Search for a franchise...",
+    franchiseCreateNew: "Create new franchise",
   },
   notFound: {
     title: "Page not found",

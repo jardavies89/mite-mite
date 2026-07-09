@@ -1,21 +1,39 @@
-import { useNewEntryContext } from "@/components/admin";
-import { MangaSearch } from "@/components/admin/new_entry/search/manga_search";
+import type { ChangeEvent } from "react";
 
-function NewEntryForm() {
-  const { updateEntryDraft } = useNewEntryContext();
+import { FranchiseSelector } from "@/components/admin/new_entry";
+import { TextInput } from "@/components/shared/form_fields/text_input";
 
-  function onMangaSelected(result: MangaSearchResult) {
-    console.log(result);
+import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
+import { Strings } from "@/constants/strings";
 
-    // updateEntryDraft({
-    //   primaryTitle: result.title.romaji ?? result.title.english ?? "",
-    // });
+interface PropTypes {
+  onResetClicked: () => void;
+}
+
+function NewEntryForm({ onResetClicked }: PropTypes) {
+  const { newEntryDraft, updateEntryDraft } = useNewEntryContext();
+
+  function onTextChanged(event: ChangeEvent<HTMLInputElement>) {
+    updateEntryDraft({ primaryTitle: event.target.value });
   }
 
   return (
-    <>
-      <MangaSearch onSelect={onMangaSelected} />
-    </>
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-row gap-8">
+        <img alt="banner-image" src={newEntryDraft.coverImageUrl} />
+
+        <div className="flex flex-col gap-4 w-full">
+          <TextInput
+            currentValue={newEntryDraft.primaryTitle}
+            id="primary-title-field"
+            onChange={onTextChanged}
+            label={Strings.entry.primaryTitle}
+          />
+
+          <FranchiseSelector />
+        </div>
+      </div>
+    </div>
   );
 }
 

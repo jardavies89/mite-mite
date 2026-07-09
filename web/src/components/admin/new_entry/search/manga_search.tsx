@@ -15,7 +15,7 @@ function MangaSearch({ onSelect }: PropTypes) {
   const { results, isLoading, error } = useAnilistSearch(query);
 
   function handleSelect(result: MangaSearchResult) {
-    setQuery(result.title.romaji ?? result.title.english ?? "");
+    setQuery("");
     onSelect(result);
   }
 
@@ -39,9 +39,7 @@ function MangaSearch({ onSelect }: PropTypes) {
         currentValue={query}
       />
 
-      {isLoading && (
-        <p className="text-sm text-muted">{Strings.newEntry.searching}</p>
-      )}
+      {isLoading && <p className="text-sm text-muted">{Strings.newEntry.searching}</p>}
 
       {error && <p className="text-sm text-red-500">{Strings.newEntry.searchError}</p>}
 

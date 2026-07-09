@@ -2,7 +2,7 @@ import { Typography } from "@material-tailwind/react";
 import classNames from "classnames";
 
 import PrimaryHeader from "@/components/header";
-import { NewEntryForm } from "@/components/admin/new_entry/new_entry_form";
+import { NewEntryImporter } from "@/components/admin/new_entry";
 
 import { NewEntryProvider } from "@/components/admin/context/new_entry_context";
 import { Strings } from "@/constants/strings";
@@ -25,7 +25,7 @@ function EntryFormPage() {
             {Strings.admin.addNewEntry}
           </Typography>
           <NewEntryProvider>
-            <NewEntryForm />
+            <NewEntryImporter />
           </NewEntryProvider>
         </div>
       </main>

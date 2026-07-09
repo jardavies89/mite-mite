@@ -1,0 +1,54 @@
+query GetMedia($id: Int!) {
+  Media(id: $id, type: MANGA) {
+    id
+    title {
+      romaji
+      english
+      native
+    }
+    synonyms
+    description(asHtml: false)
+    format
+    status
+    chapters
+    volumes
+    averageScore
+    meanScore
+    popularity
+    favourites
+    coverImage {
+      extraLarge
+      large
+      color
+    }
+    bannerImage
+    genres
+    tags {
+      id
+      name
+      category
+      rank
+      isGeneralSpoiler
+      isAdult
+    }
+    staff(perPage: 25) {
+      edges {
+        role
+        node {
+          name {
+            full
+            native
+          }
+        }
+      }
+    }
+    externalLinks {
+      url
+      site
+      type
+    }
+    siteUrl
+    source
+    countryOfOrigin
+  }
+}
