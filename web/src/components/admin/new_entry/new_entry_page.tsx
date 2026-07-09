@@ -2,8 +2,9 @@ import { Typography } from "@material-tailwind/react";
 import classNames from "classnames";
 
 import PrimaryHeader from "@/components/header";
-import { EntryForm } from "@/components/admin";
+import { NewEntryForm } from "@/components/admin/new_entry/new_entry_form";
 
+import { NewEntryProvider } from "@/components/admin/context/new_entry_context";
 import { Strings } from "@/constants/strings";
 import useMediaQuery from "@/components/shared/hooks/use_media_query";
 
@@ -23,7 +24,9 @@ function EntryFormPage() {
           <Typography variant="h4" className="text-gray-900 dark:text-white mb-6">
             {Strings.entry.new}
           </Typography>
-          <EntryForm />
+          <NewEntryProvider>
+            <NewEntryForm />
+          </NewEntryProvider>
         </div>
       </main>
     </>
