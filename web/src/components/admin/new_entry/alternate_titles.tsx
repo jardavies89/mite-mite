@@ -5,8 +5,6 @@ function AlternateTitles() {
   const { newEntryDraft, updateEntryDraft } = useNewEntryContext();
   const { alternateTitles } = newEntryDraft;
 
-  console.log(alternateTitles);
-
   function add() {
     updateEntryDraft({ alternateTitles: [...alternateTitles, ""] });
   }

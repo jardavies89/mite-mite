@@ -11,6 +11,7 @@ function NewEntryImporter() {
 
   useEffect(() => {
     if (data) {
+      // TODO:L Move this to a cleaner spot.
       const primaryTitle = data.title.english ?? data.title.romaji;
       const alternateTitles: string[] = [...Object.values(data.title)].filter(
         (title): title is string => !!title && title !== primaryTitle,
@@ -50,7 +51,6 @@ function NewEntryImporter() {
 
   if (data) {
     // TODO: Branching for different mediums, just manga for now
-    console.log(data);
     return <NewEntryForm onResetClicked={onReset} />;
   }
 

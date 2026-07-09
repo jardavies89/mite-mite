@@ -2,15 +2,14 @@ import type { ChangeEvent } from "react";
 
 import { FranchiseSelector } from "@/components/admin/new_entry";
 import { AlternateTitles } from "@/components/admin/new_entry/alternate_titles";
-import { GenreSelect } from "@/components/admin/new_entry/genre_select";
-import { TagsSelect } from "@/components/admin/new_entry/tags_select";
-import { StaffInput } from "@/components/admin/new_entry/staff_input";
+import { GenreSelect } from "@/components/admin/new_entry/forms/genre_select";
+import { TagsSelect } from "@/components/admin/new_entry/forms/tags_select";
+import { StaffInput } from "@/components/admin/new_entry/forms/staff_input";
 import { TextInput } from "@/components/shared/form_fields/text_input";
 import { TextareaInput } from "@/components/shared/form_fields/textarea_input";
 
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
 import { Strings } from "@/constants/strings";
-import { Button } from "@material-tailwind/react";
 
 interface PropTypes {
   onResetClicked: () => void;

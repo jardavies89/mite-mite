@@ -9,12 +9,8 @@ function TagsSelect() {
   const { tags } = newEntryDraft;
 
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState<Set<string>>(() => new Set(tags));
+  const [selected, setSelected] = useState<Set<string>>(new Set());
   const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setSelected(new Set(tags));
-  }, [tags]);
 
   useEffect(() => {
     function onClickOutside(e: MouseEvent) {
