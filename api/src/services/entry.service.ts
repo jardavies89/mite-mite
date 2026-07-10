@@ -1,18 +1,22 @@
 import { eq } from "drizzle-orm";
 import { db } from "../db/index";
-import { entries, franchises } from "../db/schema";
+import { entries } from "../db/schema";
 import { FranchiseService } from "./franchise.service";
 
 export interface CreateEntryInput {
-  medium: string;
-  primaryTitle: string;
   alternateTitles?: string[];
+  comments?: string;
   coverImageUrl?: string;
+  description?: string;
   franchiseId?: number;
-  newFranchiseName?: string;
   genres?: string[];
-  tags?: string[];
+  medium: string;
+  newFranchiseName?: string;
+  primaryTitle: string;
   referenceUrl?: string;
+  staff?: string[];
+  status?: string;
+  tags?: string[];
 }
 
 export const EntryService = {
@@ -43,9 +47,13 @@ export const EntryService = {
         altTitles: input.alternateTitles ?? [],
         coverImageUrl: input.coverImageUrl ?? null,
         franchiseId: franchiseId ?? null,
+        comments: input.comments ?? null,
+        description: input.description ?? null,
         genres: input.genres ?? [],
-        tags: input.tags ?? [],
         referenceUrl: input.referenceUrl ?? null,
+        staff: input.staff ?? [],
+        status: input.status ?? null,
+        tags: input.tags ?? [],
       })
       .returning();
 

@@ -1,12 +1,9 @@
 import { Typography } from "@material-tailwind/react";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
 
 import { PageLayout } from "@/components/shared/page_layout";
 import { Strings } from "@/constants/strings";
 import useMediaQuery from "../shared/hooks/use_media_query";
-
-const isAdmin = Boolean(import.meta.env.VITE_ADMIN_SECRET);
 
 function HomePage() {
   const { isMobileBreakpoint } = useMediaQuery();

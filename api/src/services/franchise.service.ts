@@ -1,4 +1,4 @@
-import { eq, ilike, or } from "drizzle-orm";
+import { eq, ilike } from "drizzle-orm";
 import { db } from "../db/index";
 import { franchises, entries } from "../db/schema";
 

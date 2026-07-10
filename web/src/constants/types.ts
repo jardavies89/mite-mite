@@ -1,7 +1,7 @@
 const Medium = {
-  Anime: "Anime",
-  Book: "Book",
-  Manga: "Manga",
+  Anime: "ANIME",
+  Book: "BOOK",
+  Manga: "MANGA",
 } as const;
 type Medium = (typeof Medium)[keyof typeof Medium];
 
@@ -99,9 +99,9 @@ type ContentWarningTags = (typeof ContentWarningTags)[keyof typeof ContentWarnin
 type Tags = SubGenreTags | NarrativeTags | DemographicTags | ContentWarningTags;
 
 const Status = {
-  Finished: "Finished",
-  Ongoing: "Ongoing",
-  Paused: "Paused",
+  Finished: "FINISHED",
+  Ongoing: "ONGOING",
+  Paused: "PAUSED",
 } as const;
 type Status = (typeof Status)[keyof typeof Status];
 

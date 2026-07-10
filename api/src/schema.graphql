@@ -3,20 +3,30 @@ scalar DateTime
 enum Medium {
   MANGA
   BOOK
-  MOVIE_SHOW
+  ANIME
+}
+
+enum Status {
+  FINISHED
+  ONGOING
+  PAUSED
 }
 
 type Entry {
   id: ID!
-  medium: Medium!
-  primaryTitle: String!
   alternateTitles: [String!]!
+  comments: String
   coverImageUrl: String
+  createdAt: DateTime!
+  description: String
   franchise: Franchise
   genres: [String!]!
-  tags: [String!]!
+  medium: Medium!
+  primaryTitle: String!
   referenceUrl: String
-  createdAt: DateTime!
+  staff: [String!]!
+  status: Status
+  tags: [String!]!
   updatedAt: DateTime!
 }
 
@@ -32,15 +42,19 @@ type DeleteFranchiseResult {
 }
 
 input CreateEntryInput {
-  medium: Medium!
-  primaryTitle: String!
   alternateTitles: [String!]
+  comments: String
   coverImageUrl: String
+  description: String
   franchiseId: ID
-  newFranchiseName: String
   genres: [String!]
-  tags: [String!]
+  medium: Medium!
+  newFranchiseName: String
+  primaryTitle: String!
   referenceUrl: String
+  staff: [String!]
+  status: Status
+  tags: [String!]
 }
 
 input CreateFranchiseInput {
