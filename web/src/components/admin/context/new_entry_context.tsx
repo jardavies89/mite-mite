@@ -1,7 +1,8 @@
 import { createContext, useContext, useState } from "react";
 
 import type { FranchiseOption } from "@/components/admin/forms/franchise_picker";
-import { Genres, Medium } from "@/constants/types";
+import { Genres, Medium, Status } from "@/constants/types";
+import type { Tags } from "@/constants/types";
 
 export type ReferenceLink = {
   category: "read" | "buy" | "watch";
@@ -21,8 +22,8 @@ export type NewEntryFormState = {
   primaryTitle: string;
   referenceLinks: ReferenceLink[];
   staff: string[];
-  status: string;
-  tagIds: string[];
+  status: Status | null;
+  tagIds: Tags[];
   tags: string[];
 };
 
@@ -38,7 +39,7 @@ const INITIAL_STATE: NewEntryFormState = {
   primaryTitle: "",
   referenceLinks: [],
   staff: [],
-  status: "",
+  status: null,
   tagIds: [],
   tags: [],
 };

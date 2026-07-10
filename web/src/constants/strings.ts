@@ -58,6 +58,8 @@ export const Strings = {
     description: "Description",
     removeStaffMember: "Remove staff member",
     staff: "Staff",
+    status: "Status",
+    statusPlaceholder: "Select a status...",
     noCover: "No cover",
     continueManually: "Continue manually",
   },

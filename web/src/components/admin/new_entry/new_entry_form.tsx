@@ -3,6 +3,7 @@ import type { ChangeEvent } from "react";
 import { FranchiseSelector } from "@/components/admin/new_entry";
 import { AlternateTitles } from "@/components/admin/new_entry/alternate_titles";
 import { GenreSelect } from "@/components/admin/new_entry/forms/genre_select";
+import { StatusSelect } from "@/components/admin/new_entry/forms/status_select";
 import { TagsSelect } from "@/components/admin/new_entry/forms/tags_select";
 import { StaffInput } from "@/components/admin/new_entry/forms/staff_input";
 import { TextInput } from "@/components/shared/form_fields/text_input";
@@ -83,6 +84,9 @@ function NewEntryForm({ onResetClicked }: PropTypes) {
           </div>
           <div className="flex-1">
             <TagsSelect />
+          </div>
+          <div className="flex-1">
+            <StatusSelect />
           </div>
         </div>
       </div>
