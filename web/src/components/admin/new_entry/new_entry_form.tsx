@@ -1,4 +1,5 @@
 import type { ChangeEvent } from "react";
+import { useState } from "react";
 
 import { FranchiseSelector } from "@/components/admin/new_entry";
 import { AlternateTitles } from "@/components/admin/new_entry/alternate_titles";
@@ -9,6 +10,7 @@ import { StaffInput } from "@/components/admin/new_entry/forms/staff_input";
 import { TextInput } from "@/components/shared/form_fields/text_input";
 import { TextareaInput } from "@/components/shared/form_fields/textarea_input";
 
+import { CoverPickerModal } from "@/components/admin/new_entry/cover_picker_modal";
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
 import { Strings } from "@/constants/strings";
 
@@ -18,6 +20,7 @@ interface PropTypes {
 
 function NewEntryForm({ onResetClicked }: PropTypes) {
   const { newEntryDraft, updateEntryDraft } = useNewEntryContext();
+  const [coverPickerOpen, setCoverPickerOpen] = useState(false);
 
   function onTitleChanged(event: ChangeEvent<HTMLInputElement>) {
     updateEntryDraft({ primaryTitle: event.target.value });
@@ -45,7 +48,18 @@ function NewEntryForm({ onResetClicked }: PropTypes) {
       )}
 
       <div className="flex flex-row gap-8">
-        <img alt="banner-image" src={newEntryDraft.coverImageUrl} />
+        <div className="flex flex-col gap-2 flex-shrink-0">
+          <img alt="cover" src={newEntryDraft.coverImageUrl} className="w-64 rounded" />
+          {newEntryDraft.coverImageUrl && (
+            <button
+              type="button"
+              onClick={() => setCoverPickerOpen(true)}
+              className="text-xs text-blue-600 dark:text-blue-400 underline hover:no-underline text-center"
+            >
+              {Strings.entry.chooseCover}
+            </button>
+          )}
+        </div>
 
         <div className="flex flex-col gap-4 w-full">
           <TextInput
@@ -90,6 +104,13 @@ function NewEntryForm({ onResetClicked }: PropTypes) {
           </div>
         </div>
       </div>
+
+      {coverPickerOpen && (
+        <CoverPickerModal
+          title={newEntryDraft.primaryTitle}
+          onClose={() => setCoverPickerOpen(false)}
+        />
+      )}
     </div>
   );
 }

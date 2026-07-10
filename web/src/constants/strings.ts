@@ -54,6 +54,7 @@ export const Strings = {
     franchiseWillBeCreated: "A new franchise will be created with this name.",
     addStaffMember: "Add staff member",
     anilistSource: "View on AniList",
+    chooseCover: "Choose cover image",
     comments: "Comments",
     description: "Description",
     removeStaffMember: "Remove staff member",
