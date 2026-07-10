@@ -63,6 +63,16 @@ The api has a matching `src/@types/` for the same purpose.
   capitalized when it starts a sentence/heading ("Mite-mite..."); it's all-lowercase mid-sentence
   ("...built with mite-mite").
 
+## Database
+
+**Schema location**: `api/src/db/schema.ts` is the single source of truth for the DB shape. Two tables: `franchises` and `entries`.
+
+**Schema management**: Use `yarn db:push` (in `api/`) during prototyping — it applies schema changes directly without generating a migration history. Once the schema stabilises, switch to `drizzle-kit generate` + `migrate` to build an audit trail from that point forward. Always use the **direct (non-pooled)** Neon connection string for both — never the PgBouncer/pooled URL.
+
+**Array columns**: `tags`, `genres`, `staff`, and `alt_titles` are stored as `text[]` directly on `entries`. There are no lookup tables for these — all validation and grouping logic lives in the React app.
+
+**Franchise cascade deletes**: deleting a franchise should also delete its entries, but this is enforced in the service layer rather than via a DB `CASCADE` constraint. The circular FK between `franchises.primary_entry_id` and `entries.franchise_id` makes a DB-level cascade impractical; handle it explicitly in the `FranchiseService`.
+
 ## Development
 
 The project uses **yarn** as the package manager. Do not use npm — both workspaces have `yarn.lock`

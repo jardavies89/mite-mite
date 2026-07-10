@@ -8,7 +8,8 @@
     "start": "node dist/index.js",
     "lint": "eslint src --ext .ts",
     "format": "prettier --write src",
-    "test": "echo \"No tests yet — see Issue #7\" && exit 0"
+    "test": "echo \"No tests yet — see Issue #7\" && exit 0",
+    "db:push": "drizzle-kit push"
   },
   "keywords": [],
   "author": "",
@@ -18,8 +19,10 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^26.1.0",
+    "@types/pg": "^8.20.0",
     "@typescript-eslint/eslint-plugin": "^8.63.0",
     "@typescript-eslint/parser": "^8.63.0",
+    "drizzle-kit": "^0.31.10",
     "eslint": "^9.39.4",
     "prettier": "^3.9.4",
     "ts-node": "^10.9.2",
@@ -27,6 +30,9 @@
   },
   "dependencies": {
     "@apollo/server": "^5.5.1",
-    "graphql": "^16.14.2"
+    "dotenv": "^17.4.2",
+    "drizzle-orm": "^0.45.2",
+    "graphql": "^16.14.2",
+    "pg": "^8.22.0"
   }
 }
