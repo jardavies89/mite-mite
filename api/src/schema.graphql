@@ -1,3 +1,67 @@
+scalar DateTime
+
+enum Medium {
+  MANGA
+  BOOK
+  MOVIE_SHOW
+}
+
+type Entry {
+  id: ID!
+  medium: Medium!
+  primaryTitle: String!
+  alternateTitles: [String!]!
+  coverImageUrl: String
+  franchise: Franchise
+  genres: [String!]!
+  tags: [String!]!
+  referenceUrl: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Franchise {
+  id: ID!
+  primaryTitle: String!
+  entries: [Entry!]!
+}
+
+type DeleteFranchiseResult {
+  deletedFranchiseId: ID!
+  deletedEntryCount: Int!
+}
+
+input CreateEntryInput {
+  medium: Medium!
+  primaryTitle: String!
+  alternateTitles: [String!]
+  coverImageUrl: String
+  franchiseId: ID
+  newFranchiseName: String
+  genres: [String!]
+  tags: [String!]
+  referenceUrl: String
+}
+
+input CreateFranchiseInput {
+  primaryTitle: String!
+}
+
 type Query {
-  hello: String
+  entries: [Entry!]!
+  entry(id: ID!): Entry
+  franchises(search: String): [Franchise!]!
+}
+
+"""
+All mutations require Authorization: Bearer <ADMIN_SECRET> header.
+"""
+type Mutation {
+  createEntry(input: CreateEntryInput!): Entry!
+  deleteEntry(id: ID!): Boolean!
+  createFranchise(input: CreateFranchiseInput!): Franchise!
+  """
+  Deletes the franchise and cascade-deletes all associated entries.
+  """
+  deleteFranchise(id: ID!): DeleteFranchiseResult!
 }

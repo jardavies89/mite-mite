@@ -2,19 +2,30 @@ import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { readFileSync } from "fs";
 import { join } from "path";
+import { buildContext, type ApolloContext } from "./auth";
+import { entryResolvers } from "./resolvers/entry";
+import { franchiseResolvers } from "./resolvers/franchise";
 
 const typeDefs = readFileSync(join(__dirname, "schema.graphql"), "utf-8");
 
 const resolvers = {
   Query: {
-    hello: () => "Hello from the mite-mite API!",
+    ...entryResolvers.Query,
+    ...franchiseResolvers.Query,
   },
+  Mutation: {
+    ...entryResolvers.Mutation,
+    ...franchiseResolvers.Mutation,
+  },
+  Entry: entryResolvers.Entry,
+  Franchise: franchiseResolvers.Franchise,
 };
 
 async function start() {
-  const server = new ApolloServer({ typeDefs, resolvers });
+  const server = new ApolloServer<ApolloContext>({ typeDefs, resolvers });
 
   const { url } = await startStandaloneServer(server, {
+    context: buildContext,
     listen: { port: Number(process.env.PORT ?? 4100) },
   });
 
