@@ -52,6 +52,12 @@ The api has a matching `src/@types/` for the same purpose.
   The exact mechanism may change; the shape (one gate, no accounts table) should not.
 - **Data sourcing**: prefer free, publicly available APIs for third-party data (cover art, series
   metadata, etc.) over self-hosted or paid data pipelines.
+- **Enums**: TypeScript's `erasableSyntaxOnly` flag is enabled, which bans `enum`. Use `as const`
+  objects with a derived union type instead:
+  ```ts
+  const Status = { Active: "Active", Archived: "Archived" } as const;
+  type Status = (typeof Status)[keyof typeof Status];
+  ```
 - **Tickets**: tracked in this repo's native GitHub Projects tab, not a separate tool.
 - **Project name capitalization**: the name derives from みてみて. Only the leading word is
   capitalized when it starts a sentence/heading ("Mite-mite..."); it's all-lowercase mid-sentence
@@ -91,6 +97,17 @@ tools suited to each workspace.
 **UI copy**: all user-visible strings in the web live in `web/src/constants/strings.ts`. Add new
 copy there rather than hardcoding it inline in components. This applies to sentences and labels —
 single characters used as visual chrome (e.g. `×`, `?`) are exempt.
+
+For strings with runtime values, use the `%{key}` placeholder syntax and the `translate()` helper
+exported from the same file:
+
+```ts
+// strings.ts
+volumeLabel: "Vol. %{n}",
+
+// component
+translate(Strings.coverPicker.volumeLabel, { n: cover.volume })
+```
 
 **File naming**: all source files use `snake_case` (e.g. `entry_form.tsx`, `use_media_query.tsx`).
 
