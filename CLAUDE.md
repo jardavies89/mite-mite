@@ -24,6 +24,27 @@ config isolated to environment variables) so someone else could run their own in
   exempt.
 - **Formatting**: Prettier, enforced for all TypeScript.
 
+## Architecture
+
+**API vs. web split**: the api exists primarily to be the secure layer between the browser and
+PostgreSQL — database credentials and any secret API keys must never reach the browser. Third-party
+APIs that require no authentication (e.g. AniList) should be called directly from the web; proxying
+them through the api adds latency and boilerplate with no security benefit.
+
+**`web/src/api/`**: browser-side API clients.
+- `graphql_client.ts` — generic `gqlQuery` helper for calls to our own Apollo Server.
+- Third-party API integrations live in named subdirectories (e.g. `anilist/`). Each subdirectory
+  contains individual operation files (e.g. `search.ts`), a `graphql/` folder for query files, and
+  an `index.ts` that re-exports the public surface. Hooks and components import from the index
+  (`@/api/anilist`), not from operation files directly.
+
+**GraphQL queries**: kept in standalone `.graphql` files, not inline strings. In the web, import
+them as raw strings via Vite's `?raw` suffix (e.g. `import q from './query.graphql?raw'`). In the
+api, load them with `fs.readFileSync` at startup.
+
+**`web/src/@types/`**: TypeScript declaration files (`.d.ts`) for module shims and ambient types.
+The api has a matching `src/@types/` for the same purpose.
+
 ## Conventions
 
 - **Access control**: write/admin routes are gated by a single trusted-identity check (e.g. a shared
@@ -31,6 +52,12 @@ config isolated to environment variables) so someone else could run their own in
   The exact mechanism may change; the shape (one gate, no accounts table) should not.
 - **Data sourcing**: prefer free, publicly available APIs for third-party data (cover art, series
   metadata, etc.) over self-hosted or paid data pipelines.
+- **Enums**: TypeScript's `erasableSyntaxOnly` flag is enabled, which bans `enum`. Use `as const`
+  objects with a derived union type instead:
+  ```ts
+  const Status = { Active: "Active", Archived: "Archived" } as const;
+  type Status = (typeof Status)[keyof typeof Status];
+  ```
 - **Tickets**: tracked in this repo's native GitHub Projects tab, not a separate tool.
 - **Project name capitalization**: the name derives from みてみて. Only the leading word is
   capitalized when it starts a sentence/heading ("Mite-mite..."); it's all-lowercase mid-sentence
@@ -68,4 +95,38 @@ the api uses `eslint` with `@typescript-eslint`. Don't swap them — they're int
 tools suited to each workspace.
 
 **UI copy**: all user-visible strings in the web live in `web/src/constants/strings.ts`. Add new
-copy there rather than hardcoding it inline in components.
+copy there rather than hardcoding it inline in components. This applies to sentences and labels —
+single characters used as visual chrome (e.g. `×`, `?`) are exempt.
+
+For strings with runtime values, use the `%{key}` placeholder syntax and the `translate()` helper
+exported from the same file:
+
+```ts
+// strings.ts
+volumeLabel: "Vol. %{n}",
+
+// component
+translate(Strings.coverPicker.volumeLabel, { n: cover.volume })
+```
+
+**File naming**: all source files use `snake_case` (e.g. `entry_form.tsx`, `use_media_query.tsx`).
+
+**Component directory structure**: components are organized into directories named after their
+route or feature area. The top-level `index.tsx` of each directory is the default export for that
+route/page. Sub-routes live as subdirectories. Example:
+
+```
+components/
+  admin/                    ← /admin route; default export is AdminPage
+    admin_page.tsx
+    index.tsx
+    new_entry/              ← /admin/new_entry sub-route; default export is NewEntryPage
+      new_entry_page.tsx
+      index.tsx
+    forms/                  ← components scoped to the admin feature area
+      entry_form.tsx
+  shared/                   ← layouts and hooks used across multiple routes
+    not_found_page.tsx
+    hooks/
+      use_media_query.tsx
+```
