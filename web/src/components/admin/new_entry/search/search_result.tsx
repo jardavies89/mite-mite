@@ -17,9 +17,7 @@ function SearchResultListItem({ result, onSelect }: PropTypes) {
   return (
     <li key={result.id}>
       <button type="button" onClick={() => onSelect(result)} className={listItemClasses}>
-        <span className="block font-medium">
-          {result.title.english ?? result.title.romaji}
-        </span>
+        <span className="block font-medium">{result.title.english ?? result.title.romaji}</span>
 
         <span className="flex gap-3 mt-0.5 items-center text-sm text-muted">
           {result.title.native && <span>{result.title.native}</span>}

@@ -20,7 +20,7 @@ function SelectInput<T extends string>({
   label,
   onChange,
   options,
-  placeholder = "Select...",
+  placeholder = "",
 }: PropTypes<T>) {
   return (
     <>
@@ -34,7 +34,9 @@ function SelectInput<T extends string>({
       >
         <option value="">{placeholder}</option>
         {options.map(({ value, label: optionLabel }) => (
-          <option key={value} value={value}>{optionLabel}</option>
+          <option key={value} value={value}>
+            {optionLabel}
+          </option>
         ))}
       </select>
     </>

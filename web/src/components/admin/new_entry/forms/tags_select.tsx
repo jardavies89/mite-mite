@@ -2,7 +2,12 @@ import { useRef, useState, useEffect } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
-import { ContentWarningTags, DemographicTags, NarrativeTags, SubGenreTags } from "@/constants/types";
+import {
+  ContentWarningTags,
+  DemographicTags,
+  NarrativeTags,
+  SubGenreTags,
+} from "@/constants/types";
 import type { Tags } from "@/constants/types";
 import { Strings } from "@/constants/strings";
 
@@ -47,10 +52,14 @@ function TagsSelect() {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between rounded-md border px-3 py-2 text-left"
+        className="w-full flex items-center justify-between rounded-md border px-3 py-2 text-left bg-white dark:bg-gray-800"
       >
         <span className="truncate text-sm">{summary}</span>
-        {open ? <MdKeyboardArrowUp className="flex-shrink-0" /> : <MdKeyboardArrowDown className="flex-shrink-0" />}
+        {open ? (
+          <MdKeyboardArrowUp className="flex-shrink-0" />
+        ) : (
+          <MdKeyboardArrowDown className="flex-shrink-0" />
+        )}
       </button>
 
       {open && (

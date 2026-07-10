@@ -15,24 +15,40 @@
            focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-white;
   }
 
-  *, ::before, ::after {
+  *,
+  ::before,
+  ::after {
     @apply border-gray-200 dark:border-gray-700;
   }
 }
 
 @layer utilities {
   /* Override defaults for intentional deviations */
-  .text-muted    { @apply text-gray-500 dark:text-gray-400; }
-  .text-subtle   { @apply text-gray-400 dark:text-gray-500; }
+  .text-muted {
+    @apply text-gray-500 dark:text-gray-400;
+  }
+  .text-subtle {
+    @apply text-gray-400 dark:text-gray-500;
+  }
 
   /* Surfaces */
-  .bg-surface    { @apply bg-white dark:bg-gray-800; }
+  .bg-surface {
+    @apply bg-white dark:bg-gray-800;
+  }
 
   /* Borders */
-  .border-default { @apply border-gray-200 dark:border-gray-700; }
-  .border-input   { @apply border-gray-300 dark:border-gray-600; }
+  .border-default {
+    @apply border-gray-200 dark:border-gray-700;
+  }
+  .border-input {
+    @apply border-gray-300 dark:border-gray-600;
+  }
 
   /* Interactive */
-  .hover-surface  { @apply hover:bg-gray-50 dark:hover:bg-gray-800; }
-  .focus-ring     { @apply focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-white; }
+  .hover-surface {
+    @apply hover:bg-gray-50 dark:hover:bg-gray-800;
+  }
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-white;
+  }
 }

@@ -18,7 +18,8 @@ async function searchManga(title: string): Promise<MangadexSearchResult | null> 
   if (!json.data.length) return null;
 
   const result = json.data[0];
-  const title_en = result.attributes.title["en"] ?? Object.values(result.attributes.title)[0] ?? "Unknown";
+  const title_en =
+    result.attributes.title["en"] ?? Object.values(result.attributes.title)[0] ?? "Unknown";
 
   return { id: result.id, title: title_en };
 }

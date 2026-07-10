@@ -4,6 +4,7 @@ import { MdClose } from "react-icons/md";
 import { getCovers, searchManga } from "@/api/mangadex";
 import type { MangadexCover } from "@/api/mangadex";
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
+import { Strings, translate } from "@/constants/strings";
 
 interface PropTypes {
   title: string;
@@ -24,14 +25,14 @@ function CoverPickerModal({ title, onClose }: PropTypes) {
       try {
         const result = await searchManga(title);
         if (!result) {
-          setError("No matching title found on MangaDex.");
+          setError(Strings.coverPicker.noMatch);
           return;
         }
         setMatchedTitle(result.title);
         const fetched = await getCovers(result.id);
         setCovers(fetched);
       } catch {
-        setError("Couldn't load covers from MangaDex.");
+        setError(Strings.coverPicker.error);
       } finally {
         setIsLoading(false);
       }
@@ -55,9 +56,11 @@ function CoverPickerModal({ title, onClose }: PropTypes) {
       <div className="relative bg-surface rounded-lg shadow-xl w-full max-w-3xl max-h-[80vh] flex flex-col mx-4">
         <div className="flex items-center justify-between px-4 py-3 border-b border-default flex-shrink-0">
           <div className="flex flex-col">
-            <span className="font-medium">Choose cover image</span>
+            <span className="font-medium">{Strings.coverPicker.title}</span>
             {matchedTitle && (
-              <span className="text-xs text-muted">Showing covers for: {matchedTitle}</span>
+              <span className="text-xs text-muted">
+                {translate(Strings.coverPicker.matchedTitle, { title: matchedTitle })}
+              </span>
             )}
           </div>
 
@@ -69,7 +72,7 @@ function CoverPickerModal({ title, onClose }: PropTypes) {
                 onChange={(e) => setShowAllLocales(e.target.checked)}
                 className="h-4 w-4 rounded border accent-gray-900 dark:accent-white"
               />
-              Show all regions
+              {Strings.coverPicker.showAllRegions}
             </label>
 
             <button
@@ -85,16 +88,16 @@ function CoverPickerModal({ title, onClose }: PropTypes) {
 
         <div className="overflow-y-auto p-4 flex-1">
           {isLoading && (
-            <p className="text-sm text-muted text-center py-8">Loading covers...</p>
+            <p className="text-sm text-muted text-center py-8">{Strings.coverPicker.loading}</p>
           )}
 
-          {error && (
-            <p className="text-sm text-red-500 text-center py-8">{error}</p>
-          )}
+          {error && <p className="text-sm text-red-500 text-center py-8">{error}</p>}
 
           {!isLoading && !error && displayed.length === 0 && (
             <p className="text-sm text-muted text-center py-8">
-              No covers found{!showAllLocales ? " for Japanese region — try showing all regions" : ""}.
+              {showAllLocales
+                ? Strings.coverPicker.noResults
+                : Strings.coverPicker.noResultsJapanese}
             </p>
           )}
 
@@ -114,7 +117,7 @@ function CoverPickerModal({ title, onClose }: PropTypes) {
                   />
                   {cover.volume && (
                     <span className="text-xs text-muted text-center w-full truncate">
-                      Vol. {cover.volume}
+                      {translate(Strings.coverPicker.volumeLabel, { n: cover.volume })}
                     </span>
                   )}
                 </button>

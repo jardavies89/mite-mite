@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import { useAnilistSearch } from "@/components/admin";
 import { SearchResultListItem } from "@/components/admin/new_entry";
+import { useAnilistSearch } from "@/components/admin/hooks/use_anilist_search";
 
 import { TextInput } from "@/components/shared/form_fields/text_input";
 import { Strings } from "@/constants/strings";

@@ -7,10 +7,14 @@ import { useNewEntryContext } from "@/components/admin/context/new_entry_context
 
 function mapAnilistStatus(status: string | null): Status | null {
   switch (status) {
-    case "FINISHED": return Status.Finished;
-    case "RELEASING": return Status.Ongoing;
-    case "HIATUS": return Status.Paused;
-    default: return null;
+    case "FINISHED":
+      return Status.Finished;
+    case "RELEASING":
+      return Status.Ongoing;
+    case "HIATUS":
+      return Status.Paused;
+    default:
+      return null;
   }
 }
 
@@ -20,7 +24,7 @@ function NewEntryImporter() {
 
   useEffect(() => {
     if (data) {
-      // TODO:L Move this to a cleaner spot.
+      // TODO: Move this to a cleaner spot.
       const primaryTitle = data.title.english ?? data.title.romaji;
       const alternateTitles: string[] = [...Object.values(data.title)].filter(
         (title): title is string => !!title && title !== primaryTitle,

@@ -9,7 +9,14 @@ interface PropTypes {
   rows?: number;
 }
 
-function TextareaInput({ currentValue, label, id, onChange, placeholder = "", rows = 4 }: PropTypes) {
+function TextareaInput({
+  currentValue,
+  label,
+  id,
+  onChange,
+  placeholder = "",
+  rows = 4,
+}: PropTypes) {
   return (
     <>
       <label htmlFor={id}>{label}</label>

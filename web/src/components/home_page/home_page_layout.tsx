@@ -20,9 +20,7 @@ function HomePage() {
     <PageLayout>
       <div className={wrapperClassNames}>
         <div className="flex items-center justify-between mb-2">
-          <Typography variant="h2">
-            {Strings.home.title}
-          </Typography>
+          <Typography variant="h2">{Strings.home.title}</Typography>
 
           {isAdmin && (
             <Link

@@ -16,7 +16,11 @@ type CoverAttributes = {
 };
 
 type CoverResponse = {
-  data: Array<{ id: string; attributes: CoverAttributes; relationships: Array<{ id: string; type: string }> }>;
+  data: Array<{
+    id: string;
+    attributes: CoverAttributes;
+    relationships: Array<{ id: string; type: string }>;
+  }>;
 };
 
 async function getCovers(mangadexId: string): Promise<MangadexCover[]> {

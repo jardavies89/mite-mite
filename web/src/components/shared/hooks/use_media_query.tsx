@@ -10,9 +10,7 @@ function getMatches(query: string): boolean {
 }
 
 function useMediaQuery(): { isMobileBreakpoint: boolean } {
-  const [isMobileBreakpoint, setIsMobileBreakpoint] = useState(() =>
-    getMatches(MOBILE_BREAKPOINT),
-  );
+  const [isMobileBreakpoint, setIsMobileBreakpoint] = useState(() => getMatches(MOBILE_BREAKPOINT));
 
   useEffect(() => {
     const matchMedia = window.matchMedia(MOBILE_BREAKPOINT);

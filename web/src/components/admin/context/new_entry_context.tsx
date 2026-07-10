@@ -1,8 +1,12 @@
 import { createContext, useContext, useState } from "react";
 
-import type { FranchiseOption } from "@/components/admin/forms/franchise_picker";
 import { Genres, Medium, Status } from "@/constants/types";
 import type { Tags } from "@/constants/types";
+
+export type FranchiseOption = {
+  id: string;
+  name: string;
+};
 
 export type ReferenceLink = {
   category: "read" | "buy" | "watch";

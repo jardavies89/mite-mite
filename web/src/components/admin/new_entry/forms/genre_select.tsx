@@ -25,9 +25,7 @@ function GenreSelect() {
   }, []);
 
   function toggle(genre: Genres) {
-    const next = genres.includes(genre)
-      ? genres.filter((g) => g !== genre)
-      : [...genres, genre];
+    const next = genres.includes(genre) ? genres.filter((g) => g !== genre) : [...genres, genre];
     updateEntryDraft({ genres: next });
   }
 
@@ -40,10 +38,14 @@ function GenreSelect() {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between rounded-md border px-3 py-2 text-left"
+        className="w-full flex items-center justify-between rounded-md border px-3 py-2 text-left bg-white dark:bg-gray-800"
       >
         <span className="truncate text-sm">{summary}</span>
-        {open ? <MdKeyboardArrowUp className="flex-shrink-0" /> : <MdKeyboardArrowDown className="flex-shrink-0" />}
+        {open ? (
+          <MdKeyboardArrowUp className="flex-shrink-0" />
+        ) : (
+          <MdKeyboardArrowDown className="flex-shrink-0" />
+        )}
       </button>
 
       {open && (
