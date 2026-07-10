@@ -1,0 +1,22 @@
+mutation CreateEntry($input: CreateEntryInput!) {
+  createEntry(input: $input) {
+    alternateTitles
+    comments
+    coverImageUrl
+    createdAt
+    description
+    franchise {
+      id
+      primaryTitle
+    }
+    genres
+    id
+    medium
+    primaryTitle
+    referenceUrl
+    staff
+    status
+    tags
+    updatedAt
+  }
+}
