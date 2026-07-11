@@ -53,7 +53,9 @@ export const Strings = {
     noMatch: "No matching title found on MangaDex.",
   },
   newEntry: {
+    createEntry: "Create entry",
     noResults: "No results found.",
+    resetForm: "Reset form",
     searchError: "Search is temporarily unavailable.",
     searching: "Searching...",
     searchTitle: "Search by title",

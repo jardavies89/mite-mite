@@ -64,7 +64,7 @@ function NewEntryImporter() {
 
   if (data) {
     // TODO: Branching for different mediums, just manga for now
-    return <NewEntryForm onResetClicked={onReset} />;
+    return <NewEntryForm />;
   }
 
   // TODO: Add a media type picker (manga, anime, books, ect)

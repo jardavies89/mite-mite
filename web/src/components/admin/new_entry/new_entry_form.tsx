@@ -13,14 +13,28 @@ import { TextareaInput } from "@/components/shared/form_fields/textarea_input";
 import { CoverPickerModal } from "@/components/admin/new_entry/cover_picker_modal";
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
 import { Strings } from "@/constants/strings";
+import { Button } from "@material-tailwind/react";
 
-interface PropTypes {
-  onResetClicked: () => void;
-}
-
-function NewEntryForm({ onResetClicked }: PropTypes) {
+function NewEntryForm() {
   const { newEntryDraft, updateEntryDraft } = useNewEntryContext();
   const [coverPickerOpen, setCoverPickerOpen] = useState(false);
+  const [showRequiredError, setShowRequiredError] = useState(false);
+
+  function onSubmitClicked() {
+    const { franchiseId, newFranchiseName } = newEntryDraft;
+    const hasFranchiseInfo = franchiseId.length > 0 || newFranchiseName.length > 0;
+
+    console.log(hasFranchiseInfo);
+
+    if (!hasFranchiseInfo) {
+      setShowRequiredError(true);
+      return;
+    }
+
+    setShowRequiredError(false);
+    // then call mutation
+    // then redirect to the details page
+  }
 
   function onTitleChanged(event: ChangeEvent<HTMLInputElement>) {
     updateEntryDraft({ primaryTitle: event.target.value });
@@ -104,6 +118,20 @@ function NewEntryForm({ onResetClicked }: PropTypes) {
           </div>
         </div>
       </div>
+
+      <div className="flex flex-row gap-4 justify-end mt-4">
+        <Button variant="text" color="white" onClick={() => window.location.reload()}>
+          {Strings.newEntry.resetForm}
+        </Button>
+
+        <Button color="blue" onClick={onSubmitClicked}>
+          {Strings.newEntry.createEntry}
+        </Button>
+      </div>
+
+      {showRequiredError && (
+        <p className="text-center text-red-600">Entries need a primary title and franchise.</p>
+      )}
 
       {coverPickerOpen && (
         <CoverPickerModal

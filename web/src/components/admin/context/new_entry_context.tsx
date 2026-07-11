@@ -20,9 +20,10 @@ export type NewEntryFormState = {
   comments: string;
   coverImageUrl: string;
   description: string;
-  franchise: FranchiseOption | null;
+  franchiseId: string;
   genres: Genres[];
   medium: Medium | null;
+  newFranchiseName: string;
   primaryTitle: string;
   referenceLinks: ReferenceLink[];
   staff: string[];
@@ -37,9 +38,10 @@ const INITIAL_STATE: NewEntryFormState = {
   comments: "",
   coverImageUrl: "",
   description: "",
-  franchise: null,
+  franchiseId: "",
   genres: [],
   medium: null,
+  newFranchiseName: "",
   primaryTitle: "",
   referenceLinks: [],
   staff: [],
