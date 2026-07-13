@@ -57,7 +57,16 @@ export const EntryService = {
       })
       .returning();
 
-    return rows[0];
+    const entry = rows[0];
+
+    if (franchiseId && entry) {
+      const franchise = await FranchiseService.getFranchise(franchiseId);
+      if (franchise && !franchise.primaryEntryId) {
+        await FranchiseService.setPrimaryEntry(franchiseId, entry.id);
+      }
+    }
+
+    return entry;
   },
 
   async deleteEntry(id: number) {

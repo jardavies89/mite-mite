@@ -27,6 +27,15 @@ export const FranchiseService = {
     return rows[0];
   },
 
+  async setPrimaryEntry(franchiseId: number, entryId: number) {
+    const rows = await db
+      .update(franchises)
+      .set({ primaryEntryId: entryId })
+      .where(eq(franchises.id, franchiseId))
+      .returning();
+    return rows[0];
+  },
+
   async deleteFranchise(id: number) {
     const entryRows = await db.select().from(entries).where(eq(entries.franchiseId, id));
 

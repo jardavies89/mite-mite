@@ -64,6 +64,7 @@ input CreateFranchiseInput {
 type Query {
   entries: [Entry!]!
   entry(id: ID!): Entry
+  franchise(id: ID!): Franchise
   franchises(search: String): [Franchise!]!
 }
 

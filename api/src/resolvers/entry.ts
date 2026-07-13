@@ -36,6 +36,7 @@ export const entryResolvers = {
       ctx: ApolloContext,
     ) => {
       requireAdmin(ctx);
+      console.log("[createEntry input]", JSON.stringify(input));
       return mapEntry(await EntryService.createEntry(input))!;
     },
     deleteEntry: async (_: unknown, { id }: { id: string }, ctx: ApolloContext) => {
@@ -46,8 +47,10 @@ export const entryResolvers = {
 
   Entry: {
     franchise: async (entry: { franchiseId: number | null }) => {
+      console.log("[franchise resolver] entry.franchiseId:", entry.franchiseId);
       if (!entry.franchiseId) return null;
       const f = await FranchiseService.getFranchise(entry.franchiseId);
+      console.log("[franchise resolver] getFranchise result:", f);
       if (!f) return null;
       return { ...f, primaryTitle: f.title };
     },

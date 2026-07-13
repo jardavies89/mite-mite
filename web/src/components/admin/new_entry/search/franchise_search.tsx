@@ -1,7 +1,7 @@
 import { useState } from "react";
 import classNames from "classnames";
 
-import { useGetFranchises, type Franchise } from "@/api/mite_mite";
+import { useGetFranchises } from "@/api/mite_mite";
 
 import { TextInput } from "@/components/shared/form_fields/text_input";
 import { Strings } from "@/constants/strings";

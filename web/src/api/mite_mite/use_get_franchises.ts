@@ -4,11 +4,6 @@ import { useQuery } from "@apollo/client/react";
 
 import getFranchisesQuery from "@/api/mite_mite/graphql/franchises.graphql?raw";
 
-interface Franchise {
-  id: string;
-  primaryTitle: string;
-}
-
 type GetFranchisesData = { franchises: Franchise[] };
 type GetFranchisesVars = { search?: string };
 
@@ -54,5 +49,4 @@ function useGetFranchises(query: string): SearchState {
   };
 }
 
-export type { Franchise };
 export { useGetFranchises };

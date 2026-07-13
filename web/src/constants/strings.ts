@@ -35,6 +35,7 @@ export const Strings = {
     genres: "Genres",
     primaryTitle: "Primary title",
     removeAlternateTitle: "Remove alternate title",
+    referenceUrl: "Reference URL",
     removeStaffMember: "Remove staff member",
     staff: "Staff",
     status: "Status",

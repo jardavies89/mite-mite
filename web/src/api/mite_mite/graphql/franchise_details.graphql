@@ -1,0 +1,20 @@
+query GetFranchiseDetails($id: ID!) {
+  franchise(id: $id) {
+    id
+    primaryTitle
+    entries {
+      alternateTitles
+      comments
+      coverImageUrl
+      description
+      genres
+      id
+      medium
+      primaryTitle
+      referenceUrl
+      staff
+      status
+      tags
+    }
+  }
+}

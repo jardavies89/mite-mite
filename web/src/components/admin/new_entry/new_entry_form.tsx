@@ -1,5 +1,6 @@
 import type { ChangeEvent } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { FranchiseSelector } from "@/components/admin/new_entry";
 import { AlternateTitles } from "@/components/admin/new_entry/alternate_titles";
@@ -14,17 +15,32 @@ import { CoverPickerModal } from "@/components/admin/new_entry/cover_picker_moda
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
 import { Strings } from "@/constants/strings";
 import { Button } from "@material-tailwind/react";
+import { useCreateEntry } from "@/api/mite_mite";
 
 function NewEntryForm() {
   const { newEntryDraft, updateEntryDraft } = useNewEntryContext();
   const [coverPickerOpen, setCoverPickerOpen] = useState(false);
   const [showRequiredError, setShowRequiredError] = useState(false);
+  const { createEntry } = useCreateEntry();
+  const navigate = useNavigate();
 
-  function onSubmitClicked() {
-    const { franchiseId, newFranchiseName } = newEntryDraft;
+  async function onSubmitClicked() {
+    const {
+      alternateTitles,
+      comments,
+      coverImageUrl,
+      description,
+      franchiseId,
+      genres,
+      medium,
+      newFranchiseName,
+      primaryTitle,
+      referenceUrl,
+      staff,
+      status,
+      tags,
+    } = newEntryDraft;
     const hasFranchiseInfo = franchiseId.length > 0 || newFranchiseName.length > 0;
-
-    console.log(hasFranchiseInfo);
 
     if (!hasFranchiseInfo) {
       setShowRequiredError(true);
@@ -32,8 +48,26 @@ function NewEntryForm() {
     }
 
     setShowRequiredError(false);
-    // then call mutation
-    // then redirect to the details page
+
+    const result = await createEntry({
+      alternateTitles,
+      comments,
+      coverImageUrl,
+      description,
+      franchiseId: franchiseId || undefined,
+      newFranchiseName: newFranchiseName || undefined,
+      genres,
+      //@ts-expect-error medium won't actually be nullable at this stage.
+      medium,
+      primaryTitle,
+      referenceUrl,
+      staff,
+      status,
+      tags,
+    });
+
+    const createdFranchiseId = result.data?.createEntry.franchise?.id;
+    if (createdFranchiseId) navigate(`/series/${createdFranchiseId}`);
   }
 
   function onTitleChanged(event: ChangeEvent<HTMLInputElement>) {
@@ -50,9 +84,9 @@ function NewEntryForm() {
 
   return (
     <div className="flex flex-col gap-4 pb-8">
-      {newEntryDraft.anilistUrl && (
+      {newEntryDraft.referenceUrl && (
         <a
-          href={newEntryDraft.anilistUrl}
+          href={newEntryDraft.referenceUrl}
           target="_blank"
           rel="noreferrer"
           className="self-start text-sm text-blue-600 dark:text-blue-400 underline hover:no-underline"
