@@ -27,7 +27,7 @@ export const Strings = {
     addStaffMember: "Add staff member",
     alternateTitleLabel: "Alternate title %{n}",
     alternateTitles: "Alternate titles",
-    anilistSource: "View on AniList",
+    anilistSource: "Sourced from AniList",
     chooseCover: "Choose cover image",
     comments: "Comments",
     description: "Description",
