@@ -4,3 +4,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+p,
+li {
+  font-weight: 300;
+}

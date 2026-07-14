@@ -7,9 +7,9 @@ enum Medium {
 }
 
 enum Status {
-  FINISHED
-  ONGOING
-  PAUSED
+  Completed
+  Ongoing
+  Paused
 }
 
 type Entry {

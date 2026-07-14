@@ -5,22 +5,22 @@ interface PropTypes {
   entry: Entry;
 }
 
-function AlternateTitles({ entry }: PropTypes) {
-  if (entry.alternateTitles.length === 0) return null;
+function GenresSection({ entry }: PropTypes) {
+  if (entry.genres.length === 0) return null;
 
   return (
     <div>
       <Typography variant="h2" className="text-lg m-0">
-        {Strings.entry.alternateTitles}
+        {Strings.entry.genres}
       </Typography>
 
       <ul className="flex flex-wrap gap-1 list-none list--comma-separated">
-        {entry.alternateTitles.map((altTitle) => (
-          <li key={altTitle}>{altTitle}</li>
+        {entry.genres.map((genre) => (
+          <li key={genre}>{genre}</li>
         ))}
       </ul>
     </div>
   );
 }
 
-export { AlternateTitles };
+export { GenresSection };

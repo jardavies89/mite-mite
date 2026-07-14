@@ -7,8 +7,8 @@ import { useNewEntryContext } from "@/components/admin/context/new_entry_context
 
 function mapAnilistStatus(status: string | null): Status {
   switch (status) {
-    case "FINISHED":
-      return Status.Finished;
+    case "COMPLETED":
+      return Status.Completed;
     case "HIATUS":
       return Status.Paused;
     case "RELEASING":

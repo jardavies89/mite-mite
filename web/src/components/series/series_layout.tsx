@@ -1,7 +1,13 @@
 import { Typography } from "@material-tailwind/react";
 import Markdown from "react-markdown";
 
-import { AlternateTitles } from "@/components/series";
+import {
+  AlternateTitles,
+  GenresSection,
+  StaffSection,
+  StatusSection,
+  TagsSection,
+} from "@/components/series";
 import { Strings } from "@/constants/strings";
 
 interface PropTypes {
@@ -15,11 +21,15 @@ function SeriesLayout({ entry }: PropTypes) {
         <img alt="cover" src={entry.coverImageUrl} className="w-64 rounded" />
 
         <div className="flex flex-col gap-4 w-full">
-          <Typography variant="h1" className="mb-6">
+          <Typography variant="h1" className="text-3xl m-0">
             {entry.primaryTitle}
           </Typography>
 
           <AlternateTitles entry={entry} />
+          <StaffSection entry={entry} />
+          <GenresSection entry={entry} />
+          <TagsSection entry={entry} />
+          <StatusSection entry={entry} />
         </div>
       </div>
 

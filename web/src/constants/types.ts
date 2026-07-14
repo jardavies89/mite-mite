@@ -67,6 +67,7 @@ const NarrativeTags = {
   Conspiracy: "Conspiracy",
   CourtIntrigue: "Court Intrigue",
   FoundFamily: "Found Family",
+  LoreHeavy: "Lore Heavy",
   MartialArts: "Martial Arts",
   OrganizedCrime: "Organized Crime",
   PerformingArts: "Performing Arts",
@@ -99,9 +100,9 @@ type ContentWarningTags = (typeof ContentWarningTags)[keyof typeof ContentWarnin
 type Tags = SubGenreTags | NarrativeTags | DemographicTags | ContentWarningTags;
 
 const Status = {
-  Finished: "FINISHED",
-  Ongoing: "ONGOING",
-  Paused: "PAUSED",
+  Completed: "Completed",
+  Ongoing: "Ongoing",
+  Paused: "Paused",
 } as const;
 type Status = (typeof Status)[keyof typeof Status];
 
