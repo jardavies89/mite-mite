@@ -1,4 +1,6 @@
 import { Typography } from "@material-tailwind/react";
+
+import { Chip } from "@/components/shared/chip";
 import { Strings } from "@/constants/strings";
 
 interface PropTypes {
@@ -14,11 +16,11 @@ function TagsSection({ entry }: PropTypes) {
         {Strings.entry.tags}
       </Typography>
 
-      <ul className="flex flex-wrap gap-1 list-none list--comma-separated">
+      <div className="flex flex-wrap gap-2 mt-2">
         {entry.tags.map((tag) => (
-          <li key={tag}>{tag}</li>
+          <Chip key={tag} label={tag} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
