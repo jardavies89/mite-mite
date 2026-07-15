@@ -7,9 +7,9 @@ enum Medium {
 }
 
 enum Status {
-  FINISHED
-  ONGOING
-  PAUSED
+  Completed
+  Ongoing
+  Paused
 }
 
 type Entry {
@@ -64,6 +64,7 @@ input CreateFranchiseInput {
 type Query {
   entries: [Entry!]!
   entry(id: ID!): Entry
+  franchise(id: ID!): Franchise
   franchises(search: String): [Franchise!]!
 }
 

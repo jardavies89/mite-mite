@@ -5,16 +5,15 @@ import { Genres, Medium, Status } from "@/constants/types";
 import { useAnilistMediaDetails } from "@/components/admin/hooks/use_anilist_media_details";
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
 
-function mapAnilistStatus(status: string | null): Status | null {
+function mapAnilistStatus(status: string | null): Status {
   switch (status) {
-    case "FINISHED":
-      return Status.Finished;
-    case "RELEASING":
-      return Status.Ongoing;
+    case "COMPLETED":
+      return Status.Completed;
     case "HIATUS":
       return Status.Paused;
+    case "RELEASING":
     default:
-      return null;
+      return Status.Ongoing;
   }
 }
 
@@ -36,23 +35,19 @@ function NewEntryImporter() {
         .filter((g): g is Genres => g !== undefined);
 
       updateEntryDraft({
-        anilistUrl: data.siteUrl,
         alternateTitles,
         coverImageUrl: data.coverImage.large || "",
         description: data.description || "",
         genres,
         medium: Medium.Manga,
         primaryTitle: primaryTitle || "",
+        referenceUrl: data.siteUrl || "",
         staff: data.staff.edges.slice(0, 5).map((e) => `${e.node.name.full} (${e.role})`),
         status: mapAnilistStatus(data.status),
         tags: data.tags.map((t) => t.name),
       });
     }
   }, [data]);
-
-  function onReset() {
-    // TODO: reset the form state and show the picker + search again.
-  }
 
   async function onMangaSelected(result: MangaSearchResult) {
     return getMediaDetails(result.id);
@@ -64,7 +59,7 @@ function NewEntryImporter() {
 
   if (data) {
     // TODO: Branching for different mediums, just manga for now
-    return <NewEntryForm onResetClicked={onReset} />;
+    return <NewEntryForm />;
   }
 
   // TODO: Add a media type picker (manga, anime, books, ect)

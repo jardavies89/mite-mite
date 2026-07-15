@@ -32,6 +32,7 @@ APIs that require no authentication (e.g. AniList) should be called directly fro
 them through the api adds latency and boilerplate with no security benefit.
 
 **`web/src/api/`**: browser-side API clients.
+
 - `graphql_client.ts` — generic `gqlQuery` helper for calls to our own Apollo Server.
 - Third-party API integrations live in named subdirectories (e.g. `anilist/`). Each subdirectory
   contains individual operation files (e.g. `search.ts`), a `graphql/` folder for query files, and
@@ -71,7 +72,7 @@ The api has a matching `src/@types/` for the same purpose.
 
 **Array columns**: `tags`, `genres`, `staff`, and `alt_titles` are stored as `text[]` directly on `entries`. There are no lookup tables for these — all validation and grouping logic lives in the React app.
 
-**Franchise cascade deletes**: deleting a franchise should also delete its entries, but this is enforced in the service layer rather than via a DB `CASCADE` constraint. The circular FK between `franchises.primary_entry_id` and `entries.franchise_id` makes a DB-level cascade impractical; handle it explicitly in the `FranchiseService`.
+**Franchise cascade deletes**: deleting a franchise should also delete its entries, but this is enforced in the service layer rather than via a DB `CASCADE` constraint. The circular FK between `franchises.primary_entry_id` and `entries.franchise_id` makes a DB-level cascade impractical; handle it explicitly in the `FranchiseService`. in non-admin views and copy, we refer to a franchise as a series.
 
 ## Development
 
@@ -113,10 +114,9 @@ exported from the same file:
 
 ```ts
 // strings.ts
-volumeLabel: "Vol. %{n}",
-
-// component
-translate(Strings.coverPicker.volumeLabel, { n: cover.volume })
+volumeLabel: ("Vol. %{n}",
+  // component
+  translate(Strings.coverPicker.volumeLabel, { n: cover.volume }));
 ```
 
 **File naming**: all source files use `snake_case` (e.g. `entry_form.tsx`, `use_media_query.tsx`).

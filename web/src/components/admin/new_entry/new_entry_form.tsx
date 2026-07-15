@@ -1,5 +1,6 @@
 import type { ChangeEvent } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { FranchiseSelector } from "@/components/admin/new_entry";
 import { AlternateTitles } from "@/components/admin/new_entry/alternate_titles";
@@ -13,14 +14,61 @@ import { TextareaInput } from "@/components/shared/form_fields/textarea_input";
 import { CoverPickerModal } from "@/components/admin/new_entry/cover_picker_modal";
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
 import { Strings } from "@/constants/strings";
+import { Button } from "@material-tailwind/react";
+import { useCreateEntry } from "@/api/mite_mite";
 
-interface PropTypes {
-  onResetClicked: () => void;
-}
-
-function NewEntryForm({ onResetClicked }: PropTypes) {
+function NewEntryForm() {
   const { newEntryDraft, updateEntryDraft } = useNewEntryContext();
   const [coverPickerOpen, setCoverPickerOpen] = useState(false);
+  const [showRequiredError, setShowRequiredError] = useState(false);
+  const { createEntry } = useCreateEntry();
+  const navigate = useNavigate();
+
+  async function onSubmitClicked() {
+    const {
+      alternateTitles,
+      comments,
+      coverImageUrl,
+      description,
+      franchiseId,
+      genres,
+      medium,
+      newFranchiseName,
+      primaryTitle,
+      referenceUrl,
+      staff,
+      status,
+      tagIds,
+    } = newEntryDraft;
+    const hasFranchiseInfo = franchiseId.length > 0 || newFranchiseName.length > 0;
+
+    if (!hasFranchiseInfo) {
+      setShowRequiredError(true);
+      return;
+    }
+
+    setShowRequiredError(false);
+
+    const result = await createEntry({
+      alternateTitles,
+      comments,
+      coverImageUrl,
+      description,
+      franchiseId: franchiseId || undefined,
+      newFranchiseName: newFranchiseName || undefined,
+      genres,
+      //@ts-expect-error medium won't actually be nullable at this stage.
+      medium,
+      primaryTitle,
+      referenceUrl,
+      staff,
+      status,
+      tags: tagIds,
+    });
+
+    const createdFranchiseId = result.data?.createEntry.franchise?.id;
+    if (createdFranchiseId) navigate(`/series/${createdFranchiseId}`);
+  }
 
   function onTitleChanged(event: ChangeEvent<HTMLInputElement>) {
     updateEntryDraft({ primaryTitle: event.target.value });
@@ -36,9 +84,9 @@ function NewEntryForm({ onResetClicked }: PropTypes) {
 
   return (
     <div className="flex flex-col gap-4 pb-8">
-      {newEntryDraft.anilistUrl && (
+      {newEntryDraft.referenceUrl && (
         <a
-          href={newEntryDraft.anilistUrl}
+          href={newEntryDraft.referenceUrl}
           target="_blank"
           rel="noreferrer"
           className="self-start text-sm text-blue-600 dark:text-blue-400 underline hover:no-underline"
@@ -104,6 +152,20 @@ function NewEntryForm({ onResetClicked }: PropTypes) {
           </div>
         </div>
       </div>
+
+      <div className="flex flex-row gap-4 justify-end mt-4">
+        <Button variant="text" color="white" onClick={() => window.location.reload()}>
+          {Strings.newEntry.resetForm}
+        </Button>
+
+        <Button color="blue" onClick={onSubmitClicked}>
+          {Strings.newEntry.createEntry}
+        </Button>
+      </div>
+
+      {showRequiredError && (
+        <p className="text-center text-red-600">Entries need a primary title and franchise.</p>
+      )}
 
       {coverPickerOpen && (
         <CoverPickerModal

@@ -15,35 +15,37 @@ export type ReferenceLink = {
 };
 
 export type NewEntryFormState = {
-  anilistUrl: string | null;
   alternateTitles: string[];
   comments: string;
   coverImageUrl: string;
   description: string;
-  franchise: FranchiseOption | null;
+  franchiseId: string;
   genres: Genres[];
   medium: Medium | null;
+  newFranchiseName: string;
   primaryTitle: string;
   referenceLinks: ReferenceLink[];
+  referenceUrl: string;
   staff: string[];
-  status: Status | null;
+  status: Status;
   tagIds: Tags[];
   tags: string[];
 };
 
 const INITIAL_STATE: NewEntryFormState = {
-  anilistUrl: null,
   alternateTitles: [],
   comments: "",
   coverImageUrl: "",
   description: "",
-  franchise: null,
+  franchiseId: "",
   genres: [],
   medium: null,
+  newFranchiseName: "",
   primaryTitle: "",
   referenceLinks: [],
+  referenceUrl: "",
   staff: [],
-  status: null,
+  status: Status.Ongoing,
   tagIds: [],
   tags: [],
 };

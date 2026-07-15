@@ -4,6 +4,7 @@ import { MdClose } from "react-icons/md";
 import { getCovers, searchManga } from "@/api/mangadex";
 import type { MangadexCover } from "@/api/mangadex";
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
+import { CoverImage } from "@/components/shared/cover_image";
 import { Strings, translate } from "@/constants/strings";
 
 interface PropTypes {
@@ -110,10 +111,9 @@ function CoverPickerModal({ title, onClose }: PropTypes) {
                   onClick={() => onSelect(cover)}
                   className="flex flex-col gap-1 group"
                 >
-                  <img
-                    src={cover.thumbUrl}
-                    alt={cover.volume ? `Volume ${cover.volume}` : "Cover"}
-                    className="w-full rounded border border-default group-hover:border-gray-500 dark:group-hover:border-gray-300 transition-colors object-cover"
+                  <CoverImage
+                    coverUrl={cover.thumbUrl}
+                    title={cover.volume ? `Volume ${cover.volume}` : "Cover"}
                   />
                   {cover.volume && (
                     <span className="text-xs text-muted text-center w-full truncate">
