@@ -10,23 +10,18 @@ type GetFranchisesVars = { search?: string };
 const GET_FRANCHISES: TypedDocumentNode<GetFranchisesData, GetFranchisesVars> =
   gql(getFranchisesQuery);
 
-type SearchState = {
+type FranchisesState = {
   results: Franchise[];
   isLoading: boolean;
   error: string | null;
 };
 
-function useGetFranchises(query: string): SearchState {
+function useGetFranchises(query: string = ""): FranchisesState {
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
-
-    if (query.trim().length < 2) {
-      setDebouncedQuery("");
-      return;
-    }
 
     debounceRef.current = setTimeout(() => {
       setDebouncedQuery(query.trim());
@@ -38,8 +33,7 @@ function useGetFranchises(query: string): SearchState {
   }, [query]);
 
   const { data, loading, error } = useQuery(GET_FRANCHISES, {
-    variables: { search: debouncedQuery },
-    skip: debouncedQuery.length < 2,
+    variables: debouncedQuery ? { search: debouncedQuery } : {},
   });
 
   return {

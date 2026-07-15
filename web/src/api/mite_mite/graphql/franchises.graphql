@@ -2,5 +2,8 @@ query GetFranchises($search: String) {
   franchises(search: $search) {
     id
     primaryTitle
+    entries {
+      coverImageUrl
+    }
   }
 }

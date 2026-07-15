@@ -6,6 +6,10 @@
   max-width: 50rem;
 }
 
+.max-width--70 {
+  max-width: 70rem;
+}
+
 .px-16 {
   padding-left: 4rem;
   padding-right: 4rem;

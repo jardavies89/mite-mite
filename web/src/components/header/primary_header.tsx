@@ -1,6 +1,7 @@
 import classNames from "classnames";
 
 import { ThemeToggle } from "@/components/header";
+import { Button } from "@material-tailwind/react";
 
 function PrimaryHeader() {
   const headerClasses = classNames(
@@ -12,7 +13,17 @@ function PrimaryHeader() {
 
   return (
     <header className={headerClasses}>
-      <ThemeToggle />
+      <div>
+        <a href="/">
+          <Button variant="text" color="white">
+            Home
+          </Button>
+        </a>
+      </div>
+
+      <div>
+        <ThemeToggle />
+      </div>
     </header>
   );
 }
