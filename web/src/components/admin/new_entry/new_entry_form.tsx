@@ -38,7 +38,7 @@ function NewEntryForm() {
       referenceUrl,
       staff,
       status,
-      tags,
+      tagIds,
     } = newEntryDraft;
     const hasFranchiseInfo = franchiseId.length > 0 || newFranchiseName.length > 0;
 
@@ -63,7 +63,7 @@ function NewEntryForm() {
       referenceUrl,
       staff,
       status,
-      tags,
+      tags: tagIds,
     });
 
     const createdFranchiseId = result.data?.createEntry.franchise?.id;
