@@ -1,10 +1,8 @@
-import { AlternateTitles } from "./fields/alternate_titles";
+import { ChipList } from "./fields/chip_list";
+import { TextList } from "./fields/text_list";
 import { SeriesDetailsPage } from "./series_details_page";
-import { GenresSection } from "./fields/genres_section";
-import { StaffSection } from "./fields/staff_section";
 import { StatusSection } from "./fields/status_section";
-import { TagsSection } from "./fields/tags_section";
 
-export { AlternateTitles, GenresSection, StaffSection, StatusSection, TagsSection };
+export { ChipList, TextList, StatusSection };
 
 export default SeriesDetailsPage;

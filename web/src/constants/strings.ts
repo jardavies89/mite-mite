@@ -20,7 +20,7 @@ export const Strings = {
   home: {
     title: "みてみて!",
     addEntry: "Add entry",
-    emptyState: "No entries yet. Add one to get started.",
+    emptyState: "No series match your search criteria.",
   },
   entry: {
     addAlternateTitle: "Add alternate title",

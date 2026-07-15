@@ -1,13 +1,7 @@
 import { Typography } from "@material-tailwind/react";
 import Markdown from "react-markdown";
 
-import {
-  AlternateTitles,
-  GenresSection,
-  StaffSection,
-  StatusSection,
-  TagsSection,
-} from "@/components/series";
+import { ChipList, TextList, StatusSection } from "@/components/series";
 import { Strings } from "@/constants/strings";
 
 interface PropTypes {
@@ -25,10 +19,10 @@ function SeriesLayout({ entry }: PropTypes) {
             {entry.primaryTitle}
           </Typography>
 
-          <AlternateTitles entry={entry} />
-          <StaffSection entry={entry} />
-          <GenresSection entry={entry} />
-          <TagsSection entry={entry} />
+          <TextList title={Strings.entry.alternateTitles} items={entry.alternateTitles} />
+          <TextList title={Strings.entry.staff} items={entry.staff} />
+          <ChipList title={Strings.entry.genres} items={entry.genres} />
+          <ChipList title={Strings.entry.tags} items={entry.tags} />
           <StatusSection entry={entry} />
         </div>
       </div>
