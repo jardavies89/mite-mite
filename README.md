@@ -4,14 +4,15 @@ I'm an avid manga fan and have read a ton over the years, and also find myself i
 
 ## Getting started
 
-**Prerequisites:** Node.js 20+, a [Neon](https://neon.tech) PostgreSQL database, and a free [TMDB API key](https://developer.themoviedb.org/docs/getting-started).
+**Prerequisites:** Node.js 22+, yarn, and a [Neon](https://neon.tech) PostgreSQL database (free tier is fine).
 
 **API**
 
 ```bash
 cd api
-cp .env.sample .env   # fill in DATABASE_URL, TMDB_API_KEY, ADMIN_SECRET
+cp .env.sample .env   # fill in DATABASE_URL (direct/non-pooled Neon URL), ADMIN_SECRET
 yarn install
+yarn db:generate      # generate migrations from the current schema (first run only)
 yarn dev              # starts Apollo Server at http://localhost:4100/graphql
 ```
 
@@ -19,10 +20,32 @@ yarn dev              # starts Apollo Server at http://localhost:4100/graphql
 
 ```bash
 cd web
-cp .env.sample .env   # fill in VITE_API_URL, VITE_ADMIN_SECRET
+cp .env.sample .env   # fill in VITE_API_URL (e.g. http://localhost:4100), VITE_ADMIN_SECRET
 yarn install
 yarn dev              # starts Vite dev server at http://localhost:4000
 ```
+
+## Deployment
+
+The app is hosted on [Render](https://render.com) via a Blueprint (`render.yaml` at the repo root):
+
+| Service | Type | Source |
+|---|---|---|
+| `mite-mite-api` | Web service (Node, free tier) | `api/` |
+| `mite-mite-web` | Static site (auto-CDN) | `web/` |
+
+DB migrations run automatically at API startup — no manual step needed on deploy.
+
+**Environment variables** (set in the Render dashboard, never committed):
+
+| Service | Variable | Notes |
+|---|---|---|
+| api | `DATABASE_URL` | Direct (non-pooled) Neon connection string with `?sslmode=require` |
+| web | `VITE_API_URL` | Base URL of the api service, e.g. `https://mite-mite-api.onrender.com` |
+
+`ADMIN_SECRET` and `VITE_ADMIN_SECRET` are intentionally omitted in production — the app runs read-only until admin auth is added (issue #13).
+
+**To run your own instance:** fork the repo, create a Render account, connect via Blueprint, and supply your own `DATABASE_URL`. No other provider-specific setup is needed — the app is a plain Node process and a static SPA.
 
 ## Tech goals
 

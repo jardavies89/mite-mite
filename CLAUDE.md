@@ -16,9 +16,10 @@ config isolated to environment variables) so someone else could run their own in
 - **API**: GraphQL served by Apollo Server on Node.js, mediating all communication between the frontend
   and the database.
 - **Database**: PostgreSQL, hosted on Neon.
-- **Hosting**: not yet finalized (candidates: Railway Hobby plan, or a decoupled setup e.g. Vercel for
-  the frontend). Target cost ceiling: ~$10/month, ~$5/month preferred — this is a hobby site, not a
-  full-featured platform or marketplace.
+- **Hosting**: Render — static site for the web (SPA, auto-CDN) and a web service for the API (Node.js,
+  free tier). Infrastructure defined in `render.yaml` at the repo root. Target cost: ~$0/month on the
+  free tier; upgrade to Render Hobby (~$7/month) if cold-start latency becomes a problem. Portable to
+  Railway if needed — the app is a plain Node process with no Render-specific features.
 - **Testing**: Jest. Functional/business logic (GraphQL resolvers, non-trivial React logic like data
   transforms and hooks) is developed test-first. Cosmetic changes and throwaway exploratory spikes are
   exempt.
@@ -68,7 +69,7 @@ The api has a matching `src/@types/` for the same purpose.
 
 **Schema location**: `api/src/db/schema.ts` is the single source of truth for the DB shape. Two tables: `franchises` and `entries`.
 
-**Schema management**: Use `yarn db:push` (in `api/`) during prototyping — it applies schema changes directly without generating a migration history. Once the schema stabilises, switch to `drizzle-kit generate` + `migrate` to build an audit trail from that point forward. Always use the **direct (non-pooled)** Neon connection string for both — never the PgBouncer/pooled URL.
+**Schema management**: The canonical workflow is `yarn db:generate` (in `api/`) + auto-migrate on deploy. To change the schema: edit `api/src/db/schema.ts`, run `yarn db:generate` to commit a new SQL migration file under `api/drizzle/`, then push — the API's `startCommand` applies all pending migrations automatically at startup. Always use the **direct (non-pooled)** Neon connection string — never the PgBouncer/pooled URL. `yarn db:push` is still available for quick throwaway local experiments but must never be used against a shared or production database.
 
 **Array columns**: `tags`, `genres`, `staff`, and `alt_titles` are stored as `text[]` directly on `entries`. There are no lookup tables for these — all validation and grouping logic lives in the React app.
 
@@ -83,11 +84,13 @@ files and should stay consistent.
 
 ```bash
 yarn install
-yarn dev       # Apollo Server at http://localhost:4100/graphql
-yarn build     # compile TypeScript to dist/
-yarn start     # run compiled output
-yarn lint      # eslint (TypeScript-aware, via @typescript-eslint)
-yarn format    # prettier
+yarn dev          # Apollo Server at http://localhost:4100/graphql
+yarn build        # compile TypeScript to dist/
+yarn start        # run compiled output
+yarn lint         # eslint (TypeScript-aware, via @typescript-eslint)
+yarn format       # prettier
+yarn db:generate  # generate a new Drizzle migration from schema changes
+yarn db:push      # apply schema directly (local throwaway only — never prod)
 ```
 
 **Web** (`cd web`)
