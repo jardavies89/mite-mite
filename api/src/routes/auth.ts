@@ -82,10 +82,13 @@ router.get("/github/callback", async (req, res) => {
     const secret = process.env.JWT_SECRET ?? "";
     const token = createSessionToken(userData.login, secret);
 
+    const isProd = process.env.NODE_ENV === "production";
     res.cookie(SESSION_COOKIE, token, {
       httpOnly: true,
-      sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
+      // SameSite=None required in prod: the web and API are on different onrender.com
+      // subdomains (cross-site), so Lax cookies are stripped from XHR POST requests.
+      sameSite: isProd ? "none" : "lax",
+      secure: isProd,
       maxAge: SESSION_MAX_AGE * 1000, // ms
     });
 
