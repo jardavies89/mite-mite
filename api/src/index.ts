@@ -1,6 +1,10 @@
 import "dotenv/config";
+import http from "http";
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone";
+import { expressMiddleware } from "@as-integrations/express5";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { buildContext, type ApolloContext } from "./auth";
@@ -23,14 +27,37 @@ const resolvers = {
 };
 
 async function start() {
+  const webUrl = process.env.WEB_URL ?? "http://localhost:4000";
+  const port = Number(process.env.PORT ?? 4100);
+
+  const app = express();
+
+  app.use(
+    cors({
+      origin: webUrl,
+      credentials: true,
+    }),
+  );
+  app.use(cookieParser());
+  app.use(express.json());
+
+  // Auth router will be mounted here (T013)
+  // app.use("/auth", authRouter);
+
   const server = new ApolloServer<ApolloContext>({ typeDefs, resolvers });
+  await server.start();
 
-  const { url } = await startStandaloneServer(server, {
-    context: buildContext,
-    listen: { port: Number(process.env.PORT ?? 4100) },
+  app.use(
+    "/graphql",
+    expressMiddleware(server, {
+      context: ({ req }) => buildContext({ req }),
+    }),
+  );
+
+  const httpServer = http.createServer(app);
+  httpServer.listen(port, () => {
+    console.log(`API ready at http://localhost:${port}/graphql`);
   });
-
-  console.log(`API ready at ${url}`);
 }
 
 start().catch((err) => {
