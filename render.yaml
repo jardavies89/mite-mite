@@ -12,10 +12,11 @@ services:
     plan: free
     rootDir: api
     buildCommand: yarn install --frozen-lockfile && yarn build
-    # Runs after build, before the new version goes live — applies pending Drizzle
-    # migrations to THIS service's DATABASE_URL (so migrations can't hit the wrong DB).
-    preDeployCommand: yarn migrate
-    startCommand: node dist/index.js
+    # Free tier has no pre-deploy hook, so run migrations at startup: apply pending
+    # Drizzle migrations against THIS service's DATABASE_URL, then start the server.
+    # Idempotent (fast no-op when nothing pending); a migration failure aborts startup
+    # and Render keeps the previous version live.
+    startCommand: node dist/migrate.js && node dist/index.js
     envVars:
       # Single direct Neon connection string incl. ?sslmode=require. Secret →
       # entered in the Render dashboard, never committed.
