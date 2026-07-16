@@ -12,6 +12,9 @@ services:
     plan: free
     rootDir: api
     buildCommand: yarn install --frozen-lockfile && yarn build
+    # Runs after build, before the new version goes live — applies pending Drizzle
+    # migrations to THIS service's DATABASE_URL (so migrations can't hit the wrong DB).
+    preDeployCommand: yarn migrate
     startCommand: node dist/index.js
     envVars:
       # Single direct Neon connection string incl. ?sslmode=require. Secret →

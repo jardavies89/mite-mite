@@ -12,7 +12,9 @@
     "lint": "eslint src --ext .ts",
     "format": "prettier --write src",
     "test": "echo \"No tests yet — see Issue #7\" && exit 0",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "db:generate": "drizzle-kit generate",
+    "migrate": "node dist/migrate.js"
   },
   "keywords": [],
   "author": "",
