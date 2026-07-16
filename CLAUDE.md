@@ -39,6 +39,10 @@ them through the api adds latency and boilerplate with no security benefit.
   contains individual operation files (e.g. `search.ts`), a `graphql/` folder for query files, and
   an `index.ts` that re-exports the public surface. Hooks and components import from the index
   (`@/api/anilist`), not from operation files directly.
+- **mite-mite API hooks**: React hooks that issue GraphQL queries or mutations against our own Apollo
+  Server live in `web/src/api/mite_mite/`, following the same pattern — hook file + `graphql/`
+  subdirectory for `.graphql` files + re-export from `index.ts`. Do not place these hooks in
+  component `hooks/` directories; import them from `@/api/mite_mite`.
 
 **GraphQL queries**: kept in standalone `.graphql` files, not inline strings. In the web, import
 them as raw strings via Vite's `?raw` suffix (e.g. `import q from './query.graphql?raw'`). In the
@@ -130,16 +134,12 @@ route/page. Sub-routes live as subdirectories. Example:
 
 ```
 components/
-  admin/                    ← /admin route; default export is AdminPage
-    admin_page.tsx
-    index.tsx
-    new_entry/              ← /admin/new_entry sub-route; default export is NewEntryPage
-      new_entry_page.tsx
-      index.tsx
-    forms/                  ← components scoped to the admin feature area
-      entry_form.tsx
-  shared/                   ← layouts and hooks used across multiple routes
-    not_found_page.tsx
-    hooks/
-      use_media_query.tsx
+├── route/
+│   ├── context/                     # context providers
+│   ├── hooks/                       # custom React hooks
+│   ├── child route/                 # primarily layout items, admin/new_entry for example
+│   ├── utils/                       # pure utilities,
+│   ├── (layout / shared / ect)/     # It's okay to add sub directories for layout components
+│   ├── primary_route_page.tsx
+│   ├── index.tsx
 ```

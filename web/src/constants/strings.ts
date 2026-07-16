@@ -72,4 +72,8 @@ export const Strings = {
     toggleLight: "Switch to light mode",
     toggleDark: "Switch to dark mode",
   },
+  auth: {
+    loginWithGitHub: "Log in with GitHub",
+    notAuthorized: "You're not authorized to access this page.",
+  },
 } as const;

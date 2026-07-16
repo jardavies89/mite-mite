@@ -15,8 +15,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/series/:franchiseId" element={<SeriesDetailsPage />} />
+          <Route path="/admin" element={<AdminPage />} />
           <Route element={<RequireAdmin />}>
-            <Route path="/admin" element={<AdminPage />} />
             <Route path="/admin/new_entry" element={<NewEntryPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />

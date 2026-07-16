@@ -1,11 +1,11 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-// Temporary: presence of VITE_ADMIN_SECRET is used as a stand-in for admin identity.
-// Replace with a proper auth check (e.g. GitHub SSO) once auth is implemented.
-const isAdmin = Boolean(import.meta.env.VITE_ADMIN_SECRET);
+import { useAdminSession } from "@/api/mite_mite";
 
 function RequireAdmin() {
-  if (!isAdmin) return <Navigate to="/" replace />;
+  const { isAdmin, loading } = useAdminSession();
+  if (loading) return null;
+  if (!isAdmin) return <Navigate to="/admin" replace />;
   return <Outlet />;
 }
 
