@@ -1,4 +1,4 @@
-const MANGADEX_API = "https://api.mangadex.org";
+const MANGADEX_API = `${import.meta.env.VITE_API_URL}/proxy/mangadex`;
 
 type MangadexSearchResult = {
   id: string;

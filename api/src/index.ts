@@ -12,6 +12,7 @@ import { entryResolvers } from "./resolvers/entry";
 import { franchiseResolvers } from "./resolvers/franchise";
 import { meResolvers } from "./resolvers/me";
 import authRouter from "./routes/auth";
+import mangadexRouter from "./routes/mangadex";
 
 const typeDefs = readFileSync(join(__dirname, "schema.graphql"), "utf-8");
 
@@ -60,6 +61,7 @@ async function start() {
   app.use(express.json());
 
   app.use("/auth", authRouter);
+  app.use("/proxy/mangadex", mangadexRouter);
 
   const server = new ApolloServer<ApolloContext>({ typeDefs, resolvers });
   await server.start();
