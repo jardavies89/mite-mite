@@ -2,14 +2,19 @@
   "name": "mite-mite-api",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "ts-node src/index.ts",
     "build": "tsc && cp src/schema.graphql dist/schema.graphql",
     "start": "node dist/index.js",
-    "lint": "eslint src --ext .ts",
+    "lint": "eslint src",
     "format": "prettier --write src",
     "test": "echo \"No tests yet — see Issue #7\" && exit 0",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "db:generate": "drizzle-kit generate",
+    "migrate": "node dist/migrate.js"
   },
   "keywords": [],
   "author": "",

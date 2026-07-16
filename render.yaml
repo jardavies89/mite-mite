@@ -1,0 +1,46 @@
+# Render Blueprint for mite-mite — defines both deployable pieces so the hosting
+# topology lives in the repo (fork-friendly, reproducible). Deploy via Render:
+# New + → Blueprint → connect this repo. Render creates both services from this file.
+#
+# Read-only launch (ticket #6): no ADMIN_SECRET / VITE_ADMIN_SECRET are set, so the
+# public app is read-only and the API rejects all writes. Real auth arrives in #13.
+services:
+  # --- API: Node GraphQL service (Apollo Server + Express) ---
+  - name: mite-mite-api
+    type: web
+    runtime: node
+    plan: free
+    rootDir: api
+    buildCommand: yarn install --frozen-lockfile && yarn build
+    # Free tier has no pre-deploy hook, so run migrations at startup: apply pending
+    # Drizzle migrations against THIS service's DATABASE_URL, then start the server.
+    # Idempotent (fast no-op when nothing pending); a migration failure aborts startup
+    # and Render keeps the previous version live.
+    startCommand: node dist/migrate.js && node dist/index.js
+    envVars:
+      # Single direct Neon connection string incl. ?sslmode=require. Secret →
+      # entered in the Render dashboard, never committed.
+      - key: DATABASE_URL
+        sync: false
+      # NOTE: Render injects PORT automatically; the app reads process.env.PORT.
+      # NOTE: TMDB_API_KEY and ADMIN_SECRET are intentionally NOT set this ticket.
+
+  # --- WEB: static React SPA (Vite build) ---
+  - name: mite-mite-web
+    type: web
+    runtime: static
+    rootDir: web
+    buildCommand: yarn install --frozen-lockfile && yarn build
+    staticPublishPath: ./dist
+    envVars:
+      # Public base URL of the API service (baked into the bundle at build time).
+      # sync:false → set in the dashboard once the api service URL is known.
+      - key: VITE_API_URL
+        sync: false
+      # NOTE: VITE_ADMIN_SECRET is intentionally omitted → no secret in the bundle,
+      # admin UI stays hidden (read-only launch).
+    # SPA client-side routing: serve index.html for any path not matching a file.
+    routes:
+      - type: rewrite
+        source: "/*"
+        destination: "/index.html"

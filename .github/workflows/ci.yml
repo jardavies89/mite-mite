@@ -1,0 +1,44 @@
+name: CI
+
+# Runs on every PR into main (the gate) and on pushes to main (safety net).
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  web:
+    name: web — lint, type-check, build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+          cache-dependency-path: web/yarn.lock
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint # oxlint + tsc --noEmit
+      - run: yarn build # tsc -b + vite build (catches build-time type errors)
+
+  api:
+    name: api — lint, type-check, test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+          cache-dependency-path: api/yarn.lock
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint # eslint
+      - run: yarn build # tsc (type-check + compile)
+      - run: yarn test # no-op placeholder until issue #7

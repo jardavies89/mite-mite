@@ -10,7 +10,7 @@ function StatusSelect() {
 
   function onChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const value = e.target.value;
-    updateEntryDraft({ status: value === "" ? null : (value as Status) });
+    updateEntryDraft({ status: value === "" ? undefined : (value as Status) });
   }
 
   return (
