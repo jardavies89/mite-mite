@@ -61,15 +61,20 @@ input CreateFranchiseInput {
   primaryTitle: String!
 }
 
+type Me {
+  isAdmin: Boolean!
+}
+
 type Query {
   entries: [Entry!]!
   entry(id: ID!): Entry
   franchise(id: ID!): Franchise
   franchises(search: String): [Franchise!]!
+  me: Me!
 }
 
 """
-All mutations require Authorization: Bearer <ADMIN_SECRET> header.
+All mutations require a valid admin session cookie.
 """
 type Mutation {
   createEntry(input: CreateEntryInput!): Entry!

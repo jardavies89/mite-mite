@@ -10,6 +10,8 @@ import { join } from "path";
 import { buildContext, type ApolloContext } from "./auth";
 import { entryResolvers } from "./resolvers/entry";
 import { franchiseResolvers } from "./resolvers/franchise";
+import { meResolvers } from "./resolvers/me";
+import authRouter from "./routes/auth";
 
 const typeDefs = readFileSync(join(__dirname, "schema.graphql"), "utf-8");
 
@@ -17,6 +19,7 @@ const resolvers = {
   Query: {
     ...entryResolvers.Query,
     ...franchiseResolvers.Query,
+    ...meResolvers.Query,
   },
   Mutation: {
     ...entryResolvers.Mutation,
@@ -41,8 +44,7 @@ async function start() {
   app.use(cookieParser());
   app.use(express.json());
 
-  // Auth router will be mounted here (T013)
-  // app.use("/auth", authRouter);
+  app.use("/auth", authRouter);
 
   const server = new ApolloServer<ApolloContext>({ typeDefs, resolvers });
   await server.start();
