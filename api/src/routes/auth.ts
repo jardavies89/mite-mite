@@ -15,10 +15,10 @@ export function createSessionToken(login: string, secret: string): string {
 const router = Router();
 
 // Redirect browser to GitHub OAuth authorize page
-router.get("/github", (_req, res) => {
+router.get("/github", (req, res) => {
   const clientId = process.env.GITHUB_CLIENT_ID;
-  const apiUrl = process.env.API_URL ?? `http://localhost:${process.env.PORT ?? 4100}`;
-  const callbackUrl = `${apiUrl}/auth/github/callback`;
+  const protocol = (req.get("x-forwarded-proto") ?? req.protocol).split(",")[0].trim();
+  const callbackUrl = `${protocol}://${req.get("host")}/auth/github/callback`;
 
   const params = new URLSearchParams({
     client_id: clientId ?? "",
@@ -31,7 +31,7 @@ router.get("/github", (_req, res) => {
 
 // Exchange OAuth code for session cookie, then redirect back to /admin
 router.get("/github/callback", async (req, res) => {
-  const webUrl = process.env.WEB_URL ?? "http://localhost:4000";
+  const webUrl = (process.env.WEB_URL ?? "http://localhost:4000").replace(/\/$/, "");
   const adminUrl = `${webUrl}/admin`;
   const { code, error } = req.query as { code?: string; error?: string };
 
