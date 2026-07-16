@@ -1,9 +1,6 @@
 # Render Blueprint for mite-mite — defines both deployable pieces so the hosting
 # topology lives in the repo (fork-friendly, reproducible). Deploy via Render:
 # New + → Blueprint → connect this repo. Render creates both services from this file.
-#
-# Read-only launch (ticket #6): no ADMIN_SECRET / VITE_ADMIN_SECRET are set, so the
-# public app is read-only and the API rejects all writes. Real auth arrives in #13.
 services:
   # --- API: Node GraphQL service (Apollo Server + Express) ---
   - name: mite-mite-api
@@ -23,7 +20,20 @@ services:
       - key: DATABASE_URL
         sync: false
       # NOTE: Render injects PORT automatically; the app reads process.env.PORT.
-      # NOTE: TMDB_API_KEY and ADMIN_SECRET are intentionally NOT set this ticket.
+      # Public URL of the web frontend — used as CORS origin and OAuth redirect target.
+      - key: WEB_URL
+        sync: false
+      # GitHub OAuth app credentials (create at https://github.com/settings/developers).
+      - key: GITHUB_CLIENT_ID
+        sync: false
+      - key: GITHUB_CLIENT_SECRET
+        sync: false
+      # GitHub username of the sole admin (case-insensitive allowlist check).
+      - key: ADMIN_GITHUB_USERNAME
+        sync: false
+      # Secret for signing session JWTs — generate with: openssl rand -hex 32
+      - key: JWT_SECRET
+        sync: false
 
   # --- WEB: static React SPA (Vite build) ---
   - name: mite-mite-web

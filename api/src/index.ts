@@ -29,7 +29,22 @@ const resolvers = {
   Franchise: franchiseResolvers.Franchise,
 };
 
+function validateEnv() {
+  const required = [
+    "GITHUB_CLIENT_ID",
+    "GITHUB_CLIENT_SECRET",
+    "ADMIN_GITHUB_USERNAME",
+    "JWT_SECRET",
+  ];
+  const missing = required.filter((k) => !process.env[k]);
+  if (missing.length > 0) {
+    console.error(`Missing required env vars: ${missing.join(", ")}`);
+    process.exit(1);
+  }
+}
+
 async function start() {
+  validateEnv();
   const webUrl = process.env.WEB_URL ?? "http://localhost:4000";
   const port = Number(process.env.PORT ?? 4100);
 
