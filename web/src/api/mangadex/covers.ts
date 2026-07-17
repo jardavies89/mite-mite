@@ -1,5 +1,14 @@
-const MANGADEX_API = `${import.meta.env.VITE_API_URL}/proxy/mangadex`;
-const MANGADEX_UPLOADS = "https://uploads.mangadex.org";
+const viteApiUrl = import.meta.env.VITE_API_URL;
+const isProd = import.meta.env.PROD;
+
+const MANGADEX_API = `${viteApiUrl}/proxy/mangadex`;
+
+// In prod, cover images are proxied through our API to avoid MangaDex's hotlink protection,
+// which serves a "read on MangaDex" placeholder when the Referer is an external domain.
+// In dev, we hit uploads.mangadex.org directly — localhost doesn't trigger the protection.
+const MANGADEX_UPLOADS = isProd
+  ? `${viteApiUrl}/proxy/mangadex/covers`
+  : "https://uploads.mangadex.org/covers";
 
 type MangadexCover = {
   id: string;
@@ -37,7 +46,7 @@ async function getCovers(mangadexId: string): Promise<MangadexCover[]> {
 
   return json.data.map((cover) => {
     const { fileName, volume, locale } = cover.attributes;
-    const base = `${MANGADEX_UPLOADS}/covers/${mangadexId}/${fileName}`;
+    const base = `${MANGADEX_UPLOADS}/${mangadexId}/${fileName}`;
     return {
       id: cover.id,
       volume,
