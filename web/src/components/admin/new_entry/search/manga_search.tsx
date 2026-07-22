@@ -35,13 +35,13 @@ function MangaSearch({ onSelect }: PropTypes) {
         label={Strings.entry.primaryTitle}
         id="manga-search-input"
         onChange={(e) => setQuery(e.target.value)}
-        placeholder={Strings.newEntry.searchTitle}
+        placeholder={Strings.search.searchTitle}
         currentValue={query}
       />
 
-      {isLoading && <p className="text-sm text-muted">{Strings.newEntry.searching}</p>}
+      {isLoading && <p className="text-sm text-muted">{Strings.search.searching}</p>}
 
-      {error && <p className="text-sm text-red-500">{Strings.newEntry.searchError}</p>}
+      {error && <p className="text-sm text-red-500">{Strings.search.searchError}</p>}
 
       {!isLoading && !error && results.length > 0 && (
         <ul className="border border-default rounded-md overflow-hidden">

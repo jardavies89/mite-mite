@@ -65,9 +65,6 @@ export const Strings = {
     franchisePlaceholder: "Search for a franchise...",
     noResults: "No results found.",
     resetForm: "Reset form",
-    searchError: "Search is temporarily unavailable.",
-    searching: "Searching...",
-    searchTitle: "Search by title",
   },
   notFound: {
     body: "The page you're looking for doesn't exist.",
@@ -77,10 +74,13 @@ export const Strings = {
   search: {
     changeManga: "Select the correct manga",
     noSearchResults: 'No results found for "%{query}".',
+    searchError: "Search is temporarily unavailable.",
+    searching: "Searching...",
     searchInstead: "Search instead",
     searchLabel: "Search MangaDex",
     searchPlaceholder: "Enter a title...",
     searchSubmit: "Search",
+    searchTitle: "Search by title",
     wrongTitle: "Wrong title?",
   },
   theme: {
