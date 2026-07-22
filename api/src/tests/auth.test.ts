@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { buildContext } from "./auth";
+import { buildContext } from "../auth";
 
 const SECRET = "test-secret-that-is-long-enough-32chars";
 const USERNAME = "testuser";
