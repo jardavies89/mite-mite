@@ -20,6 +20,7 @@ export const Strings = {
   home: {
     title: "みてみて!",
     addEntry: "Add entry",
+    backButton: "Home",
     emptyState: "No series match your search criteria.",
   },
   entry: {
@@ -55,6 +56,7 @@ export const Strings = {
   },
   newEntry: {
     createEntry: "Create entry",
+    franchiseError: "Entries need a primary title and franchise.",
     noResults: "No results found.",
     resetForm: "Reset form",
     searchError: "Search is temporarily unavailable.",

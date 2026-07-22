@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { isAllowedUser, createSessionToken } from "./auth";
+import { isAllowedUser, createSessionToken } from "../auth";
 
 const SECRET = "test-secret-that-is-long-enough-32chars";
 

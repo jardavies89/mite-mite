@@ -1,0 +1,7 @@
+{
+  "name": "mite-mite",
+  "private": true,
+  "scripts": {
+    "test": "yarn --cwd api test && yarn --cwd web test"
+  }
+}

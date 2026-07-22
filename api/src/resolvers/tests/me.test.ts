@@ -1,4 +1,4 @@
-import { meResolvers } from "./me";
+import { meResolvers } from "../me";
 
 describe("me resolver", () => {
   test("returns isAdmin true when context is admin", () => {

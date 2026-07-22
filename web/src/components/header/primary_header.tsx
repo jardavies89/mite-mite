@@ -1,7 +1,8 @@
 import classNames from "classnames";
+import { Button } from "@material-tailwind/react";
 
 import { ThemeToggle } from "@/components/header";
-import { Button } from "@material-tailwind/react";
+import { Strings } from "@/constants/strings";
 
 function PrimaryHeader() {
   const headerClasses = classNames(
@@ -16,7 +17,7 @@ function PrimaryHeader() {
       <div>
         <a href="/">
           <Button variant="text" color="white">
-            Home
+            {Strings.home.backButton}
           </Button>
         </a>
       </div>

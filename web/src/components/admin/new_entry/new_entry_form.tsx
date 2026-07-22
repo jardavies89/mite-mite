@@ -164,7 +164,7 @@ function NewEntryForm() {
       </div>
 
       {showRequiredError && (
-        <p className="text-center text-red-600">Entries need a primary title and franchise.</p>
+        <p className="text-center text-red-600">{Strings.newEntry.franchiseError}</p>
       )}
 
       {coverPickerOpen && (

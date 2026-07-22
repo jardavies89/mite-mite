@@ -9,7 +9,7 @@ on:
 
 jobs:
   web:
-    name: web — lint, type-check, build
+    name: web — lint, type-check, build, test
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -24,6 +24,7 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn lint # oxlint + tsc --noEmit
       - run: yarn build # tsc -b + vite build (catches build-time type errors)
+      - run: yarn test
 
   api:
     name: api — lint, type-check, test
@@ -41,4 +42,4 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn lint # eslint
       - run: yarn build # tsc (type-check + compile)
-      - run: yarn test # no-op placeholder until issue #7
+      - run: yarn test
