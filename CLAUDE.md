@@ -20,9 +20,9 @@ config isolated to environment variables) so someone else could run their own in
   free tier). Infrastructure defined in `render.yaml` at the repo root. Target cost: ~$0/month on the
   free tier; upgrade to Render Hobby (~$7/month) if cold-start latency becomes a problem. Portable to
   Railway if needed — the app is a plain Node process with no Render-specific features.
-- **Testing**: Jest. Functional/business logic (GraphQL resolvers, non-trivial React logic like data
-  transforms and hooks) is developed test-first. Cosmetic changes and throwaway exploratory spikes are
-  exempt.
+- **Testing**: Jest (api), Vitest + @testing-library/react (web). Functional/business logic
+  (GraphQL resolvers, third-party API clients, non-trivial hooks and data transforms) is developed
+  test-first. Pure layout components, thin wrapper hooks, and throwaway exploratory spikes are exempt.
 - **Formatting**: Prettier, enforced for all TypeScript.
 
 ## Architecture
@@ -93,6 +93,7 @@ yarn build        # compile TypeScript to dist/
 yarn start        # run compiled output
 yarn lint         # eslint (TypeScript-aware, via @typescript-eslint)
 yarn format       # prettier
+yarn test         # jest
 yarn db:generate  # generate a new Drizzle migration from schema changes
 yarn db:push      # apply schema directly (local throwaway only — never prod)
 ```
@@ -106,7 +107,27 @@ yarn build     # type-check + Vite production build
 yarn preview   # preview production build locally
 yarn lint      # oxlint + tsc --noEmit (two-pass: fast style then type errors)
 yarn format    # prettier
+yarn test      # vitest run
 ```
+
+**Testing**:
+
+- Test files live in a `tests/` subdirectory one level below the source file they cover (e.g.
+  `api/src/resolvers/tests/entry.test.ts` for `api/src/resolvers/entry.ts`).
+- **What to test**: GraphQL resolvers (mock service dependencies with `jest.mock()`), third-party
+  API clients in `web/src/api/` (mock `global.fetch` with `vi.fn()`), non-trivial hooks and data
+  transforms. Third-party API clients are worth testing specifically to catch response-shape drift
+  from APIs we don't control.
+- **What not to test**: pure layout components, mite-mite API hooks (thin wrappers over `gqlQuery`
+  — tsc catches drift on our own schema), service-layer DB logic (prefer integration tests over
+  Drizzle mocks).
+- **Web mocking patterns**: `vi.spyOn(global, "fetch").mockResolvedValueOnce(...)` for fetch;
+  `vi.stubEnv("VITE_API_URL", ...)` for env vars; `vi.mock("@/api/anilist", ...)` for module
+  mocking; `vi.useFakeTimers()` for debounce. Note that module-level constants (e.g.
+  `const BASE = import.meta.env.VITE_API_URL`) are captured at import time — `vi.stubEnv` won't
+  affect them unless the module is reloaded.
+- **API mocking patterns**: `jest.mock("../../services/entry.service", () => ({ ... }))` at the
+  top of resolver test files; each test overrides with `(Service.method as jest.Mock).mockResolvedValue(...)`.
 
 **Linter asymmetry**: the web uses `oxlint` (fast, Rust-based) as a first pass before `tsc`, while
 the api uses `eslint` with `@typescript-eslint`. Don't swap them — they're intentionally different
