@@ -12,7 +12,7 @@ function SeriesLayout({ entry }: PropTypes) {
   return (
     <>
       <div className="flex flex-row gap-8 mb-4">
-        <img alt="cover" src={entry.coverImageUrl} className="w-64 rounded" />
+        <img alt="cover" src={entry.coverImageUrl} className="w-64 rounded self-start" />
 
         <div className="flex flex-col gap-4 w-full">
           <Typography variant="h1" className="text-3xl m-0">
