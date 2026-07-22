@@ -1,22 +1,12 @@
-import classNames from "classnames";
-
 import { CoverLink } from "@/components/shared/cover_link";
-import useMediaQuery from "@/components/shared/hooks/use_media_query";
 
 interface PropTypes {
   franchises: Franchise[];
 }
 
 function SeriesGrid({ franchises }: PropTypes) {
-  const { isMobileBreakpoint } = useMediaQuery();
-
-  const gridClassNames = classNames("grid gap-3", {
-    "grid-cols-2": isMobileBreakpoint,
-    "[grid-template-columns:repeat(auto-fit,minmax(200px,300px))]": !isMobileBreakpoint,
-  });
-
   return (
-    <div className={gridClassNames}>
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
       {franchises.map((franchise) => (
         <CoverLink
           key={franchise.id}
