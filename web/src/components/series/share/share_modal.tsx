@@ -1,3 +1,4 @@
+import QRCode from "react-qr-code";
 import { MdClose } from "react-icons/md";
 
 import { Strings } from "@/constants/strings";
@@ -26,6 +27,9 @@ function ShareModal({ url, onClose }: PropTypes) {
         </div>
 
         <div className="p-6 flex flex-col items-center gap-4">
+          <div className="bg-white p-3 rounded">
+            <QRCode value={url} size={180} />
+          </div>
           <p className="text-sm text-muted break-all text-center">{url}</p>
         </div>
       </div>

@@ -14,25 +14,9 @@ interface PropTypes {
 function SeriesLayout({ entry }: PropTypes) {
   const [isShareOpen, setIsShareOpen] = useState(false);
 
-  return (
-    <>
-      <div className="flex flex-row gap-8 mb-4">
-        <img alt="cover" src={entry.coverImageUrl} className="w-64 rounded self-start" />
-
-        <div className="flex flex-col gap-4 w-full">
-          <Typography variant="h1" className="text-3xl m-0">
-            {entry.primaryTitle}
-          </Typography>
-
-          <TextList title={Strings.entry.alternateTitles} items={entry.alternateTitles} />
-          <TextList title={Strings.entry.staff} items={entry.staff} />
-          <ChipList title={Strings.entry.genres} items={entry.genres} />
-          <ChipList title={Strings.entry.tags} items={entry.tags} />
-          <StatusSection entry={entry} />
-        </div>
-      </div>
-
-      {entry.referenceUrl && (
+  function maybeRenderShareButton() {
+    if (entry.referenceUrl) {
+      return (
         <button
           type="button"
           onClick={() => setIsShareOpen(true)}
@@ -40,7 +24,32 @@ function SeriesLayout({ entry }: PropTypes) {
         >
           {Strings.share.shareButton}
         </button>
-      )}
+      );
+    }
+  }
+
+  return (
+    <>
+      <div className="flex flex-row gap-8 mb-4">
+        <img alt="cover" src={entry.coverImageUrl} className="w-64 rounded self-start" />
+
+        <div className="flex flex-col gap-4 w-full">
+          <div className="flex flex-row justify-between">
+            <Typography variant="h1" className="text-3xl m-0">
+              {entry.primaryTitle}
+            </Typography>
+
+            {maybeRenderShareButton()}
+          </div>
+
+          <TextList title={Strings.entry.alternateTitles} items={entry.alternateTitles} />
+          <TextList title={Strings.entry.staff} items={entry.staff} />
+          <ChipList title={Strings.entry.genres} items={entry.genres} />
+          <ChipList title={Strings.entry.tags} items={entry.tags} />
+
+          <StatusSection entry={entry} />
+        </div>
+      </div>
 
       <Typography variant="paragraph" className="mb-2 leading-normal">
         {entry.description}
