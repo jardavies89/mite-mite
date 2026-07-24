@@ -36,6 +36,11 @@ type Franchise {
   entries: [Entry!]!
 }
 
+type FilterOptions {
+  genres: [String!]!
+  tags: [String!]!
+}
+
 type DeleteFranchiseResult {
   deletedFranchiseId: ID!
   deletedEntryCount: Int!
@@ -69,7 +74,8 @@ type Query {
   entries: [Entry!]!
   entry(id: ID!): Entry
   franchise(id: ID!): Franchise
-  franchises(search: String): [Franchise!]!
+  availableFilterOptions: FilterOptions!
+  franchises(search: String, genres: [String!], tags: [String!], status: String): [Franchise!]!
   me: Me!
 }
 

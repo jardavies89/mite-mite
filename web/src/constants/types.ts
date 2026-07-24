@@ -99,6 +99,13 @@ type ContentWarningTags = (typeof ContentWarningTags)[keyof typeof ContentWarnin
 
 type Tags = SubGenreTags | NarrativeTags | DemographicTags | ContentWarningTags;
 
+const TAG_GROUPS: { label: string; values: Tags[] }[] = [
+  { label: "Sub-genres", values: Object.values(SubGenreTags) },
+  { label: "Narrative", values: Object.values(NarrativeTags) },
+  { label: "Demographic", values: Object.values(DemographicTags) },
+  { label: "Content warnings", values: Object.values(ContentWarningTags) },
+];
+
 const Status = {
   Completed: "Completed",
   Ongoing: "Ongoing",
@@ -106,5 +113,14 @@ const Status = {
 } as const;
 type Status = (typeof Status)[keyof typeof Status];
 
-export { ContentWarningTags, DemographicTags, Genres, Medium, NarrativeTags, Status, SubGenreTags };
+export {
+  ContentWarningTags,
+  DemographicTags,
+  Genres,
+  Medium,
+  NarrativeTags,
+  Status,
+  SubGenreTags,
+  TAG_GROUPS,
+};
 export type { Tags };
