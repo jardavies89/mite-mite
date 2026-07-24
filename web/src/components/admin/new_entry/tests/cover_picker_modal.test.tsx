@@ -3,6 +3,20 @@ import userEvent from "@testing-library/user-event";
 
 import { CoverPickerModal } from "../cover_picker_modal";
 
+vi.mock("@material-tailwind/react", () => ({
+  Button: ({
+    children,
+    onClick,
+    type,
+    "aria-label": ariaLabel,
+    className,
+  }: React.ButtonHTMLAttributes<HTMLButtonElement> & { "aria-label"?: string }) => (
+    <button type={type ?? "button"} onClick={onClick} aria-label={ariaLabel} className={className}>
+      {children}
+    </button>
+  ),
+}));
+
 const mockGetCovers = vi.fn();
 const mockSearchMangaCandidates = vi.fn();
 const mockUpdateEntryDraft = vi.fn();

@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-import { Typography } from "@material-tailwind/react";
+import { Button, Typography } from "@material-tailwind/react";
+import { FaShareAlt } from "react-icons/fa";
 import Markdown from "react-markdown";
 
 import { ChipList, TextList, StatusSection } from "@/components/series";
@@ -17,13 +18,15 @@ function SeriesLayout({ entry }: PropTypes) {
   function maybeRenderShareButton() {
     if (entry.referenceUrl) {
       return (
-        <button
-          type="button"
+        <Button
+          variant="text"
+          size="sm"
           onClick={() => setIsShareOpen(true)}
-          className="self-start text-sm text-blue-600 dark:text-blue-400 underline hover:no-underline mb-2"
+          className="normal-case text-subtle hover:text-gray-900 dark:hover:text-white p-1"
+          aria-label={Strings.share.shareButton}
         >
-          {Strings.share.shareButton}
-        </button>
+          <FaShareAlt size={16} />
+        </Button>
       );
     }
   }

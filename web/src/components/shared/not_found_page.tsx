@@ -14,7 +14,9 @@ function NotFound() {
         </Typography>
         <p className="text-muted mb-8">{Strings.notFound.body}</p>
         <Link to="/">
-          <Button variant="outlined">{Strings.notFound.goHome}</Button>
+          <Button variant="outlined" className="normal-case">
+            {Strings.notFound.goHome}
+          </Button>
         </Link>
       </main>
     </>

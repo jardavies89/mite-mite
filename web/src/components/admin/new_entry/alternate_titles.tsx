@@ -1,3 +1,5 @@
+import { Button } from "@material-tailwind/react";
+
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
 import { Strings } from "@/constants/strings";
 
@@ -31,24 +33,25 @@ function AlternateTitles() {
             value={title}
             onChange={(e) => update(i, e.target.value)}
           />
-          <button
-            type="button"
+          <Button
+            variant="text"
             onClick={() => remove(i)}
-            className="text-subtle hover:text-red-500 flex-shrink-0 text-lg leading-none"
+            className="normal-case text-subtle hover:text-red-500 flex-shrink-0 text-lg leading-none p-1"
             aria-label={Strings.entry.removeAlternateTitle}
           >
             −
-          </button>
+          </Button>
         </div>
       ))}
 
-      <button
-        type="button"
+      <Button
+        variant="text"
+        color="blue"
         onClick={add}
-        className="self-start text-sm text-blue-600 dark:text-blue-400 underline hover:no-underline"
+        className="normal-case self-start text-sm underline hover:no-underline p-0"
       >
         + {Strings.entry.addAlternateTitle}
-      </button>
+      </Button>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import { Button } from "@material-tailwind/react";
 
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
 import { Genres } from "@/constants/types";
@@ -35,10 +36,10 @@ function GenreSelect() {
     <div className="flex flex-col gap-2" ref={containerRef}>
       <label>{Strings.entry.genres}</label>
 
-      <button
-        type="button"
+      <Button
+        variant="text"
         onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between rounded-md border px-3 py-2 text-left bg-white dark:bg-gray-800"
+        className="normal-case w-full flex items-center justify-between rounded-md border px-3 py-2 text-left bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
       >
         <span className="truncate text-sm">{summary}</span>
         {open ? (
@@ -46,7 +47,7 @@ function GenreSelect() {
         ) : (
           <MdKeyboardArrowDown className="flex-shrink-0" />
         )}
-      </button>
+      </Button>
 
       {open && (
         <div className="rounded-md border bg-surface shadow-sm max-h-64 overflow-y-auto">

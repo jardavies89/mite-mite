@@ -99,13 +99,14 @@ function NewEntryForm() {
         <div className="flex flex-col gap-2 flex-shrink-0">
           <img alt="cover" src={newEntryDraft.coverImageUrl} className="w-64 rounded" />
           {newEntryDraft.coverImageUrl && (
-            <button
-              type="button"
+            <Button
+              variant="text"
+              color="blue"
               onClick={() => setCoverPickerOpen(true)}
-              className="text-xs text-blue-600 dark:text-blue-400 underline hover:no-underline text-center"
+              className="normal-case text-xs underline hover:no-underline text-center p-0"
             >
               {Strings.entry.chooseCover}
-            </button>
+            </Button>
           )}
         </div>
 
@@ -154,11 +155,16 @@ function NewEntryForm() {
       </div>
 
       <div className="flex flex-row gap-4 justify-end mt-4">
-        <Button variant="text" color="white" onClick={() => window.location.reload()}>
+        <Button
+          variant="text"
+          color="white"
+          className="normal-case"
+          onClick={() => window.location.reload()}
+        >
           {Strings.newEntry.resetForm}
         </Button>
 
-        <Button color="blue" onClick={onSubmitClicked}>
+        <Button color="blue" className="normal-case" onClick={onSubmitClicked}>
           {Strings.newEntry.createEntry}
         </Button>
       </div>

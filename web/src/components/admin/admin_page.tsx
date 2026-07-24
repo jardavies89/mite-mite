@@ -1,4 +1,4 @@
-import { Typography } from "@material-tailwind/react";
+import { Button, Typography } from "@material-tailwind/react";
 import classNames from "classnames";
 import { Link, useSearchParams } from "react-router-dom";
 
@@ -42,9 +42,12 @@ function AdminPage() {
           </div>
         ) : (
           <a href={`${import.meta.env.VITE_API_URL}/auth/github`}>
-            <button className="px-4 py-2 rounded-md text-sm font-medium bg-gray-900 text-white hover:bg-gray-700 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-300 transition-colors">
+            <Button
+              variant="filled"
+              className="normal-case bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 hover:bg-gray-700 dark:hover:bg-gray-300"
+            >
               {Strings.auth.loginWithGitHub}
-            </button>
+            </Button>
           </a>
         )}
       </div>
