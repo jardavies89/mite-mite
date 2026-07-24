@@ -1,4 +1,4 @@
-import { eq, ilike } from "drizzle-orm";
+import { eq, ilike, or, sql } from "drizzle-orm";
 import { db } from "../db/index";
 import { franchises, entries } from "../db/schema";
 
@@ -9,10 +9,20 @@ export interface CreateFranchiseInput {
 export const FranchiseService = {
   async getFranchises(search?: string) {
     if (search) {
-      return db
-        .select()
+      const term = `%${search}%`;
+      const rows = await db
+        .selectDistinct({ franchise: franchises })
         .from(franchises)
-        .where(ilike(franchises.title, `%${search}%`));
+        .leftJoin(entries, eq(entries.id, franchises.primaryEntryId))
+        .where(
+          or(
+            ilike(franchises.title, term),
+            sql`array_to_string(${entries.altTitles}, ',') ILIKE ${term}`,
+            sql`array_to_string(${entries.staff}, ',') ILIKE ${term}`,
+          ),
+        )
+        .orderBy(franchises.title);
+      return rows.map((r) => r.franchise);
     }
     return db.select().from(franchises).orderBy(franchises.title);
   },

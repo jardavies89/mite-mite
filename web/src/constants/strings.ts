@@ -56,6 +56,7 @@ export const Strings = {
     addEntry: "Add entry",
     backButton: "Home",
     emptyState: "No series match your search criteria.",
+    searchPlaceholder: "Search by title, author, or artist",
     title: "みてみて!",
   },
   newEntry: {

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { Button } from "@material-tailwind/react";
+import { Button, Typography } from "@material-tailwind/react";
 
 import { ThemeToggle } from "@/components/header";
 import { Strings } from "@/constants/strings";
@@ -14,12 +14,16 @@ function PrimaryHeader() {
 
   return (
     <header className={headerClasses}>
-      <div>
+      <div className="flex items-center gap-3">
         <a href="/">
-          <Button variant="text" color="white">
+          <Button variant="text" className="text-gray-900 dark:text-white">
             {Strings.home.backButton}
           </Button>
         </a>
+
+        <Typography variant="small" className="font-medium opacity-60">
+          {Strings.home.title}
+        </Typography>
       </div>
 
       <div>

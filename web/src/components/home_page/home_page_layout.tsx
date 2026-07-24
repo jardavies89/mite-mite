@@ -1,4 +1,3 @@
-import { Typography } from "@material-tailwind/react";
 import classNames from "classnames";
 
 import { PageLayout } from "@/components/shared/page_layout";
@@ -7,10 +6,12 @@ import useMediaQuery from "@/components/shared/hooks/use_media_query";
 
 import { Strings } from "@/constants/strings";
 import { useGetFranchises } from "@/api/mite_mite";
+import { SearchLayout, SearchProvider, useSearchContext } from "@/components/home_page";
 
-function HomePage() {
+function HomePageContent() {
   const { isMobileBreakpoint } = useMediaQuery();
-  const { results: franchises, isLoading } = useGetFranchises();
+  const { query } = useSearchContext();
+  const { results: franchises, isLoading } = useGetFranchises(query);
 
   const wrapperClassNames = classNames("flex flex-col w-full", "mx-auto py-8 height--mite-mite", {
     "px-3": isMobileBreakpoint,
@@ -20,9 +21,7 @@ function HomePage() {
   return (
     <PageLayout>
       <div className={wrapperClassNames}>
-        <div className="flex items-center justify-between mb-6">
-          <Typography variant="h2">{Strings.home.title}</Typography>
-        </div>
+        <SearchLayout />
 
         {!isLoading && franchises.length === 0 && (
           <p className="mt-8 text-muted text-sm">{Strings.home.emptyState}</p>
@@ -31,6 +30,14 @@ function HomePage() {
         {franchises.length > 0 && <SeriesGrid franchises={franchises} />}
       </div>
     </PageLayout>
+  );
+}
+
+function HomePage() {
+  return (
+    <SearchProvider>
+      <HomePageContent />
+    </SearchProvider>
   );
 }
 
