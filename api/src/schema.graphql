@@ -33,6 +33,7 @@ type Entry {
 type Franchise {
   id: ID!
   primaryTitle: String!
+  primaryEntryId: String!
   entries: [Entry!]!
 }
 

@@ -1,6 +1,7 @@
 interface Franchise {
   id: string;
   primaryTitle: string;
+  primaryEntryId: string;
   entries: Entry[];
 }
 

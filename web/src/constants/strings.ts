@@ -72,6 +72,13 @@ export const Strings = {
     goHome: "Go home",
     title: "Page not found",
   },
+  filters: {
+    anyStatus: "Any status",
+    genrePlaceholder: "Genres",
+    noneSelected: "None selected",
+    statusPlaceholder: "Status",
+    tagPlaceholder: "Tags",
+  },
   share: {
     closeButton: "Close",
     copyButton: "Copy link",
