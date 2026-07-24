@@ -67,13 +67,38 @@ describe("franchiseResolvers.Query.franchises", () => {
   test("passes search argument through to service", async () => {
     (FranchiseService.getFranchises as jest.Mock).mockResolvedValue([]);
     await franchiseResolvers.Query.franchises(undefined, { search: "naruto" });
-    expect(FranchiseService.getFranchises).toHaveBeenCalledWith("naruto");
+    expect(FranchiseService.getFranchises).toHaveBeenCalledWith({
+      search: "naruto",
+      genres: undefined,
+      tags: undefined,
+      status: undefined,
+    });
   });
 
-  test("passes undefined search when no search argument provided", async () => {
+  test("passes filter arguments through to service", async () => {
+    (FranchiseService.getFranchises as jest.Mock).mockResolvedValue([]);
+    await franchiseResolvers.Query.franchises(undefined, {
+      genres: ["Action"],
+      tags: ["Shounen"],
+      status: "Ongoing",
+    });
+    expect(FranchiseService.getFranchises).toHaveBeenCalledWith({
+      search: undefined,
+      genres: ["Action"],
+      tags: ["Shounen"],
+      status: "Ongoing",
+    });
+  });
+
+  test("passes undefined for all args when none provided", async () => {
     (FranchiseService.getFranchises as jest.Mock).mockResolvedValue([]);
     await franchiseResolvers.Query.franchises(undefined, {});
-    expect(FranchiseService.getFranchises).toHaveBeenCalledWith(undefined);
+    expect(FranchiseService.getFranchises).toHaveBeenCalledWith({
+      search: undefined,
+      genres: undefined,
+      tags: undefined,
+      status: undefined,
+    });
   });
 });
 
