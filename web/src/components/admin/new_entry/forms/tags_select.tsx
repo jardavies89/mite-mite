@@ -1,32 +1,13 @@
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
-import {
-  ContentWarningTags,
-  DemographicTags,
-  NarrativeTags,
-  SubGenreTags,
-} from "@/constants/types";
 import type { Tags } from "@/constants/types";
+import { TAG_GROUPS } from "@/constants/types";
 import { Strings } from "@/constants/strings";
 import { MultiSelectDropdown } from "@/components/shared/multi_select_dropdown";
 
-const TAG_GROUPS: { label: string; options: { label: Tags; value: Tags }[] }[] = [
-  {
-    label: "Sub-genres",
-    options: Object.values(SubGenreTags).map((t) => ({ label: t, value: t })),
-  },
-  {
-    label: "Narrative",
-    options: Object.values(NarrativeTags).map((t) => ({ label: t, value: t })),
-  },
-  {
-    label: "Demographic",
-    options: Object.values(DemographicTags).map((t) => ({ label: t, value: t })),
-  },
-  {
-    label: "Content warnings",
-    options: Object.values(ContentWarningTags).map((t) => ({ label: t, value: t })),
-  },
-];
+const TAG_GROUP_OPTIONS = TAG_GROUPS.map((g) => ({
+  label: g.label,
+  options: g.values.map((v) => ({ label: v, value: v })),
+}));
 
 function TagsSelect() {
   const { newEntryDraft, updateEntryDraft } = useNewEntryContext();
@@ -37,7 +18,7 @@ function TagsSelect() {
       <label>{Strings.entry.tags}</label>
       <MultiSelectDropdown
         label={Strings.entry.tags}
-        groups={TAG_GROUPS}
+        groups={TAG_GROUP_OPTIONS}
         selected={tagIds}
         onChange={(next) => updateEntryDraft({ tagIds: next as Tags[] })}
       />
@@ -45,4 +26,4 @@ function TagsSelect() {
   );
 }
 
-export { TagsSelect, TAG_GROUPS };
+export { TagsSelect };

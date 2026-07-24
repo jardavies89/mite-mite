@@ -52,7 +52,7 @@ function MultiSelectDropdown({
   }
 
   const displayPlaceholder = placeholder ?? Strings.filters.noneSelected;
-  const summary = selected.length === 0 ? displayPlaceholder : `${selected.length} selected`;
+  const summary = selected.length === 0 ? displayPlaceholder : selected.join(", ");
 
   function renderOption(option: Option) {
     return (

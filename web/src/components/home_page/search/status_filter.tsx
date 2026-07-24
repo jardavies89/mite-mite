@@ -48,20 +48,22 @@ function StatusFilter() {
 
       {open && (
         <div className="absolute top-full left-0 z-10 w-full min-w-36 rounded-md border bg-surface shadow-sm">
-          <button
-            className="w-full text-left px-3 py-2 text-sm text-muted hover-surface"
+          <Button
+            variant="text"
             onClick={() => select(null)}
+            className="normal-case w-full text-left px-3 py-2 text-sm text-muted hover-surface"
           >
             {Strings.filters.anyStatus}
-          </button>
+          </Button>
           {STATUS_OPTIONS.map((status) => (
-            <button
+            <Button
               key={status}
-              className="w-full text-left px-3 py-2 text-sm hover-surface"
+              variant="text"
               onClick={() => select(status)}
+              className="normal-case w-full text-left px-3 py-2 text-sm text-gray-900 dark:text-white hover-surface"
             >
               {status}
-            </button>
+            </Button>
           ))}
         </div>
       )}
