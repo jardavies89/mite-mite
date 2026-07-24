@@ -11,18 +11,12 @@ import { SearchLayout, SearchProvider, useSearchContext } from "@/components/hom
 function HomePageContent() {
   const { isMobileBreakpoint } = useMediaQuery();
   const { query, genreFilters, tagFilters, statusFilter } = useSearchContext();
-  const { results: franchises, isLoading } = useGetFranchises(query);
-
-  const filteredFranchises = franchises.filter((franchise) => {
-    const primaryEntry = franchise.entries.find((e) => e.id === franchise.primaryEntryId);
-    if (!primaryEntry) return false;
-    if (genreFilters.length > 0 && !genreFilters.every((g) => primaryEntry.genres.includes(g)))
-      return false;
-    if (tagFilters.length > 0 && !tagFilters.every((t) => primaryEntry.tags.includes(t)))
-      return false;
-    if (statusFilter !== null && primaryEntry.status !== statusFilter) return false;
-    return true;
-  });
+  const { results: franchises, isLoading } = useGetFranchises(
+    query,
+    genreFilters,
+    tagFilters,
+    statusFilter,
+  );
 
   const wrapperClassNames = classNames("flex flex-col w-full", "mx-auto py-8 height--mite-mite", {
     "px-3": isMobileBreakpoint,
@@ -34,11 +28,11 @@ function HomePageContent() {
       <div className={wrapperClassNames}>
         <SearchLayout />
 
-        {!isLoading && filteredFranchises.length === 0 && (
+        {!isLoading && franchises.length === 0 && (
           <p className="mt-8 text-muted text-sm">{Strings.home.emptyState}</p>
         )}
 
-        {filteredFranchises.length > 0 && <SeriesGrid franchises={filteredFranchises} />}
+        {franchises.length > 0 && <SeriesGrid franchises={franchises} />}
       </div>
     </PageLayout>
   );

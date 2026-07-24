@@ -1,4 +1,4 @@
-import { eq, ilike, or, sql } from "drizzle-orm";
+import { and, eq, ilike, or, sql } from "drizzle-orm";
 import { db } from "../db/index";
 import { franchises, entries } from "../db/schema";
 
@@ -6,25 +6,67 @@ export interface CreateFranchiseInput {
   primaryTitle: string;
 }
 
+export interface GetFranchisesParams {
+  search?: string;
+  genres?: string[];
+  tags?: string[];
+  status?: string;
+}
+
 export const FranchiseService = {
-  async getFranchises(search?: string) {
-    if (search) {
-      const term = `%${search}%`;
-      const rows = await db
-        .selectDistinct({ franchise: franchises })
-        .from(franchises)
-        .leftJoin(entries, eq(entries.id, franchises.primaryEntryId))
-        .where(
+  async getFranchises(params?: GetFranchisesParams) {
+    const { search, genres, tags, status } = params ?? {};
+
+    const needsJoin =
+      search || (genres && genres.length > 0) || (tags && tags.length > 0) || status;
+
+    if (needsJoin) {
+      const conditions = [];
+
+      if (search) {
+        const term = `%${search}%`;
+        conditions.push(
           or(
             ilike(franchises.title, term),
             sql`array_to_string(${entries.altTitles}, ',') ILIKE ${term}`,
             sql`array_to_string(${entries.staff}, ',') ILIKE ${term}`,
           ),
-        )
+        );
+      }
+
+      if (genres && genres.length > 0) {
+        conditions.push(
+          sql`${entries.genres} @> ARRAY[${sql.join(genres.map((g) => sql`${g}`), sql`, `)}]::text[]`,
+        );
+      }
+
+      if (tags && tags.length > 0) {
+        conditions.push(
+          sql`${entries.tags} @> ARRAY[${sql.join(tags.map((t) => sql`${t}`), sql`, `)}]::text[]`,
+        );
+      }
+
+      if (status) {
+        conditions.push(eq(entries.status, status));
+      }
+
+      const rows = await db
+        .selectDistinct({ franchise: franchises })
+        .from(franchises)
+        .leftJoin(entries, eq(entries.id, franchises.primaryEntryId))
+        .where(conditions.length === 1 ? conditions[0] : and(...conditions))
         .orderBy(franchises.title);
       return rows.map((r) => r.franchise);
     }
+
     return db.select().from(franchises).orderBy(franchises.title);
+  },
+
+  async getAvailableFilterOptions() {
+    const rows = await db.select({ genres: entries.genres, tags: entries.tags }).from(entries);
+    const genres = [...new Set(rows.flatMap((r) => r.genres))].sort();
+    const tags = [...new Set(rows.flatMap((r) => r.tags))].sort();
+    return { genres, tags };
   },
 
   async getFranchise(id: number) {

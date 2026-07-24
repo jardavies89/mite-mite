@@ -15,11 +15,22 @@ function mapFranchise(row: Awaited<ReturnType<typeof FranchiseService.getFranchi
 
 export const franchiseResolvers = {
   Query: {
+    availableFilterOptions: async () => {
+      return FranchiseService.getAvailableFilterOptions();
+    },
     franchise: async (_: unknown, { id }: { id: string }) => {
       return mapFranchise(await FranchiseService.getFranchise(Number(id)));
     },
-    franchises: async (_: unknown, { search }: { search?: string }) => {
-      const rows = await FranchiseService.getFranchises(search);
+    franchises: async (
+      _: unknown,
+      {
+        search,
+        genres,
+        tags,
+        status,
+      }: { search?: string; genres?: string[]; tags?: string[]; status?: string },
+    ) => {
+      const rows = await FranchiseService.getFranchises({ search, genres, tags, status });
       return rows.map((r) => mapFranchise(r)!);
     },
   },

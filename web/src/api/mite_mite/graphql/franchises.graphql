@@ -1,14 +1,9 @@
-query GetFranchises($search: String) {
-  franchises(search: $search) {
+query GetFranchises($search: String, $genres: [String!], $tags: [String!], $status: String) {
+  franchises(search: $search, genres: $genres, tags: $tags, status: $status) {
     id
     primaryTitle
-    primaryEntryId
     entries {
-      id
       coverImageUrl
-      genres
-      tags
-      status
     }
   }
 }

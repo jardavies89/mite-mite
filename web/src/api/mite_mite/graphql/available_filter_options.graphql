@@ -1,0 +1,6 @@
+query GetAvailableFilterOptions {
+  availableFilterOptions {
+    genres
+    tags
+  }
+}

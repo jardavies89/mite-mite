@@ -5,7 +5,12 @@ import { useQuery } from "@apollo/client/react";
 import getFranchisesQuery from "@/api/mite_mite/graphql/franchises.graphql?raw";
 
 type GetFranchisesData = { franchises: Franchise[] };
-type GetFranchisesVars = { search?: string };
+type GetFranchisesVars = {
+  search?: string;
+  genres?: string[];
+  tags?: string[];
+  status?: string;
+};
 
 const GET_FRANCHISES: TypedDocumentNode<GetFranchisesData, GetFranchisesVars> =
   gql(getFranchisesQuery);
@@ -16,7 +21,12 @@ type FranchisesState = {
   error: string | null;
 };
 
-function useGetFranchises(query: string = ""): FranchisesState {
+function useGetFranchises(
+  query: string = "",
+  genres: string[] = [],
+  tags: string[] = [],
+  status: string | null = null,
+): FranchisesState {
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -32,9 +42,13 @@ function useGetFranchises(query: string = ""): FranchisesState {
     };
   }, [query]);
 
-  const { data, loading, error } = useQuery(GET_FRANCHISES, {
-    variables: debouncedQuery ? { search: debouncedQuery } : {},
-  });
+  const variables: GetFranchisesVars = {};
+  if (debouncedQuery) variables.search = debouncedQuery;
+  if (genres.length > 0) variables.genres = genres;
+  if (tags.length > 0) variables.tags = tags;
+  if (status) variables.status = status;
+
+  const { data, loading, error } = useQuery(GET_FRANCHISES, { variables });
 
   return {
     results: data?.franchises ?? [],
