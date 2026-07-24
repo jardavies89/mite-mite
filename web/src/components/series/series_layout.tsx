@@ -1,7 +1,10 @@
+import { useState } from "react";
+
 import { Typography } from "@material-tailwind/react";
 import Markdown from "react-markdown";
 
 import { ChipList, TextList, StatusSection } from "@/components/series";
+import { ShareModal } from "@/components/series/share/share_modal";
 import { Strings } from "@/constants/strings";
 
 interface PropTypes {
@@ -9,6 +12,8 @@ interface PropTypes {
 }
 
 function SeriesLayout({ entry }: PropTypes) {
+  const [isShareOpen, setIsShareOpen] = useState(false);
+
   return (
     <>
       <div className="flex flex-row gap-8 mb-4">
@@ -27,6 +32,16 @@ function SeriesLayout({ entry }: PropTypes) {
         </div>
       </div>
 
+      {entry.referenceUrl && (
+        <button
+          type="button"
+          onClick={() => setIsShareOpen(true)}
+          className="self-start text-sm text-blue-600 dark:text-blue-400 underline hover:no-underline mb-2"
+        >
+          {Strings.share.shareButton}
+        </button>
+      )}
+
       <Typography variant="paragraph" className="mb-2 leading-normal">
         {entry.description}
       </Typography>
@@ -35,15 +50,8 @@ function SeriesLayout({ entry }: PropTypes) {
         <Markdown>{entry.comments}</Markdown>
       </div>
 
-      {entry.referenceUrl && (
-        <a
-          href={entry.referenceUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="self-start text-sm text-blue-600 dark:text-blue-400 underline hover:no-underline mt-2"
-        >
-          {Strings.entry.anilistSource}
-        </a>
+      {isShareOpen && entry.referenceUrl && (
+        <ShareModal url={entry.referenceUrl} onClose={() => setIsShareOpen(false)} />
       )}
     </>
   );

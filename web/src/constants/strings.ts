@@ -72,6 +72,13 @@ export const Strings = {
     goHome: "Go home",
     title: "Page not found",
   },
+  share: {
+    closeButton: "Close",
+    copyButton: "Copy link",
+    copiedButton: "Copied!",
+    modalTitle: "Share",
+    shareButton: "Share",
+  },
   search: {
     changeManga: "Select the correct manga",
     noSearchResults: 'No results found for "%{query}".',
