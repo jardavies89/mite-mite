@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { Button } from "@material-tailwind/react";
 
 interface PropTypes {
   result: MangaSearchResult;
@@ -16,7 +17,11 @@ function SearchResultListItem({ result, onSelect }: PropTypes) {
 
   return (
     <li key={result.id}>
-      <button type="button" onClick={() => onSelect(result)} className={listItemClasses}>
+      <Button
+        variant="text"
+        onClick={() => onSelect(result)}
+        className={`normal-case ${listItemClasses}`}
+      >
         <span className="block font-medium">{result.title.english ?? result.title.romaji}</span>
 
         <span className="flex gap-3 mt-0.5 items-center text-sm text-muted">
@@ -28,7 +33,7 @@ function SearchResultListItem({ result, onSelect }: PropTypes) {
 
           {firstStaff(result) && <span>{firstStaff(result)}</span>}
         </span>
-      </button>
+      </Button>
     </li>
   );
 }

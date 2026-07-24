@@ -133,6 +133,13 @@ yarn test      # vitest run
 the api uses `eslint` with `@typescript-eslint`. Don't swap them — they're intentionally different
 tools suited to each workspace.
 
+**Buttons**: use Material Tailwind's `Button` component rather than a native `<button>` element. Common patterns:
+- `variant="text"` for subtle/icon-only actions (close buttons, inline text links)
+- `variant="filled"` for primary actions
+- Always include `normal-case` in `className` — Material Tailwind defaults to `uppercase` which we don't want
+- Avoid `color="white"` — it makes text invisible in light mode. Apply custom colors via `className` instead (e.g. `className="normal-case text-gray-900 dark:text-white"`)
+- In tests that render components using `Button`, add `vi.mock("@material-tailwind/react", ...)` to avoid the ThemeProvider context requirement
+
 **UI copy**: all user-visible strings in the web live in `web/src/constants/strings.ts`. Add new
 copy there rather than hardcoding it inline in components. This applies to sentences and labels —
 single characters used as visual chrome (e.g. `×`, `?`) are exempt.

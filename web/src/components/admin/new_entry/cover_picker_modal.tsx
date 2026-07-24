@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { MdClose } from "react-icons/md";
+import { Button } from "@material-tailwind/react";
 
 import { getCovers, searchMangaCandidates } from "@/api/mangadex";
 import type { MangadexCover, MangadexSearchResult } from "@/api/mangadex";
@@ -134,13 +135,14 @@ function CoverPickerModal({ title, onClose }: PropTypes) {
                   {translate(Strings.coverPicker.matchedTitle, { title: matchedTitle })}
                 </span>
                 {candidates.length > 1 && (
-                  <button
-                    type="button"
+                  <Button
+                    variant="text"
+                    color="blue"
                     onClick={() => setShowCandidates((v) => !v)}
-                    className="text-xs text-blue-500 hover:underline"
+                    className="normal-case text-xs p-0 hover:underline"
                   >
                     {Strings.search.wrongTitle}
-                  </button>
+                  </Button>
                 )}
               </div>
             )}
@@ -157,14 +159,14 @@ function CoverPickerModal({ title, onClose }: PropTypes) {
               {Strings.coverPicker.showAllRegions}
             </label>
 
-            <button
-              type="button"
+            <Button
+              variant="text"
               onClick={onClose}
-              className="text-subtle hover:text-gray-900 dark:hover:text-white"
+              className="normal-case text-subtle hover:text-gray-900 dark:hover:text-white p-1"
               aria-label="Close"
             >
               <MdClose size={20} />
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -178,24 +180,25 @@ function CoverPickerModal({ title, onClose }: PropTypes) {
             <ul>
               {candidates.map((c) => (
                 <li key={c.id}>
-                  <button
-                    type="button"
+                  <Button
+                    variant="text"
                     onClick={() => selectCandidate(c)}
-                    className="w-full text-left px-3 py-2 text-sm hover:bg-default truncate"
+                    className="normal-case w-full text-left px-3 py-2 text-sm hover:bg-default truncate"
                   >
                     {c.title}
-                  </button>
+                  </Button>
                 </li>
               ))}
             </ul>
             <div className="border-t border-default mt-1 pt-1">
-              <button
-                type="button"
+              <Button
+                variant="text"
+                color="blue"
                 onClick={openSearchInstead}
-                className="w-full text-left px-3 py-2 text-xs text-blue-500 hover:underline"
+                className="normal-case w-full text-left px-3 py-2 text-xs hover:underline"
               >
                 {Strings.search.searchInstead}
-              </button>
+              </Button>
             </div>
           </div>
         )}
@@ -222,12 +225,13 @@ function CoverPickerModal({ title, onClose }: PropTypes) {
                 className="border border-default rounded px-3 py-2 text-sm bg-surface"
                 autoFocus
               />
-              <button
+              <Button
                 type="submit"
-                className="px-4 py-2 text-sm bg-gray-900 text-white dark:bg-white dark:text-gray-900 rounded"
+                variant="filled"
+                className="normal-case bg-gray-900 text-white dark:bg-white dark:text-gray-900"
               >
                 {Strings.search.searchSubmit}
-              </button>
+              </Button>
             </form>
           )}
 
@@ -242,11 +246,11 @@ function CoverPickerModal({ title, onClose }: PropTypes) {
           {!isLoading && !error && !showManualSearch && displayed.length > 0 && (
             <div className="grid grid-cols-4 gap-3 sm:grid-cols-6">
               {displayed.map((cover) => (
-                <button
+                <Button
                   key={cover.id}
-                  type="button"
+                  variant="text"
                   onClick={() => onSelect(cover)}
-                  className="flex flex-col gap-1 group"
+                  className="normal-case flex flex-col gap-1 group p-0"
                 >
                   <CoverImage
                     coverUrl={cover.thumbUrl}
@@ -257,7 +261,7 @@ function CoverPickerModal({ title, onClose }: PropTypes) {
                       {translate(Strings.coverPicker.volumeLabel, { n: cover.volume })}
                     </span>
                   )}
-                </button>
+                </Button>
               ))}
             </div>
           )}

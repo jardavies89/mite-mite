@@ -1,5 +1,6 @@
 import { useState } from "react";
 import classNames from "classnames";
+import { Button } from "@material-tailwind/react";
 
 import { useGetFranchises } from "@/api/mite_mite";
 
@@ -28,9 +29,13 @@ function FranchiseSearch({ onSelect }: PropTypes) {
 
     return (
       <li key={franchise.id}>
-        <button type="button" onClick={() => handleSelect(franchise)} className={itemClasses}>
+        <Button
+          variant="text"
+          onClick={() => handleSelect(franchise)}
+          className={`normal-case ${itemClasses}`}
+        >
           <span className="block font-medium">{franchise.primaryTitle}</span>
-        </button>
+        </Button>
       </li>
     );
   }

@@ -16,7 +16,7 @@ function PrimaryHeader() {
     <header className={headerClasses}>
       <div className="flex items-center gap-3">
         <a href="/">
-          <Button variant="text" className="text-gray-900 dark:text-white">
+          <Button variant="text" className="normal-case text-gray-900 dark:text-white">
             {Strings.home.backButton}
           </Button>
         </a>
