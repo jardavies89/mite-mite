@@ -5,6 +5,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@as-integrations/express5";
+import { GraphQLJSON } from "graphql-scalars";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { buildContext, type ApolloContext } from "./auth";
@@ -17,6 +18,7 @@ import mangadexRouter from "./routes/mangadex";
 const typeDefs = readFileSync(join(__dirname, "schema.graphql"), "utf-8");
 
 const resolvers = {
+  JSON: GraphQLJSON,
   Query: {
     ...entryResolvers.Query,
     ...franchiseResolvers.Query,

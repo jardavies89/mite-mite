@@ -12,6 +12,7 @@ mutation CreateEntry($input: CreateEntryInput!) {
     genres
     id
     medium
+    metadata
     primaryTitle
     referenceUrl
     staff

@@ -37,6 +37,7 @@ const dbEntry = {
   tags: [],
   staff: [],
   referenceUrl: null,
+  metadata: null,
 };
 
 beforeEach(() => {
@@ -159,6 +160,38 @@ describe("entryResolvers.Mutation.updateEntry", () => {
     const input = { primaryTitle: "Updated", status: "Completed" };
     await entryResolvers.Mutation.updateEntry(undefined, { id: "7", input }, adminCtx);
     expect(EntryService.updateEntry).toHaveBeenCalledWith(7, input);
+  });
+});
+
+describe("entryResolvers metadata passthrough", () => {
+  test("mapEntry includes metadata from db row", async () => {
+    const entryWithMeta = { ...dbEntry, metadata: { style: "ANIME", seasonCount: 4 } };
+    (EntryService.getEntries as jest.Mock).mockResolvedValue([entryWithMeta]);
+    const result = await entryResolvers.Query.entries();
+    expect(result[0]).toMatchObject({ metadata: { style: "ANIME", seasonCount: 4 } });
+  });
+
+  test("createEntry forwards metadata from input to service", async () => {
+    (EntryService.createEntry as jest.Mock).mockResolvedValue(dbEntry);
+    const input = {
+      primaryTitle: "One Piece",
+      medium: "SHOW",
+      metadata: { style: "ANIME", seasonCount: 20 },
+    };
+    await entryResolvers.Mutation.createEntry(undefined, { input }, adminCtx);
+    expect(EntryService.createEntry).toHaveBeenCalledWith(
+      expect.objectContaining({ metadata: { style: "ANIME", seasonCount: 20 } }),
+    );
+  });
+
+  test("updateEntry forwards metadata from input to service", async () => {
+    (EntryService.updateEntry as jest.Mock).mockResolvedValue(dbEntry);
+    const input = { metadata: { runtime: 115, studio: "Toei" } };
+    await entryResolvers.Mutation.updateEntry(undefined, { id: "1", input }, adminCtx);
+    expect(EntryService.updateEntry).toHaveBeenCalledWith(
+      1,
+      expect.objectContaining({ metadata: { runtime: 115, studio: "Toei" } }),
+    );
   });
 });
 

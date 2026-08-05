@@ -1,9 +1,11 @@
 scalar DateTime
+scalar JSON
 
 enum Medium {
-  MANGA
   BOOK
-  ANIME
+  MANGA
+  MOVIE
+  SHOW
 }
 
 enum Status {
@@ -22,6 +24,7 @@ type Entry {
   franchise: Franchise
   genres: [String!]!
   medium: Medium!
+  metadata: JSON
   primaryTitle: String!
   referenceUrl: String
   staff: [String!]!
@@ -33,6 +36,7 @@ type Entry {
 type Franchise {
   id: ID!
   primaryTitle: String!
+  primaryEntryId: ID
   entries: [Entry!]!
 }
 
@@ -54,6 +58,7 @@ input CreateEntryInput {
   franchiseId: ID
   genres: [String!]
   medium: Medium!
+  metadata: JSON
   newFranchiseName: String
   primaryTitle: String!
   referenceUrl: String
@@ -73,6 +78,7 @@ input UpdateEntryInput {
   description: String
   genres: [String!]
   medium: Medium
+  metadata: JSON
   primaryTitle: String
   referenceUrl: String
   staff: [String!]
@@ -93,7 +99,13 @@ type Query {
   entry(id: ID!): Entry
   franchise(id: ID!): Franchise
   availableFilterOptions: FilterOptions!
-  franchises(search: String, genres: [String!], tags: [String!], status: String): [Franchise!]!
+  franchises(
+    search: String
+    genres: [String!]
+    tags: [String!]
+    status: String
+    medium: Medium
+  ): [Franchise!]!
   me: Me!
 }
 

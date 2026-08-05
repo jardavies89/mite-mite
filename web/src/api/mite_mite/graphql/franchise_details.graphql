@@ -2,6 +2,7 @@ query GetFranchiseDetails($id: ID!) {
   franchise(id: $id) {
     id
     primaryTitle
+    primaryEntryId
     entries {
       alternateTitles
       comments
@@ -10,6 +11,7 @@ query GetFranchiseDetails($id: ID!) {
       genres
       id
       medium
+      metadata
       primaryTitle
       referenceUrl
       staff

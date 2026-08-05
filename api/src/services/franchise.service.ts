@@ -15,14 +15,15 @@ export interface GetFranchisesParams {
   genres?: string[];
   tags?: string[];
   status?: string;
+  medium?: string;
 }
 
 export const FranchiseService = {
   async getFranchises(params?: GetFranchisesParams) {
-    const { search, genres, tags, status } = params ?? {};
+    const { search, genres, tags, status, medium } = params ?? {};
 
     const needsJoin =
-      search || (genres && genres.length > 0) || (tags && tags.length > 0) || status;
+      search || (genres && genres.length > 0) || (tags && tags.length > 0) || status || medium;
 
     if (needsJoin) {
       const conditions = [];
@@ -58,6 +59,10 @@ export const FranchiseService = {
 
       if (status) {
         conditions.push(eq(entries.status, status));
+      }
+
+      if (medium) {
+        conditions.push(eq(entries.medium, medium));
       }
 
       const rows = await db
