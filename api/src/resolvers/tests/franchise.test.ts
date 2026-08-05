@@ -73,6 +73,7 @@ describe("franchiseResolvers.Query.franchises", () => {
       genres: undefined,
       tags: undefined,
       status: undefined,
+      medium: undefined,
     });
   });
 
@@ -88,6 +89,7 @@ describe("franchiseResolvers.Query.franchises", () => {
       genres: ["Action"],
       tags: ["Shounen"],
       status: "Ongoing",
+      medium: undefined,
     });
   });
 
@@ -99,7 +101,34 @@ describe("franchiseResolvers.Query.franchises", () => {
       genres: undefined,
       tags: undefined,
       status: undefined,
+      medium: undefined,
     });
+  });
+
+  test("passes medium filter to service when provided", async () => {
+    (FranchiseService.getFranchises as jest.Mock).mockResolvedValue([]);
+    await franchiseResolvers.Query.franchises(undefined, { medium: "SHOW" });
+    expect(FranchiseService.getFranchises).toHaveBeenCalledWith({
+      search: undefined,
+      genres: undefined,
+      tags: undefined,
+      status: undefined,
+      medium: "SHOW",
+    });
+  });
+});
+
+describe("franchiseResolvers mapFranchise", () => {
+  test("includes primaryEntryId as null when unset", async () => {
+    (FranchiseService.getFranchise as jest.Mock).mockResolvedValue(dbFranchise);
+    const result = await franchiseResolvers.Query.franchise(undefined, { id: "1" });
+    expect(result).toMatchObject({ primaryEntryId: null });
+  });
+
+  test("includes primaryEntryId as string when set", async () => {
+    (FranchiseService.getFranchise as jest.Mock).mockResolvedValue({ ...dbFranchise, primaryEntryId: 5 });
+    const result = await franchiseResolvers.Query.franchise(undefined, { id: "1" });
+    expect(result).toMatchObject({ primaryEntryId: "5" });
   });
 });
 
