@@ -173,16 +173,25 @@ describe("entryResolvers metadata passthrough", () => {
 
   test("createEntry forwards metadata from input to service", async () => {
     (EntryService.createEntry as jest.Mock).mockResolvedValue(dbEntry);
-    const input = { primaryTitle: "One Piece", medium: "SHOW", metadata: { style: "ANIME", seasonCount: 20 } };
+    const input = {
+      primaryTitle: "One Piece",
+      medium: "SHOW",
+      metadata: { style: "ANIME", seasonCount: 20 },
+    };
     await entryResolvers.Mutation.createEntry(undefined, { input }, adminCtx);
-    expect(EntryService.createEntry).toHaveBeenCalledWith(expect.objectContaining({ metadata: { style: "ANIME", seasonCount: 20 } }));
+    expect(EntryService.createEntry).toHaveBeenCalledWith(
+      expect.objectContaining({ metadata: { style: "ANIME", seasonCount: 20 } }),
+    );
   });
 
   test("updateEntry forwards metadata from input to service", async () => {
     (EntryService.updateEntry as jest.Mock).mockResolvedValue(dbEntry);
     const input = { metadata: { runtime: 115, studio: "Toei" } };
     await entryResolvers.Mutation.updateEntry(undefined, { id: "1", input }, adminCtx);
-    expect(EntryService.updateEntry).toHaveBeenCalledWith(1, expect.objectContaining({ metadata: { runtime: 115, studio: "Toei" } }));
+    expect(EntryService.updateEntry).toHaveBeenCalledWith(
+      1,
+      expect.objectContaining({ metadata: { runtime: 115, studio: "Toei" } }),
+    );
   });
 });
 

@@ -7,6 +7,7 @@ mutation UpdateEntry($id: ID!, $input: UpdateEntryInput!) {
     description
     genres
     medium
+    metadata
     primaryTitle
     referenceUrl
     staff

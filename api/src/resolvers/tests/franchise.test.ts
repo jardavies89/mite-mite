@@ -126,7 +126,10 @@ describe("franchiseResolvers mapFranchise", () => {
   });
 
   test("includes primaryEntryId as string when set", async () => {
-    (FranchiseService.getFranchise as jest.Mock).mockResolvedValue({ ...dbFranchise, primaryEntryId: 5 });
+    (FranchiseService.getFranchise as jest.Mock).mockResolvedValue({
+      ...dbFranchise,
+      primaryEntryId: 5,
+    });
     const result = await franchiseResolvers.Query.franchise(undefined, { id: "1" });
     expect(result).toMatchObject({ primaryEntryId: "5" });
   });

@@ -31,11 +31,4 @@ type EntryMetadata =
   | { medium: "MOVIE"; metadata: MovieMetadata }
   | { medium: "BOOK"; metadata: BookMetadata };
 
-export type {
-  BookMetadata,
-  EntryMetadata,
-  MangaMetadata,
-  MovieMetadata,
-  ShowMetadata,
-  ShowStyle,
-};
+export type { BookMetadata, EntryMetadata, MangaMetadata, MovieMetadata, ShowMetadata, ShowStyle };

@@ -99,7 +99,13 @@ type Query {
   entry(id: ID!): Entry
   franchise(id: ID!): Franchise
   availableFilterOptions: FilterOptions!
-  franchises(search: String, genres: [String!], tags: [String!], status: String, medium: Medium): [Franchise!]!
+  franchises(
+    search: String
+    genres: [String!]
+    tags: [String!]
+    status: String
+    medium: Medium
+  ): [Franchise!]!
   me: Me!
 }
 
