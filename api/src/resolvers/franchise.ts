@@ -1,5 +1,6 @@
 import { GraphQLError } from "graphql";
 import { FranchiseService } from "../services/franchise.service";
+import type { UpdateFranchiseInput } from "../services/franchise.service";
 import type { ApolloContext } from "../auth";
 
 function requireAdmin(ctx: ApolloContext) {
@@ -52,6 +53,14 @@ export const franchiseResolvers = {
         deletedFranchiseId: String(result.deletedFranchiseId),
         deletedEntryCount: result.deletedEntryCount,
       };
+    },
+    updateFranchise: async (
+      _: unknown,
+      { id, input }: { id: string; input: UpdateFranchiseInput },
+      ctx: ApolloContext,
+    ) => {
+      requireAdmin(ctx);
+      return mapFranchise(await FranchiseService.updateFranchise(Number(id), input))!;
     },
   },
 

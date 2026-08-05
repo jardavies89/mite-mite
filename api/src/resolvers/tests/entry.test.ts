@@ -10,6 +10,7 @@ jest.mock("../../services/entry.service", () => ({
     getEntry: jest.fn(),
     createEntry: jest.fn(),
     deleteEntry: jest.fn(),
+    updateEntry: jest.fn(),
   },
 }));
 
@@ -122,6 +123,42 @@ describe("entryResolvers.Mutation.deleteEntry", () => {
     (EntryService.deleteEntry as jest.Mock).mockResolvedValue(true);
     await entryResolvers.Mutation.deleteEntry(undefined, { id: "5" }, adminCtx);
     expect(EntryService.deleteEntry).toHaveBeenCalledWith(5);
+  });
+});
+
+describe("entryResolvers.Mutation.updateEntry", () => {
+  test("throws GraphQLError when not admin", async () => {
+    await expect(
+      entryResolvers.Mutation.updateEntry(
+        undefined,
+        { id: "1", input: { primaryTitle: "New" } },
+        guestCtx,
+      ),
+    ).rejects.toThrow(GraphQLError);
+  });
+
+  test("does not call service when not admin", async () => {
+    await expect(
+      entryResolvers.Mutation.updateEntry(undefined, { id: "1", input: {} }, guestCtx),
+    ).rejects.toThrow();
+    expect(EntryService.updateEntry).not.toHaveBeenCalled();
+  });
+
+  test("returns mapped entry when admin", async () => {
+    (EntryService.updateEntry as jest.Mock).mockResolvedValue(dbEntry);
+    const result = await entryResolvers.Mutation.updateEntry(
+      undefined,
+      { id: "1", input: { primaryTitle: "Updated" } },
+      adminCtx,
+    );
+    expect(result).toMatchObject({ primaryTitle: "My Title", alternateTitles: ["Alt 1", "Alt 2"] });
+  });
+
+  test("passes numeric id and input to service", async () => {
+    (EntryService.updateEntry as jest.Mock).mockResolvedValue(dbEntry);
+    const input = { primaryTitle: "Updated", status: "Completed" };
+    await entryResolvers.Mutation.updateEntry(undefined, { id: "7", input }, adminCtx);
+    expect(EntryService.updateEntry).toHaveBeenCalledWith(7, input);
   });
 });
 

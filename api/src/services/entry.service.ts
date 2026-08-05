@@ -3,6 +3,20 @@ import { db } from "../db/index";
 import { entries } from "../db/schema";
 import { FranchiseService } from "./franchise.service";
 
+export interface UpdateEntryInput {
+  alternateTitles?: string[];
+  comments?: string;
+  coverImageUrl?: string;
+  description?: string;
+  genres?: string[];
+  medium?: string;
+  primaryTitle?: string;
+  referenceUrl?: string;
+  staff?: string[];
+  status?: string;
+  tags?: string[];
+}
+
 export interface CreateEntryInput {
   alternateTitles?: string[];
   comments?: string;
@@ -72,5 +86,27 @@ export const EntryService = {
   async deleteEntry(id: number) {
     const deleted = await db.delete(entries).where(eq(entries.id, id)).returning();
     return deleted.length > 0;
+  },
+
+  async updateEntry(id: number, input: UpdateEntryInput) {
+    const rows = await db
+      .update(entries)
+      .set({
+        title: input.primaryTitle,
+        altTitles: input.alternateTitles,
+        coverImageUrl: input.coverImageUrl,
+        description: input.description,
+        comments: input.comments,
+        genres: input.genres,
+        tags: input.tags,
+        staff: input.staff,
+        status: input.status,
+        referenceUrl: input.referenceUrl,
+        medium: input.medium,
+        updatedAt: new Date(),
+      })
+      .where(eq(entries.id, id))
+      .returning();
+    return rows[0] ?? null;
   },
 };

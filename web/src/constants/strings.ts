@@ -98,6 +98,19 @@ export const Strings = {
     searchTitle: "Search by title",
     wrongTitle: "Wrong title?",
   },
+  editEntry: {
+    cancel: "Cancel",
+    pageTitle: "Edit entry",
+    saveChanges: "Save changes",
+  },
+  editFranchise: {
+    cancel: "Cancel",
+    editEntryButton: "Edit entry",
+    editSeriesButton: "Edit series",
+    emptyTitleError: "Series title cannot be empty.",
+    pageTitle: "Edit series",
+    saveChanges: "Save changes",
+  },
   theme: {
     toggleDark: "Switch to dark mode",
     toggleLight: "Switch to light mode",

@@ -6,6 +6,10 @@ export interface CreateFranchiseInput {
   primaryTitle: string;
 }
 
+export interface UpdateFranchiseInput {
+  primaryTitle: string;
+}
+
 export interface GetFranchisesParams {
   search?: string;
   genres?: string[];
@@ -36,13 +40,19 @@ export const FranchiseService = {
 
       if (genres && genres.length > 0) {
         conditions.push(
-          sql`${entries.genres} @> ARRAY[${sql.join(genres.map((g) => sql`${g}`), sql`, `)}]::text[]`,
+          sql`${entries.genres} @> ARRAY[${sql.join(
+            genres.map((g) => sql`${g}`),
+            sql`, `,
+          )}]::text[]`,
         );
       }
 
       if (tags && tags.length > 0) {
         conditions.push(
-          sql`${entries.tags} @> ARRAY[${sql.join(tags.map((t) => sql`${t}`), sql`, `)}]::text[]`,
+          sql`${entries.tags} @> ARRAY[${sql.join(
+            tags.map((t) => sql`${t}`),
+            sql`, `,
+          )}]::text[]`,
         );
       }
 
@@ -99,5 +109,14 @@ export const FranchiseService = {
 
   async getEntriesForFranchise(franchiseId: number) {
     return db.select().from(entries).where(eq(entries.franchiseId, franchiseId));
+  },
+
+  async updateFranchise(id: number, input: UpdateFranchiseInput) {
+    const rows = await db
+      .update(franchises)
+      .set({ title: input.primaryTitle, updatedAt: new Date() })
+      .where(eq(franchises.id, id))
+      .returning();
+    return rows[0] ?? null;
   },
 };
