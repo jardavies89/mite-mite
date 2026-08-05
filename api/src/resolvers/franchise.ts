@@ -11,7 +11,11 @@ function requireAdmin(ctx: ApolloContext) {
 
 function mapFranchise(row: Awaited<ReturnType<typeof FranchiseService.getFranchise>>) {
   if (!row) return null;
-  return { ...row, primaryTitle: row.title };
+  return {
+    ...row,
+    primaryTitle: row.title,
+    primaryEntryId: row.primaryEntryId ? String(row.primaryEntryId) : null,
+  };
 }
 
 export const franchiseResolvers = {
@@ -29,9 +33,10 @@ export const franchiseResolvers = {
         genres,
         tags,
         status,
-      }: { search?: string; genres?: string[]; tags?: string[]; status?: string },
+        medium,
+      }: { search?: string; genres?: string[]; tags?: string[]; status?: string; medium?: string },
     ) => {
-      const rows = await FranchiseService.getFranchises({ search, genres, tags, status });
+      const rows = await FranchiseService.getFranchises({ search, genres, tags, status, medium });
       return rows.map((r) => mapFranchise(r)!);
     },
   },

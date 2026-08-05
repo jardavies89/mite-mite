@@ -10,6 +10,7 @@ export interface UpdateEntryInput {
   description?: string;
   genres?: string[];
   medium?: string;
+  metadata?: Record<string, unknown>;
   primaryTitle?: string;
   referenceUrl?: string;
   staff?: string[];
@@ -25,6 +26,7 @@ export interface CreateEntryInput {
   franchiseId?: number;
   genres?: string[];
   medium: string;
+  metadata?: Record<string, unknown>;
   newFranchiseName?: string;
   primaryTitle: string;
   referenceUrl?: string;
@@ -64,6 +66,7 @@ export const EntryService = {
         comments: input.comments ?? null,
         description: input.description ?? null,
         genres: input.genres ?? [],
+        metadata: input.metadata ?? null,
         referenceUrl: input.referenceUrl ?? null,
         staff: input.staff ?? [],
         status: input.status ?? null,
@@ -103,6 +106,7 @@ export const EntryService = {
         status: input.status,
         referenceUrl: input.referenceUrl,
         medium: input.medium,
+        metadata: input.metadata,
         updatedAt: new Date(),
       })
       .where(eq(entries.id, id))
