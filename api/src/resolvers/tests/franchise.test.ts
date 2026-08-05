@@ -10,6 +10,7 @@ jest.mock("../../services/franchise.service", () => ({
     createFranchise: jest.fn(),
     deleteFranchise: jest.fn(),
     getEntriesForFranchise: jest.fn(),
+    updateFranchise: jest.fn(),
   },
 }));
 
@@ -153,6 +154,49 @@ describe("franchiseResolvers.Mutation.deleteFranchise", () => {
       adminCtx,
     );
     expect(result).toEqual({ deletedFranchiseId: "1", deletedEntryCount: 3 });
+  });
+});
+
+describe("franchiseResolvers.Mutation.updateFranchise", () => {
+  test("throws GraphQLError when not admin", async () => {
+    await expect(
+      franchiseResolvers.Mutation.updateFranchise(
+        undefined,
+        { id: "1", input: { primaryTitle: "New Name" } },
+        guestCtx,
+      ),
+    ).rejects.toThrow(GraphQLError);
+  });
+
+  test("does not call service when not admin", async () => {
+    await expect(
+      franchiseResolvers.Mutation.updateFranchise(
+        undefined,
+        { id: "1", input: { primaryTitle: "X" } },
+        guestCtx,
+      ),
+    ).rejects.toThrow();
+    expect(FranchiseService.updateFranchise).not.toHaveBeenCalled();
+  });
+
+  test("returns mapped franchise when admin", async () => {
+    (FranchiseService.updateFranchise as jest.Mock).mockResolvedValue({
+      ...dbFranchise,
+      title: "Updated Name",
+    });
+    const result = await franchiseResolvers.Mutation.updateFranchise(
+      undefined,
+      { id: "1", input: { primaryTitle: "Updated Name" } },
+      adminCtx,
+    );
+    expect(result).toMatchObject({ primaryTitle: "Updated Name" });
+  });
+
+  test("passes numeric id and input to service", async () => {
+    (FranchiseService.updateFranchise as jest.Mock).mockResolvedValue(dbFranchise);
+    const input = { primaryTitle: "Renamed" };
+    await franchiseResolvers.Mutation.updateFranchise(undefined, { id: "3", input }, adminCtx);
+    expect(FranchiseService.updateFranchise).toHaveBeenCalledWith(3, input);
   });
 });
 

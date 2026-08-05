@@ -1,0 +1,10 @@
+mutation UpdateFranchise($id: ID!, $input: UpdateFranchiseInput!) {
+  updateFranchise(id: $id, input: $input) {
+    id
+    primaryTitle
+    entries {
+      id
+      primaryTitle
+    }
+  }
+}

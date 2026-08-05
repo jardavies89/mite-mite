@@ -1,0 +1,21 @@
+mutation UpdateEntry($id: ID!, $input: UpdateEntryInput!) {
+  updateEntry(id: $id, input: $input) {
+    id
+    alternateTitles
+    comments
+    coverImageUrl
+    description
+    genres
+    medium
+    primaryTitle
+    referenceUrl
+    staff
+    status
+    tags
+    updatedAt
+    franchise {
+      id
+      primaryTitle
+    }
+  }
+}

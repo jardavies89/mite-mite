@@ -1,10 +1,16 @@
 import classNames from "classnames";
 import { Button, Typography } from "@material-tailwind/react";
+import { useMatch } from "react-router-dom";
 
 import { ThemeToggle } from "@/components/header";
 import { Strings } from "@/constants/strings";
+import { useAdminSession } from "@/api/mite_mite";
+import { SeriesEditButtons } from "./series_edit_buttons";
 
 function PrimaryHeader() {
+  const { isAdmin } = useAdminSession();
+  const seriesMatch = useMatch("/series/:franchiseId");
+
   const headerClasses = classNames(
     "flex items-center justify-between",
     "h-12 px-6 py-4",
@@ -26,7 +32,10 @@ function PrimaryHeader() {
         </Typography>
       </div>
 
-      <div>
+      <div className="flex items-center gap-2">
+        {isAdmin && seriesMatch && (
+          <SeriesEditButtons franchiseId={seriesMatch.params.franchiseId!} />
+        )}
         <ThemeToggle />
       </div>
     </header>

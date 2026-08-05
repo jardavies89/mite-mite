@@ -1,5 +1,6 @@
 import { GraphQLError } from "graphql";
 import { EntryService } from "../services/entry.service";
+import type { UpdateEntryInput } from "../services/entry.service";
 import { FranchiseService } from "../services/franchise.service";
 import type { ApolloContext } from "../auth";
 
@@ -41,6 +42,14 @@ export const entryResolvers = {
     deleteEntry: async (_: unknown, { id }: { id: string }, ctx: ApolloContext) => {
       requireAdmin(ctx);
       return EntryService.deleteEntry(Number(id));
+    },
+    updateEntry: async (
+      _: unknown,
+      { id, input }: { id: string; input: UpdateEntryInput },
+      ctx: ApolloContext,
+    ) => {
+      requireAdmin(ctx);
+      return mapEntry(await EntryService.updateEntry(Number(id), input))!;
     },
   },
 

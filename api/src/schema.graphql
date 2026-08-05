@@ -66,6 +66,24 @@ input CreateFranchiseInput {
   primaryTitle: String!
 }
 
+input UpdateEntryInput {
+  alternateTitles: [String!]
+  comments: String
+  coverImageUrl: String
+  description: String
+  genres: [String!]
+  medium: Medium
+  primaryTitle: String
+  referenceUrl: String
+  staff: [String!]
+  status: Status
+  tags: [String!]
+}
+
+input UpdateFranchiseInput {
+  primaryTitle: String!
+}
+
 type Me {
   isAdmin: Boolean!
 }
@@ -85,9 +103,11 @@ All mutations require a valid admin session cookie.
 type Mutation {
   createEntry(input: CreateEntryInput!): Entry!
   deleteEntry(id: ID!): Boolean!
+  updateEntry(id: ID!, input: UpdateEntryInput!): Entry!
   createFranchise(input: CreateFranchiseInput!): Franchise!
   """
   Deletes the franchise and cascade-deletes all associated entries.
   """
   deleteFranchise(id: ID!): DeleteFranchiseResult!
+  updateFranchise(id: ID!, input: UpdateFranchiseInput!): Franchise!
 }

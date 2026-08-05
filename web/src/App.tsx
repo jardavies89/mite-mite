@@ -7,6 +7,8 @@ import NewEntryPage from "@/components/admin/new_entry";
 import NotFound from "@/components/shared/not_found_page";
 import RequireAdmin from "@/components/shared/require_admin";
 import SeriesDetailsPage from "./components/series";
+import { EditEntryPage } from "@/components/series/edit_entry";
+import { EditFranchisePage } from "@/components/series/edit_franchise";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/admin" element={<AdminPage />} />
           <Route element={<RequireAdmin />}>
             <Route path="/admin/new_entry" element={<NewEntryPage />} />
+            <Route path="/series/:franchiseId/edit" element={<EditFranchisePage />} />
+            <Route path="/series/:franchiseId/edit/:entryId" element={<EditEntryPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
