@@ -1,4 +1,4 @@
-import { pgTable, serial, text, integer, timestamp, index } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, integer, timestamp, index, jsonb } from "drizzle-orm/pg-core";
 
 export const franchises = pgTable("franchises", {
   id: serial("id").primaryKey(),
@@ -26,6 +26,7 @@ export const entries = pgTable(
     staff: text("staff").array().notNull().default([]),
     status: text("status"),
     referenceUrl: text("reference_url"),
+    metadata: jsonb("metadata"),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },

@@ -1,7 +1,8 @@
 const Medium = {
-  Anime: "ANIME",
   Book: "BOOK",
   Manga: "MANGA",
+  Movie: "MOVIE",
+  Show: "SHOW",
 } as const;
 type Medium = (typeof Medium)[keyof typeof Medium];
 
