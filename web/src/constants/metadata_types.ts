@@ -33,4 +33,12 @@ type BookMetadata = Record<string, never>;
 
 type EntryMetadata = MangaMetadata | ShowMetadata | MovieMetadata | BookMetadata;
 
-export type { BookMetadata, EntryMetadata, MangaMetadata, MovieMetadata, Season, ShowMetadata, ShowStyle };
+export type {
+  BookMetadata,
+  EntryMetadata,
+  MangaMetadata,
+  MovieMetadata,
+  Season,
+  ShowMetadata,
+  ShowStyle,
+};
