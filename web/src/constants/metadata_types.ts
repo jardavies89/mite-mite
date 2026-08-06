@@ -1,20 +1,26 @@
+// ANIME covers all animation styles (anime, western cartoons, CGI, etc.) — displayed as "Animation"
 type ShowStyle = "ANIME" | "LIVE_ACTION";
 
 type MangaMetadata = {
   volumeCount?: number;
   chapterCount?: number;
-  publisher?: string;
-  firstPublishedDate?: string;
-  concludedDate?: string;
+  publishers?: string[];
+  startDate?: string;
+  endDate?: string;
+};
+
+type Season = {
+  episodeCount?: number;
+  startDate?: string;
+  endDate?: string;
 };
 
 type ShowMetadata = {
   style?: ShowStyle;
-  seasonCount?: number;
-  episodeCount?: number;
   studio?: string;
-  broadcastStartDate?: string;
-  broadcastEndDate?: string;
+  startDate?: string;
+  endDate?: string;
+  seasons?: Season[];
 };
 
 type MovieMetadata = {
@@ -25,10 +31,6 @@ type MovieMetadata = {
 
 type BookMetadata = Record<string, never>;
 
-type EntryMetadata =
-  | { medium: "MANGA"; metadata: MangaMetadata }
-  | { medium: "SHOW"; metadata: ShowMetadata }
-  | { medium: "MOVIE"; metadata: MovieMetadata }
-  | { medium: "BOOK"; metadata: BookMetadata };
+type EntryMetadata = MangaMetadata | ShowMetadata | MovieMetadata | BookMetadata;
 
-export type { BookMetadata, EntryMetadata, MangaMetadata, MovieMetadata, ShowMetadata, ShowStyle };
+export type { BookMetadata, EntryMetadata, MangaMetadata, MovieMetadata, Season, ShowMetadata, ShowStyle };

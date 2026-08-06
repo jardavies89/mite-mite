@@ -2,6 +2,7 @@ import { gql, type TypedDocumentNode } from "@apollo/client/core";
 import { useMutation } from "@apollo/client/react";
 
 import createEntryMutation from "@/api/mite_mite/graphql/entries.graphql?raw";
+import type { EntryMetadata } from "@/constants/metadata_types";
 import type { Medium, Status } from "@/constants/types";
 
 export interface CreateEntryInput {
@@ -13,6 +14,7 @@ export interface CreateEntryInput {
   franchiseId?: string;
   genres?: string[];
   medium: Medium;
+  metadata?: EntryMetadata;
   // Or the new franchise title
   newFranchiseName?: string;
   primaryTitle: string;
@@ -32,6 +34,7 @@ export interface Entry {
   genres: string[];
   id: string;
   medium: Medium;
+  metadata: EntryMetadata | null;
   primaryTitle: string;
   referenceUrl: string | null;
   staff: string[];
