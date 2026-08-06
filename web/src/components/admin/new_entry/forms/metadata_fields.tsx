@@ -45,18 +45,24 @@ function MangaFields({ metadata }: { metadata: MangaMetadata }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <TextInput
-        id="metadata-volume-count"
-        label={Strings.metadata.volumeCount}
-        currentValue={metadata.volumeCount?.toString() ?? ""}
-        onChange={(e) => update({ volumeCount: toNumber(e.target.value) })}
-      />
-      <TextInput
-        id="metadata-chapter-count"
-        label={Strings.metadata.chapterCount}
-        currentValue={metadata.chapterCount?.toString() ?? ""}
-        onChange={(e) => update({ chapterCount: toNumber(e.target.value) })}
-      />
+      <div className="flex gap-4">
+        <div className="flex-1">
+          <TextInput
+            id="metadata-volume-count"
+            label={Strings.metadata.volumeCount}
+            currentValue={metadata.volumeCount?.toString() ?? ""}
+            onChange={(e) => update({ volumeCount: toNumber(e.target.value) })}
+          />
+        </div>
+        <div className="flex-1">
+          <TextInput
+            id="metadata-chapter-count"
+            label={Strings.metadata.chapterCount}
+            currentValue={metadata.chapterCount?.toString() ?? ""}
+            onChange={(e) => update({ chapterCount: toNumber(e.target.value) })}
+          />
+        </div>
+      </div>
 
       <div className="flex flex-col gap-2">
         <label>{Strings.metadata.publishers}</label>
@@ -88,18 +94,24 @@ function MangaFields({ metadata }: { metadata: MangaMetadata }) {
         </Button>
       </div>
 
-      <TextInput
-        id="metadata-start-date"
-        label={Strings.metadata.startDate}
-        currentValue={metadata.startDate ?? ""}
-        onChange={(e) => update({ startDate: e.target.value || undefined })}
-      />
-      <TextInput
-        id="metadata-end-date"
-        label={Strings.metadata.endDate}
-        currentValue={metadata.endDate ?? ""}
-        onChange={(e) => update({ endDate: e.target.value || undefined })}
-      />
+      <div className="flex gap-4">
+        <div className="flex-1">
+          <TextInput
+            id="metadata-start-date"
+            label={Strings.metadata.startDate}
+            currentValue={metadata.startDate ?? ""}
+            onChange={(e) => update({ startDate: e.target.value || undefined })}
+          />
+        </div>
+        <div className="flex-1">
+          <TextInput
+            id="metadata-end-date"
+            label={Strings.metadata.endDate}
+            currentValue={metadata.endDate ?? ""}
+            onChange={(e) => update({ endDate: e.target.value || undefined })}
+          />
+        </div>
+      </div>
     </div>
   );
 }
@@ -140,18 +152,24 @@ function ShowFields({ metadata }: { metadata: ShowMetadata }) {
         currentValue={metadata.studio ?? ""}
         onChange={(e) => update({ studio: e.target.value || undefined })}
       />
-      <TextInput
-        id="metadata-start-date"
-        label={Strings.metadata.startDate}
-        currentValue={metadata.startDate ?? ""}
-        onChange={(e) => update({ startDate: e.target.value || undefined })}
-      />
-      <TextInput
-        id="metadata-end-date"
-        label={Strings.metadata.endDate}
-        currentValue={metadata.endDate ?? ""}
-        onChange={(e) => update({ endDate: e.target.value || undefined })}
-      />
+      <div className="flex gap-4">
+        <div className="flex-1">
+          <TextInput
+            id="metadata-start-date"
+            label={Strings.metadata.startDate}
+            currentValue={metadata.startDate ?? ""}
+            onChange={(e) => update({ startDate: e.target.value || undefined })}
+          />
+        </div>
+        <div className="flex-1">
+          <TextInput
+            id="metadata-end-date"
+            label={Strings.metadata.endDate}
+            currentValue={metadata.endDate ?? ""}
+            onChange={(e) => update({ endDate: e.target.value || undefined })}
+          />
+        </div>
+      </div>
 
       <div className="flex flex-col gap-4">
         {(metadata.seasons ?? []).map((season, i) => (
