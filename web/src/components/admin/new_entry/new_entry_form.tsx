@@ -15,6 +15,7 @@ import { TextareaInput } from "@/components/shared/form_fields/textarea_input";
 import { CoverPicker } from "@/components/admin/new_entry/cover_picker";
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
 import { Strings } from "@/constants/strings";
+import { Medium } from "@/constants/types";
 import { Button } from "@material-tailwind/react";
 import { useCreateEntry } from "@/api/mite_mite";
 
@@ -93,7 +94,9 @@ function NewEntryForm() {
           rel="noreferrer"
           className="self-start text-sm text-blue-600 dark:text-blue-400 underline hover:no-underline"
         >
-          {Strings.entry.anilistSource}
+          {newEntryDraft.medium === Medium.Show || newEntryDraft.medium === Medium.Movie
+            ? Strings.entry.tmdbSource
+            : Strings.entry.anilistSource}
         </a>
       )}
 

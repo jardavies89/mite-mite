@@ -8,9 +8,16 @@ type TmdbTvSearchResult = {
   origin_country: string[];
 };
 
+type TmdbTvSeason = {
+  season_number: number;
+  episode_count: number;
+  air_date: string | null;
+};
+
 type TmdbTvDetails = {
   id: number;
   name: string;
+  original_name: string;
   overview: string | null;
   poster_path: string | null;
   first_air_date: string | null;
@@ -19,6 +26,7 @@ type TmdbTvDetails = {
   genres: Array<{ id: number; name: string }>;
   production_companies: Array<{ id: number; name: string; logo_path: string | null }>;
   homepage: string | null;
+  seasons: TmdbTvSeason[];
 };
 
 type TmdbMovieSearchResult = {

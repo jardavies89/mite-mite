@@ -40,6 +40,7 @@ export const Strings = {
     alternateTitleLabel: "Alternate title %{n}",
     alternateTitles: "Alternate titles",
     anilistSource: "Sourced from AniList",
+    tmdbSource: "Sourced from TMDB",
     chooseCover: "Choose cover image",
     comments: "Comments",
     description: "Description",
