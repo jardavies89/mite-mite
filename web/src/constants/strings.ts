@@ -14,7 +14,9 @@ export function translate(str: string, vars?: Record<string, string>): string {
 
 export const Strings = {
   admin: {
-    addNewEntry: "Add new entry",
+    addNewManga: "Add new manga",
+    addNewMovie: "Add new movie",
+    addNewShow: "Add new show",
     title: "Admin",
   },
   auth: {
@@ -38,6 +40,7 @@ export const Strings = {
     alternateTitleLabel: "Alternate title %{n}",
     alternateTitles: "Alternate titles",
     anilistSource: "Sourced from AniList",
+    tmdbSource: "Sourced from TMDB",
     chooseCover: "Choose cover image",
     comments: "Comments",
     description: "Description",

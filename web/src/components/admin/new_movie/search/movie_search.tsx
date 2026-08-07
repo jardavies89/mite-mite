@@ -1,32 +1,31 @@
 import { useState } from "react";
 
 import { SearchResultListItem } from "@/components/admin/new_entry";
-import { useAnilistSearch } from "@/components/admin/hooks/use_anilist_search";
-
+import { useTmdbMovieSearch } from "@/components/admin/hooks/use_tmdb_movie_search";
 import { TextInput } from "@/components/shared/form_fields/text_input";
 import { Strings } from "@/constants/strings";
 
 interface PropTypes {
-  onSelect: (result: MangaSearchResult) => void;
+  onSelect: (result: TmdbMovieSearchResult) => void;
 }
 
-function MangaSearch({ onSelect }: PropTypes) {
+function MovieSearch({ onSelect }: PropTypes) {
   const [query, setQuery] = useState("");
-  const { results, isLoading, error } = useAnilistSearch(query);
+  const { results, isLoading, error } = useTmdbMovieSearch(query);
 
-  function handleSelect(result: MangaSearchResult) {
+  function handleSelect(result: TmdbMovieSearchResult) {
     setQuery("");
     onSelect(result);
   }
 
-  function renderSearchResult(result: MangaSearchResult) {
+  function renderSearchResult(result: TmdbMovieSearchResult) {
+    const year = result.release_date ? result.release_date.slice(0, 4) : undefined;
     return (
       <SearchResultListItem
         key={result.id}
-        primaryLabel={result.title.english ?? result.title.romaji ?? ""}
-        secondaryLabel={result.title.native ?? undefined}
-        badge={result.format ?? undefined}
-        tagline={result.staff.edges[0]?.node.name.full}
+        primaryLabel={result.title}
+        secondaryLabel={year}
+        badge="MOVIE"
         onSelect={() => handleSelect(result)}
       />
     );
@@ -36,7 +35,7 @@ function MangaSearch({ onSelect }: PropTypes) {
     <div className="flex flex-col gap-2">
       <TextInput
         label={Strings.entry.primaryTitle}
-        id="manga-search-input"
+        id="movie-search-input"
         onChange={(e) => setQuery(e.target.value)}
         placeholder={Strings.search.searchTitle}
         currentValue={query}
@@ -59,4 +58,4 @@ function MangaSearch({ onSelect }: PropTypes) {
   );
 }
 
-export { MangaSearch };
+export { MovieSearch };

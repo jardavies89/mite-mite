@@ -20,7 +20,7 @@ yarn dev              # starts Apollo Server at http://localhost:4100/graphql
 
 ```bash
 cd web
-cp .env.sample .env   # fill in VITE_API_URL (e.g. http://localhost:4100), VITE_ADMIN_SECRET
+cp .env.sample .env   # fill in VITE_API_URL (e.g. http://localhost:4100), VITE_ADMIN_SECRET, VITE_TMDB_API_KEY
 yarn install
 yarn dev              # starts Vite dev server at http://localhost:4000
 ```
@@ -42,6 +42,7 @@ DB migrations run automatically at API startup — no manual step needed on depl
 |---|---|---|
 | api | `DATABASE_URL` | Direct (non-pooled) Neon connection string with `?sslmode=require` |
 | web | `VITE_API_URL` | Base URL of the api service, e.g. `https://mite-mite-api.onrender.com` |
+| web | `VITE_TMDB_API_KEY` | [TMDB](https://www.themoviedb.org) API key (free Developer tier) — used for show and movie import |
 
 `ADMIN_SECRET` and `VITE_ADMIN_SECRET` are intentionally omitted in production — the app runs read-only until admin auth is added (issue #13).
 

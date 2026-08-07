@@ -12,15 +12,15 @@ import { StaffInput } from "@/components/admin/new_entry/forms/staff_input";
 import { TextInput } from "@/components/shared/form_fields/text_input";
 import { TextareaInput } from "@/components/shared/form_fields/textarea_input";
 
-import { CoverPickerModal } from "@/components/admin/new_entry/cover_picker_modal";
+import { CoverPicker } from "@/components/admin/new_entry/cover_picker";
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
 import { Strings } from "@/constants/strings";
+import { Medium } from "@/constants/types";
 import { Button } from "@material-tailwind/react";
 import { useCreateEntry } from "@/api/mite_mite";
 
 function NewEntryForm() {
   const { newEntryDraft, updateEntryDraft } = useNewEntryContext();
-  const [coverPickerOpen, setCoverPickerOpen] = useState(false);
   const [showRequiredError, setShowRequiredError] = useState(false);
   const { createEntry } = useCreateEntry();
   const navigate = useNavigate();
@@ -94,23 +94,15 @@ function NewEntryForm() {
           rel="noreferrer"
           className="self-start text-sm text-blue-600 dark:text-blue-400 underline hover:no-underline"
         >
-          {Strings.entry.anilistSource}
+          {newEntryDraft.medium === Medium.Show || newEntryDraft.medium === Medium.Movie
+            ? Strings.entry.tmdbSource
+            : Strings.entry.anilistSource}
         </a>
       )}
 
       <div className="flex flex-row gap-8">
         <div className="flex flex-col gap-2 flex-shrink-0">
-          <img alt="cover" src={newEntryDraft.coverImageUrl} className="w-64 rounded" />
-          {newEntryDraft.coverImageUrl && (
-            <Button
-              variant="text"
-              color="blue"
-              onClick={() => setCoverPickerOpen(true)}
-              className="normal-case text-xs underline hover:no-underline text-center p-0"
-            >
-              {Strings.entry.chooseCover}
-            </Button>
-          )}
+          <CoverPicker />
         </div>
 
         <div className="flex flex-col gap-4 w-full">
@@ -176,13 +168,6 @@ function NewEntryForm() {
 
       {showRequiredError && (
         <p className="text-center text-red-600">{Strings.newEntry.franchiseError}</p>
-      )}
-
-      {coverPickerOpen && (
-        <CoverPickerModal
-          title={newEntryDraft.primaryTitle}
-          onClose={() => setCoverPickerOpen(false)}
-        />
       )}
     </div>
   );

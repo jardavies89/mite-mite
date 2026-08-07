@@ -4,6 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "@/components/home_page";
 import AdminPage from "@/components/admin";
 import NewEntryPage from "@/components/admin/new_entry";
+import ShowEntryPage from "@/components/admin/new_show";
+import MovieEntryPage from "@/components/admin/new_movie";
 import NotFound from "@/components/shared/not_found_page";
 import RequireAdmin from "@/components/shared/require_admin";
 import SeriesDetailsPage from "./components/series";
@@ -20,6 +22,8 @@ function App() {
           <Route path="/admin" element={<AdminPage />} />
           <Route element={<RequireAdmin />}>
             <Route path="/admin/new_entry" element={<NewEntryPage />} />
+            <Route path="/admin/new_show" element={<ShowEntryPage />} />
+            <Route path="/admin/new_movie" element={<MovieEntryPage />} />
             <Route path="/series/:franchiseId/edit" element={<EditFranchisePage />} />
             <Route path="/series/:franchiseId/edit/:entryId" element={<EditEntryPage />} />
           </Route>

@@ -31,6 +31,7 @@ export type NewEntryFormState = {
   status: Status;
   tagIds: Tags[];
   tags: string[];
+  tmdbId?: number;
 };
 
 const INITIAL_STATE: NewEntryFormState = {
@@ -50,6 +51,7 @@ const INITIAL_STATE: NewEntryFormState = {
   status: Status.Ongoing,
   tagIds: [],
   tags: [],
+  tmdbId: undefined,
 };
 
 type NewEntryContextValue = {

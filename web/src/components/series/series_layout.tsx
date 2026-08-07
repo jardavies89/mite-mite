@@ -5,6 +5,8 @@ import { FaShareAlt } from "react-icons/fa";
 import Markdown from "react-markdown";
 
 import { ChipList, TextList, StatusSection } from "@/components/series";
+import { ShowStatusSection } from "@/components/series/fields/show_status_section";
+import { MovieStatusSection } from "@/components/series/fields/movie_status_section";
 import { ShareModal } from "@/components/series/share/share_modal";
 import { Strings } from "@/constants/strings";
 import { Medium } from "@/constants/types";
@@ -17,7 +19,8 @@ function SeriesLayout({ entry }: PropTypes) {
   const [isShareOpen, setIsShareOpen] = useState(false);
 
   const isManga = entry.medium === Medium.Manga;
-  const metadata = isManga ? (entry.metadata as MangaMetadata) : (entry.metadata as ShowMetadata);
+  const isShow = entry.medium === Medium.Show;
+  const isMovie = entry.medium === Medium.Movie;
 
   function maybeRenderShareButton() {
     if (entry.referenceUrl) {
@@ -37,7 +40,7 @@ function SeriesLayout({ entry }: PropTypes) {
 
   function renderPublisherInfo() {
     if (isManga) {
-      const publishers = (metadata as MangaMetadata).publishers || [];
+      const publishers = ((entry.metadata as MangaMetadata) || {}).publishers || [];
 
       if (publishers.length > 0) {
         return <TextList title={Strings.metadata.publishers} items={publishers} />;
@@ -62,7 +65,11 @@ function SeriesLayout({ entry }: PropTypes) {
           <TextList title={Strings.entry.alternateTitles} items={entry.alternateTitles} />
           <TextList title={Strings.entry.staff} items={entry.staff} />
 
-          <StatusSection entry={entry} metadata={isManga ? metadata : {}} />
+          {isManga && <StatusSection entry={entry} metadata={entry.metadata as MangaMetadata} />}
+          {isShow && <ShowStatusSection entry={entry} metadata={entry.metadata as ShowMetadata} />}
+          {isMovie && (
+            <MovieStatusSection entry={entry} metadata={entry.metadata as MovieMetadata} />
+          )}
         </div>
       </div>
 
