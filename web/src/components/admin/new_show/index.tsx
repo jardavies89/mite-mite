@@ -3,6 +3,7 @@ import classNames from "classnames";
 
 import { PageLayout } from "@/components/shared/page_layout";
 import { NewEntryProvider } from "@/components/admin/context/new_entry_context";
+import { ShowImporter } from "@/components/admin/new_show/show_importer";
 import { Strings } from "@/constants/strings";
 import useMediaQuery from "@/components/shared/hooks/use_media_query";
 
@@ -21,7 +22,7 @@ function ShowEntryPage() {
           {Strings.admin.addNewShow}
         </Typography>
         <NewEntryProvider>
-          <p>Show import coming soon</p>
+          <ShowImporter />
         </NewEntryProvider>
       </div>
     </PageLayout>
