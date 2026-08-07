@@ -3,6 +3,7 @@ import classNames from "classnames";
 
 import { PageLayout } from "@/components/shared/page_layout";
 import { NewEntryProvider } from "@/components/admin/context/new_entry_context";
+import { MovieImporter } from "@/components/admin/new_movie/movie_importer";
 import { Strings } from "@/constants/strings";
 import useMediaQuery from "@/components/shared/hooks/use_media_query";
 
@@ -21,7 +22,7 @@ function MovieEntryPage() {
           {Strings.admin.addNewMovie}
         </Typography>
         <NewEntryProvider>
-          <p>Movie import coming soon</p>
+          <MovieImporter />
         </NewEntryProvider>
       </div>
     </PageLayout>
