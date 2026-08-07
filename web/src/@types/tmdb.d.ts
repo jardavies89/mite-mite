@@ -29,6 +29,16 @@ type TmdbMovieSearchResult = {
   release_date: string | null;
 };
 
+type TmdbPosterImage = {
+  file_path: string;
+  iso_639_1: string | null;
+};
+
+type TmdbImagesResponse = {
+  id: number;
+  posters: TmdbPosterImage[];
+};
+
 type TmdbMovieDetails = {
   id: number;
   title: string;

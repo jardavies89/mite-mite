@@ -53,6 +53,7 @@ function mapTmdbShowToEntryDraft(details: TmdbTvDetails): Partial<NewEntryFormSt
     medium: Medium.Show,
     referenceUrl: details.homepage || `${TMDB_TV_BASE}/${details.id}`,
     metadata,
+    tmdbId: details.id,
   };
 }
 
@@ -72,6 +73,7 @@ function mapTmdbMovieToEntryDraft(details: TmdbMovieDetails): Partial<NewEntryFo
     medium: Medium.Movie,
     referenceUrl: details.homepage || `${TMDB_MOVIE_BASE}/${details.id}`,
     metadata,
+    tmdbId: details.id,
   };
 }
 
