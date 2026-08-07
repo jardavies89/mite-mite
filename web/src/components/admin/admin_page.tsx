@@ -18,6 +18,9 @@ function AdminPage() {
     "px-8 max-width--50": !isMobileBreakpoint,
   });
 
+  const linkClasses =
+    "self-start px-4 py-2 rounded-md text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors";
+
   return (
     <PageLayout>
       <div className={wrapperClassNames}>
@@ -33,11 +36,14 @@ function AdminPage() {
 
         {isAdmin ? (
           <div className="flex flex-col gap-3">
-            <Link
-              to="/admin/new_entry"
-              className="self-start px-4 py-2 rounded-md text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors"
-            >
-              {Strings.admin.addNewEntry}
+            <Link to="/admin/new_entry" className={linkClasses}>
+              {Strings.admin.addNewManga}
+            </Link>
+            <Link to="/admin/new_show" className={linkClasses}>
+              {Strings.admin.addNewShow}
+            </Link>
+            <Link to="/admin/new_movie" className={linkClasses}>
+              {Strings.admin.addNewMovie}
             </Link>
           </div>
         ) : (
