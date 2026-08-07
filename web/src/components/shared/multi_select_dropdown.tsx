@@ -73,19 +73,21 @@ function MultiSelectDropdown({
 
   return (
     <div className="relative" ref={containerRef}>
-      <Button
-        variant="text"
-        onClick={() => setOpen((o) => !o)}
-        aria-label={label}
-        className="normal-case flex items-center justify-between rounded-md border px-3 py-2 text-left bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-      >
-        <span className="truncate text-sm">{summary}</span>
-        {open ? (
-          <MdKeyboardArrowUp className="flex-shrink-0 ml-2" />
-        ) : (
-          <MdKeyboardArrowDown className="flex-shrink-0 ml-2" />
-        )}
-      </Button>
+      <div className="w-full overflow-hidden">
+        <Button
+          variant="text"
+          onClick={() => setOpen((o) => !o)}
+          aria-label={label}
+          className="normal-case w-full flex items-center justify-between rounded-md border px-3 py-2 text-left bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+        >
+          <span className="truncate min-w-0 text-sm">{summary}</span>
+          {open ? (
+            <MdKeyboardArrowUp className="flex-shrink-0 ml-2" />
+          ) : (
+            <MdKeyboardArrowDown className="flex-shrink-0 ml-2" />
+          )}
+        </Button>
+      </div>
 
       {open && (
         <div className="absolute top-full left-0 z-10 w-full min-w-48 rounded-md border bg-surface shadow-sm max-h-64 overflow-y-auto">

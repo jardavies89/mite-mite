@@ -66,7 +66,8 @@ function NewEntryProvider({ children }: { children: React.ReactNode }) {
   function patch(update: Partial<NewEntryFormState>) {
     setForm((prev) => {
       const mediumChanged = "medium" in update && update.medium !== prev.medium;
-      return { ...prev, ...update, ...(mediumChanged ? { metadata: null } : {}) };
+      const shouldClearMetadata = mediumChanged && !("metadata" in update);
+      return { ...prev, ...update, ...(shouldClearMetadata ? { metadata: null } : {}) };
     });
   }
 

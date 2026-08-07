@@ -6,6 +6,7 @@ import { AlternateTitles } from "@/components/admin/new_entry/alternate_titles";
 import { GenreSelect } from "@/components/admin/new_entry/forms/genre_select";
 import { StatusSelect } from "@/components/admin/new_entry/forms/status_select";
 import { TagsSelect } from "@/components/admin/new_entry/forms/tags_select";
+import { MetadataFields } from "@/components/admin/new_entry/forms/metadata_fields";
 import { StaffInput } from "@/components/admin/new_entry/forms/staff_input";
 import { TextInput } from "@/components/shared/form_fields/text_input";
 import { TextareaInput } from "@/components/shared/form_fields/textarea_input";
@@ -34,6 +35,7 @@ function EditEntryForm({ franchiseId, entryId }: PropTypes) {
       description,
       genres,
       medium,
+      metadata,
       primaryTitle,
       referenceUrl,
       staff,
@@ -49,6 +51,7 @@ function EditEntryForm({ franchiseId, entryId }: PropTypes) {
       genres,
       //@ts-expect-error medium won't actually be nullable at this stage
       medium,
+      metadata: metadata ?? undefined,
       primaryTitle,
       referenceUrl,
       staff,
@@ -131,16 +134,18 @@ function EditEntryForm({ franchiseId, entryId }: PropTypes) {
         <StaffInput />
 
         <div className="flex flex-row gap-4 w-full">
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <GenreSelect />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <TagsSelect />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <StatusSelect />
           </div>
         </div>
+
+        <MetadataFields />
       </div>
 
       <div className="flex flex-row gap-4 justify-end mt-4">

@@ -145,13 +145,13 @@ function NewEntryForm() {
         <StaffInput />
 
         <div className="flex flex-row gap-4 w-full">
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <GenreSelect />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <TagsSelect />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <StatusSelect />
           </div>
         </div>

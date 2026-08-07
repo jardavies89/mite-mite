@@ -12,6 +12,7 @@ interface Entry {
   description: string;
   genres: string[];
   medium: string;
+  metadata?: import("@/constants/metadata_types").EntryMetadata | null;
   primaryTitle: string;
   referenceUrl?: string;
   staff: string[];
