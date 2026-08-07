@@ -67,9 +67,7 @@ function SeriesLayout({ entry }: PropTypes) {
 
           {isManga && <StatusSection entry={entry} metadata={entry.metadata as MangaMetadata} />}
           {isShow && <ShowStatusSection entry={entry} metadata={entry.metadata as ShowMetadata} />}
-          {isMovie && (
-            <MovieStatusSection entry={entry} metadata={entry.metadata as MovieMetadata} />
-          )}
+          {isMovie && <MovieStatusSection metadata={entry.metadata as MovieMetadata} />}
         </div>
       </div>
 
