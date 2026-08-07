@@ -12,7 +12,7 @@ const fakeDetails: TmdbMovieDetails = {
   homepage: "",
 };
 
-function mockFetch(body: unknown, ok = true, status = 200) {
+function mockFetch(body: unknown, status = 200) {
   vi.spyOn(global, "fetch").mockResolvedValueOnce(
     new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json" } }),
   );

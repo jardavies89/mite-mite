@@ -3,6 +3,7 @@ import { getShow } from "../get_show";
 const fakeDetails: TmdbTvDetails = {
   id: 1396,
   name: "Breaking Bad",
+  original_name: "Breaking Bad",
   overview: "A chemistry teacher turns to crime.",
   poster_path: "/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
   first_air_date: "2008-01-20",
@@ -11,9 +12,10 @@ const fakeDetails: TmdbTvDetails = {
   genres: [{ id: 18, name: "Drama" }],
   production_companies: [{ id: 2575, name: "Sony Pictures Television", logo_path: null }],
   homepage: "http://www.amctv.com/shows/breaking-bad",
+  seasons: [{ season_number: 1, episode_count: 7, air_date: "2008-01-20" }],
 };
 
-function mockFetch(body: unknown, ok = true, status = 200) {
+function mockFetch(body: unknown, status = 200) {
   vi.spyOn(global, "fetch").mockResolvedValueOnce(
     new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json" } }),
   );

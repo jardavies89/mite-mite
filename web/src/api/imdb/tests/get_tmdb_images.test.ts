@@ -5,7 +5,7 @@ const fakePosters: TmdbPosterImage[] = [
   { file_path: "/def.jpg", iso_639_1: null },
 ];
 
-function mockFetch(body: unknown, ok = true, status = 200) {
+function mockFetch(body: unknown, status = 200) {
   vi.spyOn(global, "fetch").mockResolvedValueOnce(
     new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json" } }),
   );
