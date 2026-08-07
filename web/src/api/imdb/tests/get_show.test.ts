@@ -40,7 +40,7 @@ describe("getShow", () => {
   });
 
   test("throws on a non-OK HTTP response", async () => {
-    mockFetch({}, false, 404);
+    mockFetch({}, 404);
     await expect(getShow(99999)).rejects.toThrow("TMDB request failed: 404");
   });
 });

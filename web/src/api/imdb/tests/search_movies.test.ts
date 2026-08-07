@@ -39,7 +39,7 @@ describe("searchMovies", () => {
   });
 
   test("throws on a non-OK HTTP response", async () => {
-    mockFetch({}, false, 401);
+    mockFetch({}, 401);
     await expect(searchMovies("test")).rejects.toThrow("TMDB request failed: 401");
   });
 });

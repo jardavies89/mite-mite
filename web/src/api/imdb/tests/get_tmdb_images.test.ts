@@ -49,7 +49,7 @@ describe("getTmdbImages", () => {
   });
 
   test("throws on a non-OK HTTP response", async () => {
-    mockFetch({}, false, 404);
+    mockFetch({}, 404);
     await expect(getTmdbImages(1, "tv")).rejects.toThrow("TMDB request failed: 404");
   });
 });
