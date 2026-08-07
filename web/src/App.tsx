@@ -11,6 +11,7 @@ import RequireAdmin from "@/components/shared/require_admin";
 import SeriesDetailsPage from "./components/series";
 import { EditEntryPage } from "@/components/series/edit_entry";
 import { EditFranchisePage } from "@/components/series/edit_franchise";
+import { EntryDetailsPage } from "@/components/series/entry_details";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/series/:franchiseId" element={<SeriesDetailsPage />} />
+          <Route path="/series/:franchiseId/entries/:entryId" element={<EntryDetailsPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route element={<RequireAdmin />}>
             <Route path="/admin/new_entry" element={<NewEntryPage />} />
