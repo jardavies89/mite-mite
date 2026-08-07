@@ -22,9 +22,12 @@ function MangaSearch({ onSelect }: PropTypes) {
   function renderSearchResult(result: MangaSearchResult) {
     return (
       <SearchResultListItem
-        key={`${result.title}-${result.id}`}
-        result={result}
-        onSelect={handleSelect}
+        key={result.id}
+        primaryLabel={result.title.english ?? result.title.romaji ?? ""}
+        secondaryLabel={result.title.native ?? undefined}
+        badge={result.format ?? undefined}
+        tagline={result.staff.edges[0]?.node.name.full}
+        onSelect={() => handleSelect(result)}
       />
     );
   }

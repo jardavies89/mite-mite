@@ -1,14 +1,21 @@
 import classNames from "classnames";
 import { Button } from "@material-tailwind/react";
 
-interface PropTypes {
-  result: MangaSearchResult;
-  onSelect: (result: MangaSearchResult) => void;
+interface SearchResultItemProps {
+  primaryLabel: string;
+  secondaryLabel?: string;
+  badge?: string;
+  tagline?: string;
+  onSelect: () => void;
 }
 
-function SearchResultListItem({ result, onSelect }: PropTypes) {
-  const firstStaff = (result: MangaSearchResult) => result.staff.edges[0]?.node.name.full ?? null;
-
+function SearchResultListItem({
+  primaryLabel,
+  secondaryLabel,
+  badge,
+  tagline,
+  onSelect,
+}: SearchResultItemProps) {
   const listItemClasses = classNames(
     "w-full text-left px-4 py-3",
     "hover-surface border-b border-default",
@@ -16,22 +23,16 @@ function SearchResultListItem({ result, onSelect }: PropTypes) {
   );
 
   return (
-    <li key={result.id}>
-      <Button
-        variant="text"
-        onClick={() => onSelect(result)}
-        className={`normal-case ${listItemClasses}`}
-      >
-        <span className="block font-medium">{result.title.english ?? result.title.romaji}</span>
+    <li>
+      <Button variant="text" onClick={onSelect} className={`normal-case ${listItemClasses}`}>
+        <span className="block font-medium">{primaryLabel}</span>
 
         <span className="flex gap-3 mt-0.5 items-center text-sm text-muted">
-          {result.title.native && <span>{result.title.native}</span>}
+          {secondaryLabel && <span>{secondaryLabel}</span>}
 
-          {result.format && (
-            <span className="uppercase tracking-wide text-xs font-semibold">{result.format}</span>
-          )}
+          {badge && <span className="uppercase tracking-wide text-xs font-semibold">{badge}</span>}
 
-          {firstStaff(result) && <span>{firstStaff(result)}</span>}
+          {tagline && <span>{tagline}</span>}
         </span>
       </Button>
     </li>
