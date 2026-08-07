@@ -14,10 +14,13 @@ function SeriesDetailsPage() {
   const { franchise, isLoading, error } = useGetFranchiseDetails(franchiseId || "");
   const entry = franchise?.entries[0];
 
-  const wrapperClassNames = classNames("flex flex-col mx-auto w-full py-8 height--mite-mite", {
-    "px-4": isMobileBreakpoint,
-    "px-8 max-width--50": !isMobileBreakpoint,
-  });
+  const wrapperClassNames = classNames(
+    "flex flex-col mx-auto w-full py-8 shrink-0 height--mite-mite",
+    {
+      "px-4": isMobileBreakpoint,
+      "px-8 max-width--50": !isMobileBreakpoint,
+    },
+  );
 
   if (isLoading) return null;
 
