@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from "react";
 
-import type { MangaMetadata, MovieMetadata, ShowMetadata } from "@/constants/metadata_types";
 import { Genres, Medium, Status } from "@/constants/types";
 import type { Tags } from "@/constants/types";
 

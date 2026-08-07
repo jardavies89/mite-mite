@@ -4,7 +4,6 @@ import { describe, expect, it } from "vitest";
 import { NewEntryProvider, useNewEntryContext } from "../new_entry_context";
 import type { NewEntryContextValue } from "../new_entry_context";
 import { Medium } from "@/constants/types";
-import type { MangaMetadata } from "@/constants/metadata_types";
 
 function Probe({ onRender }: { onRender: (ctx: NewEntryContextValue) => void }) {
   const ctx = useNewEntryContext();

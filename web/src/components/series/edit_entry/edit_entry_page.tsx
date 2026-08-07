@@ -9,7 +9,6 @@ import useMediaQuery from "@/components/shared/hooks/use_media_query";
 import NotFound from "@/components/shared/not_found_page";
 import { NewEntryProvider, useNewEntryContext } from "@/components/admin/context/new_entry_context";
 import { useGetFranchiseDetails } from "@/api/mite_mite";
-import type { MangaMetadata, MovieMetadata, ShowMetadata } from "@/constants/metadata_types";
 import { Genres, Medium, Status } from "@/constants/types";
 import type { Tags } from "@/constants/types";
 import { EditEntryForm } from "./edit_entry_form";

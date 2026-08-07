@@ -3,7 +3,6 @@ import { useMutation } from "@apollo/client/react";
 
 import updateEntryMutation from "@/api/mite_mite/graphql/update_entry.graphql?raw";
 import type { Entry } from "./use_create_entry";
-import type { EntryMetadata } from "@/constants/metadata_types";
 import type { Medium, Status } from "@/constants/types";
 
 export interface UpdateEntryInput {

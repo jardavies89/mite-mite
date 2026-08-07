@@ -1,12 +1,7 @@
 import { Button } from "@material-tailwind/react";
 
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
-import type {
-  MangaMetadata,
-  MovieMetadata,
-  Season,
-  ShowMetadata,
-} from "@/constants/metadata_types";
+
 import { Strings, translate } from "@/constants/strings";
 import { Medium } from "@/constants/types";
 import { SelectInput } from "@/components/shared/form_fields/select_input";

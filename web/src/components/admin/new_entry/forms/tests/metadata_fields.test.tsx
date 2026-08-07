@@ -5,7 +5,6 @@ import { describe, expect, it, vi } from "vitest";
 import { MetadataFields } from "../metadata_fields";
 import { Medium } from "@/constants/types";
 import { Strings } from "@/constants/strings";
-import type { MangaMetadata } from "@/constants/metadata_types";
 
 const mockUpdateEntryDraft = vi.fn();
 let mockMedium: Medium | null = null;

@@ -2,7 +2,6 @@ import { gql, type TypedDocumentNode } from "@apollo/client/core";
 import { useMutation } from "@apollo/client/react";
 
 import createEntryMutation from "@/api/mite_mite/graphql/entries.graphql?raw";
-import type { EntryMetadata } from "@/constants/metadata_types";
 import type { Medium, Status } from "@/constants/types";
 
 export interface CreateEntryInput {
