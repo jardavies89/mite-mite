@@ -13,11 +13,21 @@ interface PropTypes {
 
 function FranchiseSearch({ onSelect }: PropTypes) {
   const [query, setQuery] = useState("");
-  const { results, isLoading, error } = useGetFranchises(query);
+  const [selectedName, setSelectedName] = useState<string | null>(null);
+  const { results, isLoading, error } = useGetFranchises(selectedName ? "" : query);
 
   function handleSelect(franchise: Franchise) {
+    setSelectedName(franchise.primaryTitle);
     setQuery("");
     onSelect(franchise.id);
+  }
+
+  function handleQueryChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (selectedName) {
+      setSelectedName(null);
+      onSelect("");
+    }
+    setQuery(e.target.value);
   }
 
   function renderResult(franchise: Franchise) {
@@ -32,7 +42,7 @@ function FranchiseSearch({ onSelect }: PropTypes) {
         <Button
           variant="text"
           onClick={() => handleSelect(franchise)}
-          className={`normal-case ${itemClasses}`}
+          className={`normal-case text-gray-900 dark:text-white ${itemClasses}`}
         >
           <span className="block font-medium">{franchise.primaryTitle}</span>
         </Button>
@@ -45,24 +55,30 @@ function FranchiseSearch({ onSelect }: PropTypes) {
       <TextInput
         label={Strings.entry.franchise}
         id="franchise-search-input"
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={handleQueryChange}
         placeholder={Strings.newEntry.franchisePlaceholder}
-        currentValue={query}
+        currentValue={selectedName ?? query}
       />
 
-      {isLoading && <p className="text-sm text-muted">{Strings.search.searching}</p>}
+      {!selectedName && isLoading && (
+        <p className="text-sm text-muted">{Strings.search.searching}</p>
+      )}
 
-      {error && <p className="text-sm text-red-500">{Strings.search.searchError}</p>}
+      {!selectedName && error && (
+        <p className="text-sm text-red-500">{Strings.search.searchError}</p>
+      )}
 
-      {!isLoading && !error && results.length > 0 && (
+      {!selectedName && !isLoading && !error && results.length > 0 && (
         <ul className="border border-default rounded-md overflow-hidden">
           {results.map(renderResult)}
         </ul>
       )}
 
-      {!isLoading && !error && query.trim().length >= 2 && results.length === 0 && (
-        <p className="text-sm text-muted">{Strings.newEntry.noResults}</p>
-      )}
+      {!selectedName &&
+        !isLoading &&
+        !error &&
+        query.trim().length >= 2 &&
+        results.length === 0 && <p className="text-sm text-muted">{Strings.newEntry.noResults}</p>}
     </div>
   );
 }

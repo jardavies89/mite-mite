@@ -35,15 +35,17 @@ function AdminPage() {
         )}
 
         {isAdmin ? (
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-row gap-3">
             <Link to="/admin/new_entry" className={linkClasses}>
               {Strings.admin.addNewManga}
             </Link>
-            <Link to="/admin/new_show" className={linkClasses}>
-              {Strings.admin.addNewShow}
-            </Link>
+
             <Link to="/admin/new_movie" className={linkClasses}>
               {Strings.admin.addNewMovie}
+            </Link>
+
+            <Link to="/admin/new_show" className={linkClasses}>
+              {Strings.admin.addNewShow}
             </Link>
           </div>
         ) : (

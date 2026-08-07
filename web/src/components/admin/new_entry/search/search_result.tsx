@@ -24,7 +24,11 @@ function SearchResultListItem({
 
   return (
     <li>
-      <Button variant="text" onClick={onSelect} className={`normal-case ${listItemClasses}`}>
+      <Button
+        variant="text"
+        onClick={onSelect}
+        className={`normal-case text-gray-900 dark:text-white ${listItemClasses}`}
+      >
         <span className="block font-medium">{primaryLabel}</span>
 
         <span className="flex gap-3 mt-0.5 items-center text-sm text-muted">
