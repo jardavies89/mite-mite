@@ -7,6 +7,7 @@ import Markdown from "react-markdown";
 import { ChipList, TextList, StatusSection } from "@/components/series";
 import { ShareModal } from "@/components/series/share/share_modal";
 import { Strings } from "@/constants/strings";
+import { Medium } from "@/constants/types";
 
 interface PropTypes {
   entry: Entry;
@@ -14,6 +15,9 @@ interface PropTypes {
 
 function SeriesLayout({ entry }: PropTypes) {
   const [isShareOpen, setIsShareOpen] = useState(false);
+
+  const isManga = entry.medium === Medium.Manga;
+  const metadata = isManga ? (entry.metadata as MangaMetadata) : (entry.metadata as ShowMetadata);
 
   function maybeRenderShareButton() {
     if (entry.referenceUrl) {
@@ -28,6 +32,16 @@ function SeriesLayout({ entry }: PropTypes) {
           <FaShareAlt size={16} />
         </Button>
       );
+    }
+  }
+
+  function renderPublisherInfo() {
+    if (isManga) {
+      const publishers = (metadata as MangaMetadata).publishers || [];
+
+      if (publishers.length > 0) {
+        return <TextList title={Strings.metadata.publishers} items={publishers} />;
+      }
     }
   }
 
@@ -47,11 +61,16 @@ function SeriesLayout({ entry }: PropTypes) {
 
           <TextList title={Strings.entry.alternateTitles} items={entry.alternateTitles} />
           <TextList title={Strings.entry.staff} items={entry.staff} />
-          <ChipList title={Strings.entry.genres} items={entry.genres} />
-          <ChipList title={Strings.entry.tags} items={entry.tags} />
 
-          <StatusSection entry={entry} />
+          <StatusSection entry={entry} metadata={isManga ? metadata : {}} />
         </div>
+      </div>
+
+      <div className="flex flex-col gap-4 mb-4">
+        <ChipList title={Strings.entry.genres} items={entry.genres} />
+        <ChipList title={Strings.entry.tags} items={entry.tags} />
+
+        {renderPublisherInfo()}
       </div>
 
       <Typography variant="paragraph" className="mb-2 leading-normal">
