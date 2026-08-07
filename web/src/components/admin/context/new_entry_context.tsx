@@ -22,6 +22,7 @@ export type NewEntryFormState = {
   franchiseId: string;
   genres: Genres[];
   medium: Medium | null;
+  metadata: MangaMetadata | ShowMetadata | MovieMetadata | null;
   newFranchiseName: string;
   primaryTitle: string;
   referenceLinks: ReferenceLink[];
@@ -40,6 +41,7 @@ const INITIAL_STATE: NewEntryFormState = {
   franchiseId: "",
   genres: [],
   medium: null,
+  metadata: null,
   newFranchiseName: "",
   primaryTitle: "",
   referenceLinks: [],
@@ -61,7 +63,11 @@ function NewEntryProvider({ children }: { children: React.ReactNode }) {
   const [form, setForm] = useState<NewEntryFormState>(INITIAL_STATE);
 
   function patch(update: Partial<NewEntryFormState>) {
-    setForm((prev) => ({ ...prev, ...update }));
+    setForm((prev) => {
+      const mediumChanged = "medium" in update && update.medium !== prev.medium;
+      const shouldClearMetadata = mediumChanged && !("metadata" in update);
+      return { ...prev, ...update, ...(shouldClearMetadata ? { metadata: null } : {}) };
+    });
   }
 
   return (

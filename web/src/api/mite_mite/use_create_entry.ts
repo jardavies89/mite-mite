@@ -13,6 +13,7 @@ export interface CreateEntryInput {
   franchiseId?: string;
   genres?: string[];
   medium: Medium;
+  metadata?: EntryMetadata;
   // Or the new franchise title
   newFranchiseName?: string;
   primaryTitle: string;
@@ -32,6 +33,7 @@ export interface Entry {
   genres: string[];
   id: string;
   medium: Medium;
+  metadata: EntryMetadata | null;
   primaryTitle: string;
   referenceUrl: string | null;
   staff: string[];

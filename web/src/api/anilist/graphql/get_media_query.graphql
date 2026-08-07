@@ -12,6 +12,16 @@ query GetMedia($id: Int!) {
     status
     chapters
     volumes
+    startDate {
+      year
+      month
+      day
+    }
+    endDate {
+      year
+      month
+      day
+    }
     averageScore
     meanScore
     popularity

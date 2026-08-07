@@ -24,7 +24,7 @@ type Entry {
   franchise: Franchise
   genres: [String!]!
   medium: Medium!
-  metadata: JSON
+  metadata: JSON!
   primaryTitle: String!
   referenceUrl: String
   staff: [String!]!

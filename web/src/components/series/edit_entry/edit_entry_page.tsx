@@ -13,7 +13,13 @@ import { Genres, Medium, Status } from "@/constants/types";
 import type { Tags } from "@/constants/types";
 import { EditEntryForm } from "./edit_entry_form";
 
-function EditEntryLoader({ franchiseId, entryId }: { franchiseId: string; entryId: string }) {
+export function EditEntryLoader({
+  franchiseId,
+  entryId,
+}: {
+  franchiseId: string;
+  entryId: string;
+}) {
   const { franchise, isLoading } = useGetFranchiseDetails(franchiseId);
   const { updateEntryDraft } = useNewEntryContext();
 
@@ -38,6 +44,7 @@ function EditEntryLoader({ franchiseId, entryId }: { franchiseId: string; entryI
       status: (entry.status as Status) ?? Status.Ongoing,
       referenceUrl: entry.referenceUrl ?? "",
       medium: entry.medium as Medium,
+      metadata: (entry.metadata as MangaMetadata | ShowMetadata | MovieMetadata | null) ?? null,
       franchiseId: franchise?.id ?? "",
     });
   }, [entry?.id]);

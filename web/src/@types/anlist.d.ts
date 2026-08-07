@@ -14,6 +14,12 @@ type MangaSearchResult = {
   };
 };
 
+type AnilistFuzzyDate = {
+  year: number | null;
+  month: number | null;
+  day: number | null;
+};
+
 type AnilistMediaDetails = {
   id: number;
   title: { romaji: string | null; english: string | null; native: string | null };
@@ -23,6 +29,8 @@ type AnilistMediaDetails = {
   status: string | null;
   chapters: number | null;
   volumes: number | null;
+  startDate: AnilistFuzzyDate | null;
+  endDate: AnilistFuzzyDate | null;
   averageScore: number | null;
   meanScore: number | null;
   popularity: number | null;

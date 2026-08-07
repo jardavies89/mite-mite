@@ -5,6 +5,27 @@ import { Genres, Medium, Status } from "@/constants/types";
 import { useAnilistMediaDetails } from "@/components/admin/hooks/use_anilist_media_details";
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
 
+const MONTH_NAMES = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+function mapFuzzyDate(date: AnilistFuzzyDate | null): string | undefined {
+  if (!date?.year) return undefined;
+  if (!date.month) return String(date.year);
+  return `${MONTH_NAMES[date.month - 1]} ${date.year}`;
+}
+
 function mapAnilistStatus(status: string | null): Status {
   switch (status) {
     case "COMPLETED":
@@ -40,6 +61,12 @@ function NewEntryImporter() {
         description: data.description || "",
         genres,
         medium: Medium.Manga,
+        metadata: {
+          ...(data.volumes != null && { volumeCount: data.volumes }),
+          ...(data.chapters != null && { chapterCount: data.chapters }),
+          startDate: mapFuzzyDate(data.startDate),
+          endDate: mapFuzzyDate(data.endDate),
+        },
         primaryTitle: primaryTitle || "",
         referenceUrl: data.siteUrl || "",
         staff: data.staff.edges.slice(0, 5).map((e) => `${e.node.name.full} (${e.role})`),

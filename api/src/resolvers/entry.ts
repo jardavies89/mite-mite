@@ -16,6 +16,7 @@ function mapEntry(row: Awaited<ReturnType<typeof EntryService.getEntry>>) {
     ...row,
     primaryTitle: row.title,
     alternateTitles: row.altTitles,
+    metadata: row.metadata ?? {},
   };
 }
 
