@@ -18,10 +18,14 @@ function HomePageContent() {
     statusFilter,
   );
 
-  const wrapperClassNames = classNames("flex flex-col w-full", "mx-auto py-8 height--mite-mite", {
-    "px-3": isMobileBreakpoint,
-    "px-8 max-width--70": !isMobileBreakpoint,
-  });
+  const wrapperClassNames = classNames(
+    "flex flex-col w-full",
+    "mx-auto py-8 shrink-0 height--mite-mite",
+    {
+      "px-3": isMobileBreakpoint,
+      "px-8 max-width--70": !isMobileBreakpoint,
+    },
+  );
 
   return (
     <PageLayout>

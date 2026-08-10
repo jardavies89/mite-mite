@@ -13,6 +13,7 @@ import { TextareaInput } from "@/components/shared/form_fields/textarea_input";
 import { CoverPickerModal } from "@/components/admin/new_entry/cover_picker_modal";
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
 import { Strings } from "@/constants/strings";
+import { Medium, Status } from "@/constants/types";
 import { Button } from "@material-tailwind/react";
 import { useUpdateEntry } from "@/api/mite_mite";
 
@@ -55,7 +56,7 @@ function EditEntryForm({ franchiseId, entryId }: PropTypes) {
       primaryTitle,
       referenceUrl,
       staff,
-      status,
+      status: medium === Medium.Movie ? Status.Completed : status,
       tags: tagIds,
     });
 
@@ -140,9 +141,11 @@ function EditEntryForm({ franchiseId, entryId }: PropTypes) {
           <div className="flex-1 min-w-0">
             <TagsSelect />
           </div>
-          <div className="flex-1 min-w-0">
-            <StatusSelect />
-          </div>
+          {newEntryDraft.medium !== Medium.Movie && (
+            <div className="flex-1 min-w-0">
+              <StatusSelect />
+            </div>
+          )}
         </div>
 
         <MetadataFields />

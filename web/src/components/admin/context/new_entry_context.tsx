@@ -68,7 +68,13 @@ function NewEntryProvider({ children }: { children: React.ReactNode }) {
     setForm((prev) => {
       const mediumChanged = "medium" in update && update.medium !== prev.medium;
       const shouldClearMetadata = mediumChanged && !("metadata" in update);
-      return { ...prev, ...update, ...(shouldClearMetadata ? { metadata: null } : {}) };
+      const shouldDefaultToCompleted = mediumChanged && update.medium === Medium.Movie;
+      return {
+        ...prev,
+        ...update,
+        ...(shouldClearMetadata ? { metadata: null } : {}),
+        ...(shouldDefaultToCompleted ? { status: Status.Completed } : {}),
+      };
     });
   }
 

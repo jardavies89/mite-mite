@@ -1,21 +1,15 @@
 import { Strings } from "@/constants/strings";
 
 interface PropTypes {
-  entry: Entry;
   metadata: MovieMetadata;
 }
 
-function MovieStatusSection({ entry, metadata }: PropTypes) {
+function MovieStatusSection({ metadata }: PropTypes) {
   const { studio, releaseDate, runtime } = metadata;
 
   return (
     <>
       <div className="flex gap-6">
-        <div>
-          <p className="text-sm text-muted">{Strings.entry.status}</p>
-          <p>{entry.status}</p>
-        </div>
-
         {studio && (
           <div>
             <p className="text-sm text-muted">{Strings.metadata.studio}</p>

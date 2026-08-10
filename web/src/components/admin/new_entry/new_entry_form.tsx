@@ -15,7 +15,7 @@ import { TextareaInput } from "@/components/shared/form_fields/textarea_input";
 import { CoverPicker } from "@/components/admin/new_entry/cover_picker";
 import { useNewEntryContext } from "@/components/admin/context/new_entry_context";
 import { Strings } from "@/constants/strings";
-import { Medium } from "@/constants/types";
+import { Medium, Status } from "@/constants/types";
 import { Button } from "@material-tailwind/react";
 import { useCreateEntry } from "@/api/mite_mite";
 
@@ -64,7 +64,7 @@ function NewEntryForm() {
       primaryTitle,
       referenceUrl,
       staff,
-      status,
+      status: medium === Medium.Movie ? Status.Completed : status,
       tags: tagIds,
       metadata: metadata ?? undefined,
     });
@@ -143,9 +143,11 @@ function NewEntryForm() {
           <div className="flex-1 min-w-0">
             <TagsSelect />
           </div>
-          <div className="flex-1 min-w-0">
-            <StatusSelect />
-          </div>
+          {newEntryDraft.medium !== Medium.Movie && (
+            <div className="flex-1 min-w-0">
+              <StatusSelect />
+            </div>
+          )}
         </div>
 
         <MetadataFields />

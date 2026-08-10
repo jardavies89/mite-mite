@@ -1,5 +1,5 @@
 .height--mite-mite {
-  height: calc(100vh - 3rem);
+  min-height: calc(100vh - 3rem);
 }
 
 .max-width--50 {

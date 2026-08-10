@@ -114,6 +114,12 @@ export const Strings = {
     pageTitle: "Edit series",
     saveChanges: "Save changes",
   },
+  adaptations: {
+    heading: "Adaptations",
+  },
+  entryDetails: {
+    backButton: "Back to series",
+  },
   theme: {
     toggleDark: "Switch to dark mode",
     toggleLight: "Switch to light mode",
