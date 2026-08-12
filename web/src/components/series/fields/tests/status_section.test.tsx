@@ -1,5 +1,11 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
+vi.mock("@material-tailwind/react", () => ({
+  Tooltip: ({ content, children }: { content: string; children: React.ReactNode }) => (
+    <span title={content}>{children}</span>
+  ),
+}));
 
 import { StatusSection } from "../status_section";
 import { Strings } from "@/constants/strings";
