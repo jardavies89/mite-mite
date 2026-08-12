@@ -10,6 +10,7 @@ type GetFranchisesVars = {
   genres?: string[];
   tags?: string[];
   status?: string;
+  medium?: string;
 };
 
 const GET_FRANCHISES: TypedDocumentNode<GetFranchisesData, GetFranchisesVars> =
@@ -26,6 +27,7 @@ function useGetFranchises(
   genres: string[] = [],
   tags: string[] = [],
   status: string | null = null,
+  medium: string | null = null,
 ): FranchisesState {
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -47,6 +49,7 @@ function useGetFranchises(
   if (genres.length > 0) variables.genres = genres;
   if (tags.length > 0) variables.tags = tags;
   if (status) variables.status = status;
+  if (medium) variables.medium = medium;
 
   const { data, loading, error } = useQuery(GET_FRANCHISES, { variables });
 

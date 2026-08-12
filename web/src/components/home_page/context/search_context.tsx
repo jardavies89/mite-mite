@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-import { Status } from "@/constants/types";
+import { Medium, Status } from "@/constants/types";
 
 interface SearchContextValue {
   query: string;
@@ -11,6 +11,8 @@ interface SearchContextValue {
   setTagFilters: (tags: string[]) => void;
   statusFilter: Status | null;
   setStatusFilter: (status: Status | null) => void;
+  mediumFilter: Medium | null;
+  setMediumFilter: (medium: Medium | null) => void;
 }
 
 const SearchContext = createContext<SearchContextValue | null>(null);
@@ -20,6 +22,7 @@ function SearchProvider({ children }: { children: React.ReactNode }) {
   const [genreFilters, setGenreFilters] = useState<string[]>([]);
   const [tagFilters, setTagFilters] = useState<string[]>([]);
   const [statusFilter, setStatusFilter] = useState<Status | null>(null);
+  const [mediumFilter, setMediumFilter] = useState<Medium | null>(null);
 
   return (
     <SearchContext.Provider
@@ -32,6 +35,8 @@ function SearchProvider({ children }: { children: React.ReactNode }) {
         setTagFilters,
         statusFilter,
         setStatusFilter,
+        mediumFilter,
+        setMediumFilter,
       }}
     >
       {children}

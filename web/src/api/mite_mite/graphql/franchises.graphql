@@ -1,8 +1,16 @@
-query GetFranchises($search: String, $genres: [String!], $tags: [String!], $status: String) {
-  franchises(search: $search, genres: $genres, tags: $tags, status: $status) {
+query GetFranchises(
+  $search: String
+  $genres: [String!]
+  $tags: [String!]
+  $status: String
+  $medium: Medium
+) {
+  franchises(search: $search, genres: $genres, tags: $tags, status: $status, medium: $medium) {
     id
     primaryTitle
     entries {
+      id
+      medium
       coverImageUrl
     }
   }
