@@ -37,7 +37,9 @@ function HomePageContent() {
           <p className="mt-8 text-muted text-sm">{Strings.home.emptyState}</p>
         )}
 
-        {franchises.length > 0 && <SeriesGrid franchises={franchises} />}
+        {franchises.length > 0 && (
+          <SeriesGrid franchises={franchises} mediumFilter={mediumFilter} />
+        )}
       </div>
     </PageLayout>
   );

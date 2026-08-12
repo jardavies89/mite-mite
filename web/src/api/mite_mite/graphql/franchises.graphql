@@ -9,6 +9,8 @@ query GetFranchises(
     id
     primaryTitle
     entries {
+      id
+      medium
       coverImageUrl
     }
   }
