@@ -1,3 +1,5 @@
+import { FiInfo } from "react-icons/fi";
+
 import { Strings } from "@/constants/strings";
 
 interface PropTypes {
@@ -35,7 +37,17 @@ function StatusSection({ entry, metadata }: PropTypes) {
         <div className="flex gap-6">
           {volumeCount != null && (
             <div>
-              <p className="text-sm text-muted">{Strings.metadata.volumeCount}</p>
+              <p className="text-sm text-muted">
+                {Strings.metadata.volumeCount}
+                {chapterCount == null && (
+                  <span
+                    title={Strings.metadata.volumeCountTooltip}
+                    className="inline-flex items-center ml-1 cursor-help"
+                  >
+                    <FiInfo />
+                  </span>
+                )}
+              </p>
               <p>{volumeCount}</p>
             </div>
           )}

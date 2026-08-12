@@ -1,26 +1,25 @@
-name: Manga Count Refresh
+name: Refresh manga counts
 
 on:
   schedule:
-    - cron: "0 2 * * *"
+    - cron: "0 2 * * 1"
   workflow_dispatch:
 
 jobs:
   refresh:
+    name: Refresh manga volume counts from MangaUpdates
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: api
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
-
-      - name: Install API dependencies
-        working-directory: api
-        run: yarn install --frozen-lockfile
-
-      - name: Refresh manga counts
-        run: npx tsx api/src/scripts/refresh_manga_counts.ts
+          node-version-file: .nvmrc
+          cache: yarn
+          cache-dependency-path: api/yarn.lock
+      - run: yarn install --frozen-lockfile
+      - run: npx tsx src/scripts/refresh_manga_counts.ts
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
