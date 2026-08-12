@@ -10,12 +10,13 @@ import { SearchLayout, SearchProvider, useSearchContext } from "@/components/hom
 
 function HomePageContent() {
   const { isMobileBreakpoint } = useMediaQuery();
-  const { query, genreFilters, tagFilters, statusFilter } = useSearchContext();
+  const { query, genreFilters, tagFilters, statusFilter, mediumFilter } = useSearchContext();
   const { results: franchises, isLoading } = useGetFranchises(
     query,
     genreFilters,
     tagFilters,
     statusFilter,
+    mediumFilter,
   );
 
   const wrapperClassNames = classNames(

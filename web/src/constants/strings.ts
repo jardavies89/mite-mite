@@ -76,8 +76,10 @@ export const Strings = {
     title: "Page not found",
   },
   filters: {
+    anyMedium: "Any medium",
     anyStatus: "Any status",
     genrePlaceholder: "Genres",
+    mediumPlaceholder: "Medium",
     noneSelected: "None selected",
     statusPlaceholder: "Status",
     tagPlaceholder: "Tags",

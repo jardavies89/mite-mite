@@ -35,6 +35,8 @@ export const FranchiseService = {
             ilike(franchises.title, term),
             sql`array_to_string(${entries.altTitles}, ',') ILIKE ${term}`,
             sql`array_to_string(${entries.staff}, ',') ILIKE ${term}`,
+            sql`(${entries.medium} IN ('SHOW', 'MOVIE') AND ${entries.metadata}->>'studio' ILIKE ${term})`,
+            sql`(${entries.medium} = 'MANGA' AND ${entries.metadata}->>'publisher' ILIKE ${term})`,
           ),
         );
       }
@@ -62,7 +64,9 @@ export const FranchiseService = {
       }
 
       if (medium) {
-        conditions.push(eq(entries.medium, medium));
+        conditions.push(
+          sql`${franchises.id} IN (SELECT franchise_id FROM entries WHERE medium = ${medium})`,
+        );
       }
 
       const rows = await db
