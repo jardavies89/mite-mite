@@ -365,4 +365,38 @@ describe("runRefresh — results summary", () => {
     const results = await runRefresh();
     expect(results[0].kind).toBe("skipped");
   });
+
+  it("skips a completed entry whose counts are already populated without calling AniList", async () => {
+    mockWhere.mockResolvedValueOnce([
+      {
+        id: 11,
+        referenceUrl: "https://anilist.co/manga/11",
+        status: "Completed",
+        metadata: { volumeCount: 37, chapterCount: 363 },
+      },
+    ]);
+
+    const results = await runRefresh();
+    expect(results[0].kind).toBe("skipped");
+    expect(results[0].kind === "skipped" && results[0].reason).toMatch(/completed/i);
+    expect(global.fetch).not.toHaveBeenCalled();
+  });
+
+  it("does NOT skip a completed entry when counts are missing (initial population)", async () => {
+    mockWhere.mockResolvedValueOnce([
+      {
+        id: 12,
+        referenceUrl: "https://anilist.co/manga/12",
+        status: "Completed",
+        metadata: { volumeCount: 37 }, // chapterCount missing
+      },
+    ]);
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ data: { Media: { volumes: 37, chapters: 363 } } }),
+    });
+
+    const results = await runRefresh();
+    expect(results[0].kind).toBe("updated");
+  });
 });

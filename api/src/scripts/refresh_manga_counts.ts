@@ -14,6 +14,7 @@ export interface AniListCounts {
 export interface EntryMangaRow {
   id: number;
   referenceUrl: string;
+  status: string | null;
   metadata: Record<string, unknown> | null;
 }
 
@@ -72,7 +73,12 @@ export function extractAniListId(url: string): number | null {
 
 export async function fetchAniListMangaEntries(): Promise<EntryMangaRow[]> {
   return db
-    .select({ id: entries.id, referenceUrl: entries.referenceUrl!, metadata: entries.metadata })
+    .select({
+      id: entries.id,
+      referenceUrl: entries.referenceUrl!,
+      status: entries.status,
+      metadata: entries.metadata,
+    })
     .from(entries)
     .where(
       and(
@@ -132,6 +138,17 @@ export async function runRefresh(): Promise<RefreshResult[]> {
     const anilistId = extractAniListId(entry.referenceUrl);
     if (anilistId === null) {
       results.push({ kind: "skipped", entryId: entry.id, reason: "no AniList ID in referenceUrl" });
+      continue;
+    }
+
+    const countsPopulated =
+      entry.metadata?.volumeCount != null && entry.metadata?.chapterCount != null;
+    if (entry.status === "Completed" && countsPopulated) {
+      results.push({
+        kind: "skipped",
+        entryId: entry.id,
+        reason: "completed series with counts already populated",
+      });
       continue;
     }
 
@@ -198,9 +215,12 @@ function printSummary(results: RefreshResult[]): void {
     console.log(`[refresh] ✗ Error entry id:${r.entryId}: ${r.error}`);
   }
 
-  const hasFailures =
-    errors.length > 0 ||
-    skipped.filter((s) => s.reason !== "no AniList ID in referenceUrl").length > 0;
+  const problemSkips = skipped.filter(
+    (s) =>
+      s.reason !== "no AniList ID in referenceUrl" &&
+      s.reason !== "completed series with counts already populated",
+  );
+  const hasFailures = errors.length > 0 || problemSkips.length > 0;
   console.log(
     `[refresh] Summary: ${updated.length} updated, ${noChange.length} no-change, ${skipped.length} skipped, ${errors.length} error(s)`,
   );
