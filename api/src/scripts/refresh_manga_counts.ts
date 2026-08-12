@@ -100,7 +100,7 @@ export async function fetchMangaUpdatesDetail(seriesId: string): Promise<MuDetai
 // ─── DB operations ───────────────────────────────────────────────────────────
 
 export async function fetchMangaEntries(db: ReturnType<typeof drizzle>): Promise<MangaEntry[]> {
-  const rows = await db.select().from(entries).where(eq(entries.medium, "manga"));
+  const rows = await db.select().from(entries).where(eq(entries.medium, "MANGA"));
 
   return rows.map((row) => {
     const meta = (row.metadata ?? {}) as Record<string, unknown>;
