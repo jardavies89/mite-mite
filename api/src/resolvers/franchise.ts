@@ -72,7 +72,12 @@ export const franchiseResolvers = {
   Franchise: {
     entries: async (franchise: { id: number }) => {
       const rows = await FranchiseService.getEntriesForFranchise(franchise.id);
-      return rows.map((r) => ({ ...r, primaryTitle: r.title, alternateTitles: r.altTitles, metadata: r.metadata ?? {} }));
+      return rows.map((r) => ({
+        ...r,
+        primaryTitle: r.title,
+        alternateTitles: r.altTitles,
+        metadata: r.metadata ?? {},
+      }));
     },
   },
 };
