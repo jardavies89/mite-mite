@@ -1,4 +1,5 @@
 import { FiInfo } from "react-icons/fi";
+import { Tooltip } from "@material-tailwind/react";
 
 import { Strings } from "@/constants/strings";
 
@@ -40,12 +41,11 @@ function StatusSection({ entry, metadata }: PropTypes) {
               <p className="text-sm text-muted">
                 {Strings.metadata.volumeCount}
                 {chapterCount == null && (
-                  <span
-                    title={Strings.metadata.volumeCountTooltip}
-                    className="inline-flex items-center ml-1 cursor-help"
-                  >
-                    <FiInfo />
-                  </span>
+                  <Tooltip content={Strings.metadata.volumeCountTooltip}>
+                    <span className="inline-flex items-center ml-1 cursor-help">
+                      <FiInfo />
+                    </span>
+                  </Tooltip>
                 )}
               </p>
               <p>{volumeCount}</p>
