@@ -30,6 +30,8 @@ type MangaMetadata = {
   publishers?: string[];
   startDate?: string;
   endDate?: string;
+  mangaUpdatesId?: string;
+  manualCounts?: boolean;
 };
 
 type MovieMetadata = {

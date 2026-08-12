@@ -140,6 +140,8 @@ export const Strings = {
     runtimeMinutes: "Runtime (minutes)",
     releaseDate: "Release date",
     volumeCount: "Volumes",
+    volumeCountTooltip:
+      "Manga volumes typically contain 8–10 chapters for weekly series, or 4–6 for monthly series.",
     chapterCount: "Chapters",
     publishers: "Publishers",
     addPublisher: "Add publisher",
